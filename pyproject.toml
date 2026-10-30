@@ -9,10 +9,13 @@ dependencies = [
     "pyarrow",
     "pyyaml",
     "huggingface_hub",
+    "scikit-learn",
+    "langdetect",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff"]
+notebooks = ["matplotlib", "ipykernel", "nbconvert", "nbformat"]
 
 [build-system]
 requires = ["setuptools>=68"]
@@ -30,3 +33,6 @@ src = ["src", "tests", "app"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"*.ipynb" = ["E501", "E702"]

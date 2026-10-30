@@ -6,6 +6,17 @@ dataset:
   fallback_hf_repo: Yelp/yelp_review_full
 check:
   max_rows: 200000        # streamed head of the file, Phase 0 check only
+sample:
+  raw_rows: 75000         # reservoir sample over the full file, before cleaning
+  target_rows: 60000      # cap after cleaning
+clean:
+  lang_min_chars: 30      # shorter texts are too short for reliable language ID
+  lang_max_chars: 500     # only the head of long texts is used for language ID
+  short_tokens: 10        # profile reports the share of reviews below this length
+split:
+  time_holdout_frac: 0.10 # latest reviews, kept out of train/val/test
+  val_frac: 0.10
+  test_frac: 0.10
 paths:
   raw: data/raw
   processed: data/processed

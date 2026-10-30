@@ -10,8 +10,8 @@ setup:  ## create venv, install deps
 	uv venv --python 3.11 .venv
 	uv pip install --python $(PY) -e ".[dev]"
 
-data:  ## download, clean, split (Phase 0: dataset check only)
-	$(PY) scripts/check_dataset.py
+data:  ## sample, clean, label, split, profile
+	$(PY) scripts/build_data.py
 
 baseline:  ## train + evaluate TF-IDF+LR
 	@echo "not implemented until Phase 2"
