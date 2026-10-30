@@ -81,3 +81,19 @@ def plot_robustness(deltas: dict[str, dict[str, dict]], path: str | Path) -> Pat
     fig.savefig(path, dpi=120)
     plt.close(fig)
     return path
+
+
+def plot_topic_sizes(sizes: dict[str, int], n_outliers: int, path: str | Path) -> Path:
+    """Horizontal bars of negative reviews per topic, largest on top."""
+    items = sorted(sizes.items(), key=lambda kv: kv[1])
+    fig, ax = plt.subplots(figsize=(7, 0.45 * len(items) + 1.4))
+    ax.barh([k for k, _ in items], [v for _, v in items], color="C0")
+    ax.set(xlabel=f"negative reviews ({n_outliers:,} outliers not shown)",
+           title="Negative reviews by topic")
+    ax.grid(alpha=0.3, axis="x")
+    fig.tight_layout()
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(path, dpi=120)
+    plt.close(fig)
+    return path

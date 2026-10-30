@@ -8,7 +8,7 @@ endif
 
 setup:  ## create venv, install deps
 	uv venv --python 3.11 .venv
-	uv pip install --python $(PY) -e ".[dev,notebooks,transformer]"
+	uv pip install --python $(PY) -e ".[dev,notebooks,transformer,topics]"
 
 data:  ## sample, clean, label, split, profile
 	$(PY) scripts/build_data.py
@@ -25,8 +25,8 @@ eval:  ## bootstrap CIs, drift, error sample, robustness (needs baseline + Disti
 	$(PY) scripts/run_robustness.py --model distilbert
 	$(PY) scripts/run_eval.py
 
-topics:  ## BERTopic + trends
-	@echo "not implemented until Phase 5"
+topics:  ## BERTopic on negative reviews (trends come in Phase 7)
+	$(PY) scripts/run_topics.py
 
 aspects:  ## aspect scoring + eval
 	@echo "not implemented until Phase 6"

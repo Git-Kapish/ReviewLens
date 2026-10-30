@@ -1,0 +1,34 @@
+seed: 42
+embedding:
+  model_name: sentence-transformers/all-MiniLM-L6-v2
+  batch_size: 128
+  max_seq_length: 256        # MiniLM default is 256 word pieces; longer reviews are truncated
+fit:
+  max_docs: 20000            # cap on fit documents (train negatives are about 8K, so not binding)
+umap:
+  n_neighbors: 15
+  n_components: 5
+  min_dist: 0.0
+  metric: cosine
+hdbscan:
+  min_samples: 10
+  metric: euclidean
+  cluster_selection_method: eom
+grid:                        # scored on the fit documents; the rule is in docs/DECISIONS.md
+  min_cluster_size: [20, 40, 80]
+nr_topics: 10                # merge down to this many topics (outliers are kept apart); PRD asks 8-12
+vectorizer:                  # only for the topic words, not for clustering
+  stop_words: english
+  ngram_range: [1, 2]
+  min_df: 5
+top_n_words: 20
+coherence:
+  n_words: 10                # top unigram words per topic
+representative_docs: 3
+paths:
+  embeddings: data/processed/negative_embeddings.npz
+  assignments: data/processed/negatives_topics.parquet
+  model_dir: models/bertopic
+  metrics: reports/topics.json
+  labels: reports/topic_labels.json
+  figures_dir: reports/figures
