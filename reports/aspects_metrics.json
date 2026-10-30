@@ -1,0 +1,1188 @@
+{
+  "timestamp": "2026-10-30T11:57:35+00:00",
+  "config": {
+    "seed": 42,
+    "embedding": {
+      "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+      "batch_size": 128
+    },
+    "similarity": {
+      "threshold": 0.5,
+      "max_aspects_per_sentence": 2
+    },
+    "split": {
+      "min_words": 3
+    },
+    "labeled": {
+      "dev_per_rating": 8,
+      "eval_per_rating": 20,
+      "min_words": 4,
+      "max_words": 60
+    },
+    "paths": {
+      "dev_labels": "data/labeled/aspect_dev.csv",
+      "eval_labels": "data/labeled/aspect_eval.csv",
+      "dev_report": "reports/aspects_dev.json",
+      "metrics": "reports/aspects_metrics.json",
+      "summary": "reports/aspect_summary.json",
+      "figures_dir": "reports/figures"
+    },
+    "aggregate_split": "test",
+    "lexicon": {
+      "gameplay": {
+        "keywords": [
+          "gameplay",
+          "game play",
+          "mechanics",
+          "levels",
+          "level design",
+          "missions",
+          "campaign",
+          "multiplayer",
+          "co-op",
+          "difficulty",
+          "boss",
+          "bosses",
+          "quests",
+          "puzzles",
+          "replay",
+          "replayability",
+          "combat",
+          "single player",
+          "game modes",
+          "online play"
+        ],
+        "seeds": [
+          "The gameplay is fun and addictive",
+          "The missions and levels are repetitive",
+          "Multiplayer and online modes",
+          "The combat and difficulty feel balanced"
+        ]
+      },
+      "graphics": {
+        "keywords": [
+          "graphics",
+          "visuals",
+          "resolution",
+          "textures",
+          "animation",
+          "animations",
+          "art style",
+          "visual",
+          "framerate quality",
+          "lighting",
+          "cutscenes",
+          "4k"
+        ],
+        "seeds": [
+          "The graphics look beautiful",
+          "Ugly textures and outdated visuals",
+          "The art style and animation are great",
+          "Crisp resolution and colors"
+        ]
+      },
+      "story": {
+        "keywords": [
+          "story",
+          "plot",
+          "characters",
+          "character",
+          "ending",
+          "narrative",
+          "storyline",
+          "dialogue",
+          "writing",
+          "voice acting"
+        ],
+        "seeds": [
+          "The story is gripping",
+          "The plot and characters are boring",
+          "A disappointing ending",
+          "Great narrative and dialogue"
+        ]
+      },
+      "sound": {
+        "keywords": [
+          "sound",
+          "audio",
+          "music",
+          "soundtrack",
+          "microphone",
+          "mic",
+          "speakers",
+          "bass",
+          "volume",
+          "static",
+          "noise cancelling",
+          "sound quality"
+        ],
+        "seeds": [
+          "The sound quality is excellent",
+          "The microphone does not pick up my voice",
+          "Great music and soundtrack",
+          "The audio crackles and the bass is weak"
+        ]
+      },
+      "controls": {
+        "keywords": [
+          "controls",
+          "buttons",
+          "button",
+          "joystick",
+          "thumbstick",
+          "trigger",
+          "triggers",
+          "d-pad",
+          "keys",
+          "key",
+          "click",
+          "scroll wheel",
+          "sensitivity",
+          "responsive",
+          "input lag"
+        ],
+        "seeds": [
+          "The controls are responsive and smooth",
+          "The buttons are stiff and the keys stick",
+          "The joystick drifts",
+          "Clunky and confusing controls"
+        ]
+      },
+      "durability": {
+        "keywords": [
+          "broke",
+          "broken",
+          "break",
+          "stopped working",
+          "quality",
+          "durable",
+          "durability",
+          "flimsy",
+          "sturdy",
+          "fell apart",
+          "defective",
+          "build quality",
+          "well made",
+          "poorly made",
+          "lasted",
+          "plastic",
+          "material"
+        ],
+        "seeds": [
+          "It broke after a few weeks",
+          "Solid build quality and very durable",
+          "Cheap flimsy plastic that fell apart",
+          "Stopped working after two months"
+        ]
+      },
+      "price_value": {
+        "keywords": [
+          "price",
+          "priced",
+          "overpriced",
+          "expensive",
+          "cost",
+          "worth",
+          "value",
+          "money",
+          "bargain",
+          "deal",
+          "afford",
+          "cheaper",
+          "on sale"
+        ],
+        "seeds": [
+          "Great value for the money",
+          "Way too expensive for what you get",
+          "Not worth the price",
+          "A bargain at this price"
+        ]
+      },
+      "battery": {
+        "keywords": [
+          "battery",
+          "batteries",
+          "charge",
+          "charging",
+          "charger",
+          "rechargeable",
+          "battery life",
+          "recharge",
+          "dies",
+          "power cable"
+        ],
+        "seeds": [
+          "The battery lasts all day",
+          "It will not hold a charge",
+          "Charging takes forever",
+          "Battery life is terrible"
+        ]
+      },
+      "comfort_fit": {
+        "keywords": [
+          "comfortable",
+          "uncomfortable",
+          "comfort",
+          "ergonomic",
+          "fit",
+          "fits",
+          "fitting",
+          "grip",
+          "heavy",
+          "lightweight",
+          "size",
+          "tight",
+          "loose",
+          "ears",
+          "hands"
+        ],
+        "seeds": [
+          "Very comfortable to wear for hours",
+          "It does not fit properly",
+          "Too heavy and tight on my head",
+          "Nice grip that feels good in the hands"
+        ]
+      },
+      "delivery_packaging": {
+        "keywords": [
+          "shipping",
+          "shipped",
+          "delivery",
+          "delivered",
+          "arrived",
+          "package",
+          "packaging",
+          "box",
+          "seller",
+          "late",
+          "damaged",
+          "came in",
+          "sealed",
+          "opened"
+        ],
+        "seeds": [
+          "It arrived late",
+          "The package was damaged when it came",
+          "Fast shipping and good packaging",
+          "The box was opened and not sealed"
+        ]
+      },
+      "support_returns": {
+        "keywords": [
+          "support",
+          "customer service",
+          "refund",
+          "return",
+          "returned",
+          "warranty",
+          "replacement",
+          "contacted",
+          "exchange",
+          "replace"
+        ],
+        "seeds": [
+          "Customer service was helpful",
+          "I had to return it for a refund",
+          "The company would not honor the warranty",
+          "They sent a replacement quickly"
+        ]
+      },
+      "compatibility_setup": {
+        "keywords": [
+          "compatible",
+          "compatibility",
+          "works with",
+          "work with",
+          "setup",
+          "set up",
+          "install",
+          "installed",
+          "download",
+          "downloaded",
+          "code",
+          "activate",
+          "driver",
+          "drivers",
+          "software",
+          "update",
+          "pairing",
+          "pair",
+          "bluetooth",
+          "windows",
+          "steam"
+        ],
+        "seeds": [
+          "It is not compatible with my console",
+          "Easy to set up and install",
+          "The download code did not work",
+          "Pairing over bluetooth keeps failing"
+        ]
+      },
+      "performance_bugs": {
+        "keywords": [
+          "bug",
+          "bugs",
+          "buggy",
+          "glitch",
+          "glitches",
+          "crash",
+          "crashes",
+          "lag",
+          "laggy",
+          "freeze",
+          "freezes",
+          "loading",
+          "load times",
+          "fps",
+          "frame rate",
+          "stutter",
+          "patch"
+        ],
+        "seeds": [
+          "The game crashes and freezes constantly",
+          "Lots of bugs and glitches",
+          "Long loading times and lag",
+          "Frame rate drops and stuttering"
+        ]
+      }
+    }
+  },
+  "threshold": 0.5,
+  "n_sentences": 100,
+  "variants": {
+    "keyword_only/distilbert": {
+      "n_sentences": 100,
+      "n_gold_pairs": 82,
+      "detection": {
+        "precision": 0.8269230769230769,
+        "recall": 0.524390243902439,
+        "f1": 0.6417910447761194,
+        "tp": 43,
+        "fp": 9,
+        "fn": 39,
+        "exact_set_match": 0.57
+      },
+      "sentiment_on_detected": {
+        "n": 43,
+        "accuracy": 0.6744186046511628,
+        "ci95": [
+          0.5251593250655096,
+          0.7950688481822019
+        ]
+      },
+      "sentiment_end_to_end": {
+        "n": 82,
+        "accuracy": 0.35365853658536583,
+        "ci95": [
+          0.2588541267448773,
+          0.4615611497644142
+        ]
+      }
+    },
+    "keyword_only/baseline": {
+      "n_sentences": 100,
+      "n_gold_pairs": 82,
+      "detection": {
+        "precision": 0.8269230769230769,
+        "recall": 0.524390243902439,
+        "f1": 0.6417910447761194,
+        "tp": 43,
+        "fp": 9,
+        "fn": 39,
+        "exact_set_match": 0.57
+      },
+      "sentiment_on_detected": {
+        "n": 43,
+        "accuracy": 0.6046511627906976,
+        "ci95": [
+          0.4557879659331908,
+          0.7363489380154359
+        ]
+      },
+      "sentiment_end_to_end": {
+        "n": 82,
+        "accuracy": 0.3170731707317073,
+        "ci95": [
+          0.22647919829889346,
+          0.4240398973377209
+        ]
+      }
+    },
+    "keyword_plus_embedding/distilbert": {
+      "n_sentences": 100,
+      "n_gold_pairs": 82,
+      "detection": {
+        "precision": 0.8301886792452831,
+        "recall": 0.5365853658536586,
+        "f1": 0.6518518518518519,
+        "tp": 44,
+        "fp": 9,
+        "fn": 38,
+        "exact_set_match": 0.58
+      },
+      "sentiment_on_detected": {
+        "n": 44,
+        "accuracy": 0.6818181818181818,
+        "ci95": [
+          0.5344282746687306,
+          0.8000087006832644
+        ]
+      },
+      "sentiment_end_to_end": {
+        "n": 82,
+        "accuracy": 0.36585365853658536,
+        "ci95": [
+          0.26978466322708194,
+          0.4739293402397686
+        ]
+      }
+    },
+    "keyword_plus_embedding/baseline": {
+      "n_sentences": 100,
+      "n_gold_pairs": 82,
+      "detection": {
+        "precision": 0.8301886792452831,
+        "recall": 0.5365853658536586,
+        "f1": 0.6518518518518519,
+        "tp": 44,
+        "fp": 9,
+        "fn": 38,
+        "exact_set_match": 0.58
+      },
+      "sentiment_on_detected": {
+        "n": 44,
+        "accuracy": 0.6136363636363636,
+        "ci95": [
+          0.46623309846201666,
+          0.7427900111329802
+        ]
+      },
+      "sentiment_end_to_end": {
+        "n": 82,
+        "accuracy": 0.32926829268292684,
+        "ci95": [
+          0.2371996746292997,
+          0.43661814796487375
+        ]
+      }
+    }
+  },
+  "main_configuration": "keyword_plus_embedding/distilbert",
+  "cases_with_issues": [
+    {
+      "id": "test-0",
+      "text": "THIS GAME DOES NOT WORK AND I CANT SEE HOW TO GET IN TOUCH WITH THIS CHAT",
+      "gold": {
+        "support_returns": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:support_returns"
+      ]
+    },
+    {
+      "id": "test-1",
+      "text": "This requires Facebook in order to use this and I don\u2019t use Facebook.",
+      "gold": {
+        "compatibility_setup": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:compatibility_setup"
+      ]
+    },
+    {
+      "id": "test-2",
+      "text": "it is worthless it worked the very 1st time I hooked it up after that does not charge at all",
+      "gold": {
+        "battery": "negative",
+        "durability": "negative"
+      },
+      "pred_aspects": [
+        "battery"
+      ],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:durability"
+      ]
+    },
+    {
+      "id": "test-3",
+      "text": "It worked for 2 days it\u2019s pretty but useless",
+      "gold": {
+        "durability": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:durability"
+      ]
+    },
+    {
+      "id": "test-5",
+      "text": "It is in fact the right cord to power your gamecube but unfortunetly after 20 or 30 mins of playing my gamecube just shuts off, im not sure if i got a faulty cord but unless you plan on playing very little its not going to work out.",
+      "gold": {
+        "battery": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:battery"
+      ]
+    },
+    {
+      "id": "test-6",
+      "text": "This thing does not support any form of voice chat on Xbox one, nor did it work on my phone.",
+      "gold": {
+        "compatibility_setup": "negative"
+      },
+      "pred_aspects": [
+        "support_returns"
+      ],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:compatibility_setup",
+        "extra:support_returns"
+      ]
+    },
+    {
+      "id": "test-9",
+      "text": "We never even got to use these won\u2019t stay charged Took forever to get them to connect to switch and wouldn\u2019t stay connected",
+      "gold": {
+        "battery": "negative",
+        "compatibility_setup": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:battery",
+        "missed:compatibility_setup"
+      ]
+    },
+    {
+      "id": "test-13",
+      "text": "the tumbsticks did not fit, more pressure and i would have broken my controller, also the x circle square and triangle buttons have a groove on them to look like a bullet, these grooves caused my buttons to get stuck, i dont know if it will happen to everyone but it happened to me.",
+      "gold": {
+        "comfort_fit": "negative",
+        "controls": "negative"
+      },
+      "pred_aspects": [
+        "controls",
+        "durability",
+        "comfort_fit"
+      ],
+      "pred_sentiment": "negative",
+      "issues": [
+        "extra:durability"
+      ]
+    },
+    {
+      "id": "test-16",
+      "text": "It's not padded, and it's just a flex strap like the original.",
+      "gold": {
+        "comfort_fit": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:comfort_fit"
+      ]
+    },
+    {
+      "id": "test-17",
+      "text": "Connecting is as simple as pushing a button on the headset and one on your XBOX.",
+      "gold": {
+        "compatibility_setup": "positive"
+      },
+      "pred_aspects": [
+        "controls"
+      ],
+      "pred_sentiment": "positive",
+      "issues": [
+        "missed:compatibility_setup",
+        "extra:controls"
+      ]
+    },
+    {
+      "id": "test-18",
+      "text": "Ads and microtransactions galore!",
+      "gold": {
+        "price_value": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "positive",
+      "issues": [
+        "missed:price_value"
+      ]
+    },
+    {
+      "id": "test-20",
+      "text": "I don't play online, don't force me to use online capabilities.",
+      "gold": {
+        "gameplay": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:gameplay"
+      ]
+    },
+    {
+      "id": "test-21",
+      "text": "However, the supplied screws are all too big, and there are three places, one top and two bottom on either side of the type-C connector where screws thread into the plastic.",
+      "gold": {
+        "comfort_fit": "negative"
+      },
+      "pred_aspects": [
+        "durability"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:comfort_fit",
+        "extra:durability"
+      ]
+    },
+    {
+      "id": "test-23",
+      "text": "I\u2019m no audiophile, but the sound quality is the same between the two.",
+      "gold": {
+        "sound": "neutral"
+      },
+      "pred_aspects": [
+        "sound",
+        "durability"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "extra:durability"
+      ]
+    },
+    {
+      "id": "test-24",
+      "text": "They have so little mana, it goes fast so it's pretty annoying. -You have to tell the AI when to defend during AoE attacks.",
+      "gold": {
+        "gameplay": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:gameplay"
+      ]
+    },
+    {
+      "id": "test-25",
+      "text": "Highly overrated boring, sluggish controls Etc",
+      "gold": {
+        "controls": "negative",
+        "gameplay": "negative"
+      },
+      "pred_aspects": [
+        "controls"
+      ],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:gameplay"
+      ]
+    },
+    {
+      "id": "test-26",
+      "text": "This item was easy to put on, but is not durable in any way.",
+      "gold": {
+        "durability": "negative"
+      },
+      "pred_aspects": [
+        "durability"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "sentiment:durability gold negative pred neutral"
+      ]
+    },
+    {
+      "id": "test-27",
+      "text": "It started off ok but about half way through you are at a standstill.",
+      "gold": {
+        "gameplay": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:gameplay"
+      ]
+    },
+    {
+      "id": "test-30",
+      "text": "When those games start making me feel bad about the s#!* my virtual dude does, I kinda stop enjoying them.",
+      "gold": {
+        "gameplay": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:gameplay"
+      ]
+    },
+    {
+      "id": "test-33",
+      "text": "I really wanted to like this game but it wouldnt work on my PC.",
+      "gold": {
+        "compatibility_setup": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:compatibility_setup"
+      ]
+    },
+    {
+      "id": "test-34",
+      "text": "I was very excited to have purchased it..but was disappointed to find out that it was very difficult to play with.",
+      "gold": {
+        "gameplay": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:gameplay"
+      ]
+    },
+    {
+      "id": "test-36",
+      "text": "Can't even play if it's plugged in.",
+      "gold": {
+        "battery": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:battery"
+      ]
+    },
+    {
+      "id": "test-37",
+      "text": "However, totally unsupported in many popular sim racing titles (Assetto Corsa / ACC Race Room, Automobilista X etc),, and only partially supported (meaning only partially useful) in other popular games like Gran Turismo Sport, Grid, Dirt X, Dirt Rally X.",
+      "gold": {
+        "compatibility_setup": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:compatibility_setup"
+      ]
+    },
+    {
+      "id": "test-38",
+      "text": "These were good for the price while they lasted but not even a full year and very well taken care of the plastic piece of the headband broke.",
+      "gold": {
+        "price_value": "positive",
+        "durability": "negative"
+      },
+      "pred_aspects": [
+        "durability",
+        "price_value"
+      ],
+      "pred_sentiment": "negative",
+      "issues": [
+        "sentiment:price_value gold positive pred negative"
+      ]
+    },
+    {
+      "id": "test-40",
+      "text": "Everything worked great and it was loud, I've only had this headset for 2 months and my mic is now not working.",
+      "gold": {
+        "durability": "negative",
+        "sound": "negative"
+      },
+      "pred_aspects": [
+        "sound"
+      ],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:durability"
+      ]
+    },
+    {
+      "id": "test-41",
+      "text": "I was expecting the game to be more exciting.",
+      "gold": {
+        "gameplay": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:gameplay"
+      ]
+    },
+    {
+      "id": "test-43",
+      "text": "But the case for the remote was filthy, I washed it and it's all good now but that really sucked.",
+      "gold": {
+        "delivery_packaging": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:delivery_packaging"
+      ]
+    },
+    {
+      "id": "test-44",
+      "text": "Price quality is good, but the material it is made with bad materials.",
+      "gold": {
+        "price_value": "positive",
+        "durability": "negative"
+      },
+      "pred_aspects": [
+        "durability",
+        "price_value"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "sentiment:price_value gold positive pred neutral",
+        "sentiment:durability gold negative pred neutral"
+      ]
+    },
+    {
+      "id": "test-45",
+      "text": "Also, they don't even offer simulated 7.1.",
+      "gold": {
+        "sound": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:sound"
+      ]
+    },
+    {
+      "id": "test-47",
+      "text": "this game has good graphics, too bad half the game is spent listening to people feed you this dumb story. i would have liked the game alot more if it were longer with less talking. bottom line i suggest renting it, one weekend of play and you will beat it.",
+      "gold": {
+        "graphics": "positive",
+        "story": "negative"
+      },
+      "pred_aspects": [
+        "graphics",
+        "story"
+      ],
+      "pred_sentiment": "negative",
+      "issues": [
+        "sentiment:graphics gold positive pred negative"
+      ]
+    },
+    {
+      "id": "test-48",
+      "text": "The sound quality to me is good enough, but I am no music professional, so I can't really make a real judgement call on that.",
+      "gold": {
+        "sound": "positive"
+      },
+      "pred_aspects": [
+        "sound",
+        "durability"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "extra:durability",
+        "sentiment:sound gold positive pred neutral"
+      ]
+    },
+    {
+      "id": "test-50",
+      "text": "Game play is fun enough, graphics are average/good for the system.",
+      "gold": {
+        "gameplay": "positive",
+        "graphics": "neutral"
+      },
+      "pred_aspects": [
+        "gameplay",
+        "graphics"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "sentiment:gameplay gold positive pred neutral"
+      ]
+    },
+    {
+      "id": "test-51",
+      "text": "Giving it three stars because it\u2019s made out of cheap plastic on the outside even though it might look sturdier in pictures, and the inserts are foam, not silicone.",
+      "gold": {
+        "durability": "negative"
+      },
+      "pred_aspects": [
+        "durability"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "sentiment:durability gold negative pred neutral"
+      ]
+    },
+    {
+      "id": "test-53",
+      "text": "It malfunctions often where I have to disconnect the power cable then reconnect it to get MY controller and the ELIMINATOR to work again.",
+      "gold": {
+        "durability": "negative"
+      },
+      "pred_aspects": [
+        "battery"
+      ],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:durability",
+        "extra:battery"
+      ]
+    },
+    {
+      "id": "test-55",
+      "text": "the console is so touchy, if the power source isn't in at an exact angle it shuts it all down. really inconvenient, highly disappointed that we can't even touch to tv stand without it cutting off.",
+      "gold": {
+        "battery": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:battery"
+      ]
+    },
+    {
+      "id": "test-59",
+      "text": "so thankful for this, product was posted correctly. got it on time at a great price.",
+      "gold": {
+        "delivery_packaging": "positive",
+        "price_value": "positive"
+      },
+      "pred_aspects": [
+        "price_value"
+      ],
+      "pred_sentiment": "positive",
+      "issues": [
+        "missed:delivery_packaging"
+      ]
+    },
+    {
+      "id": "test-62",
+      "text": "Easy to stow in car.",
+      "gold": {
+        "comfort_fit": "positive"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "positive",
+      "issues": [
+        "missed:comfort_fit"
+      ]
+    },
+    {
+      "id": "test-63",
+      "text": "The Hell in a Cell is unbelivable.",
+      "gold": {
+        "gameplay": "positive"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:gameplay"
+      ]
+    },
+    {
+      "id": "test-65",
+      "text": "This is done very well and seems very sophisticated... it really feels like the creature develops a real and unique personality.",
+      "gold": {
+        "gameplay": "positive"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "positive",
+      "issues": [
+        "missed:gameplay"
+      ]
+    },
+    {
+      "id": "test-67",
+      "text": "A gameplay feature that was fortunately removed from the Genesis version was the photography system.",
+      "gold": {
+        "gameplay": "negative"
+      },
+      "pred_aspects": [
+        "gameplay"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "sentiment:gameplay gold negative pred neutral"
+      ]
+    },
+    {
+      "id": "test-74",
+      "text": "Keyboard was smaller than a regular keyboard",
+      "gold": {
+        "comfort_fit": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:comfort_fit"
+      ]
+    },
+    {
+      "id": "test-76",
+      "text": "The instructions explained literally nothing which is why i only gave 4 stars.",
+      "gold": {
+        "compatibility_setup": "negative"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "negative",
+      "issues": [
+        "missed:compatibility_setup"
+      ]
+    },
+    {
+      "id": "test-77",
+      "text": "If you buy any Sims 3 games through different vendors, download them all to the Origin.",
+      "gold": {
+        "compatibility_setup": "neutral"
+      },
+      "pred_aspects": [
+        "compatibility_setup"
+      ],
+      "pred_sentiment": "positive",
+      "issues": [
+        "sentiment:compatibility_setup gold neutral pred positive"
+      ]
+    },
+    {
+      "id": "test-79",
+      "text": "Some of the WB characters are over rated and match up with the storyline of the Mortal Kombat characters.",
+      "gold": {
+        "story": "negative"
+      },
+      "pred_aspects": [
+        "story"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "sentiment:story gold negative pred neutral"
+      ]
+    },
+    {
+      "id": "test-81",
+      "text": "From creators of Mortal combat .",
+      "gold": {},
+      "pred_aspects": [
+        "gameplay"
+      ],
+      "pred_sentiment": "positive",
+      "issues": [
+        "extra:gameplay"
+      ]
+    },
+    {
+      "id": "test-82",
+      "text": "If you are a true Sims fan you will get this, but don't feel like you are missing out if you don't want to fork out for it because it does not contribute to game play.",
+      "gold": {
+        "gameplay": "neutral",
+        "price_value": "neutral"
+      },
+      "pred_aspects": [
+        "gameplay"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:price_value"
+      ]
+    },
+    {
+      "id": "test-83",
+      "text": "Very light weight, son loved it!",
+      "gold": {
+        "comfort_fit": "positive"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "positive",
+      "issues": [
+        "missed:comfort_fit"
+      ]
+    },
+    {
+      "id": "test-88",
+      "text": "There are infinate possibilities on every single map for endless different battles.",
+      "gold": {
+        "gameplay": "positive"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "positive",
+      "issues": [
+        "missed:gameplay"
+      ]
+    },
+    {
+      "id": "test-89",
+      "text": "This controller is not as high quality as the xbox elite controller, that being said, is still much better than the powera enhanced wireless or switch pro controllers for switch.",
+      "gold": {
+        "durability": "neutral"
+      },
+      "pred_aspects": [
+        "durability"
+      ],
+      "pred_sentiment": "positive",
+      "issues": [
+        "sentiment:durability gold neutral pred positive"
+      ]
+    },
+    {
+      "id": "test-93",
+      "text": "At the normal difficulty, I spent just under 20 hours to complete the game.",
+      "gold": {
+        "gameplay": "neutral"
+      },
+      "pred_aspects": [
+        "gameplay"
+      ],
+      "pred_sentiment": "negative",
+      "issues": [
+        "sentiment:gameplay gold neutral pred negative"
+      ]
+    },
+    {
+      "id": "test-95",
+      "text": "Period. no problems with mic or audio, in fact AMAZING sound quality, too.",
+      "gold": {
+        "sound": "positive"
+      },
+      "pred_aspects": [
+        "sound",
+        "durability"
+      ],
+      "pred_sentiment": "positive",
+      "issues": [
+        "extra:durability"
+      ]
+    },
+    {
+      "id": "test-96",
+      "text": "It manage to actually capture Deadpool's personality",
+      "gold": {
+        "story": "positive"
+      },
+      "pred_aspects": [],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:story"
+      ]
+    },
+    {
+      "id": "test-99",
+      "text": "(although you still can if you prefer) Just don't expect anything amazing - it's crude (and a bit buggy) compared to modern 3D games.",
+      "gold": {
+        "performance_bugs": "negative",
+        "graphics": "negative"
+      },
+      "pred_aspects": [
+        "performance_bugs"
+      ],
+      "pred_sentiment": "neutral",
+      "issues": [
+        "missed:graphics",
+        "sentiment:performance_bugs gold negative pred neutral"
+      ]
+    }
+  ]
+}

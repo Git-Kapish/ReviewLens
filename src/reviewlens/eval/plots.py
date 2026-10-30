@@ -97,3 +97,24 @@ def plot_topic_sizes(sizes: dict[str, int], n_outliers: int, path: str | Path) -
     fig.savefig(path, dpi=120)
     plt.close(fig)
     return path
+
+
+def plot_aspect_sentiment(table: dict[str, dict], path: str | Path) -> Path:
+    """Stacked negative/neutral/positive shares of reviews per aspect, with review counts."""
+    items = sorted(table.items(), key=lambda kv: kv[1]["n_reviews"])
+    fig, ax = plt.subplots(figsize=(7.5, 0.45 * len(items) + 1.4))
+    left = [0.0] * len(items)
+    for cls, color in (("negative", "C3"), ("neutral", "0.7"), ("positive", "C2")):
+        vals = [v[f"share_{cls}"] for _, v in items]
+        ax.barh([f"{k} (n={v['n_reviews']})" for k, v in items], vals, left=left, color=color,
+                label=cls)
+        left = [a + b for a, b in zip(left, vals, strict=True)]
+    ax.set(xlabel="share of reviews mentioning the aspect", xlim=(0, 1),
+           title="Aspect sentiment (DistilBERT, test split)")
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.14), ncol=3, fontsize=8)
+    fig.tight_layout()
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(path, dpi=120)
+    plt.close(fig)
+    return path

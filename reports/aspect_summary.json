@@ -1,0 +1,727 @@
+{
+  "timestamp": "2026-10-30T12:18:53+00:00",
+  "config": {
+    "seed": 42,
+    "embedding": {
+      "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+      "batch_size": 128
+    },
+    "similarity": {
+      "threshold": 0.5,
+      "max_aspects_per_sentence": 2
+    },
+    "split": {
+      "min_words": 3
+    },
+    "labeled": {
+      "dev_per_rating": 8,
+      "eval_per_rating": 20,
+      "min_words": 4,
+      "max_words": 60
+    },
+    "paths": {
+      "dev_labels": "data/labeled/aspect_dev.csv",
+      "eval_labels": "data/labeled/aspect_eval.csv",
+      "dev_report": "reports/aspects_dev.json",
+      "metrics": "reports/aspects_metrics.json",
+      "summary": "reports/aspect_summary.json",
+      "figures_dir": "reports/figures"
+    },
+    "aggregate_split": "test",
+    "lexicon": {
+      "gameplay": {
+        "keywords": [
+          "gameplay",
+          "game play",
+          "mechanics",
+          "levels",
+          "level design",
+          "missions",
+          "campaign",
+          "multiplayer",
+          "co-op",
+          "difficulty",
+          "boss",
+          "bosses",
+          "quests",
+          "puzzles",
+          "replay",
+          "replayability",
+          "combat",
+          "single player",
+          "game modes",
+          "online play"
+        ],
+        "seeds": [
+          "The gameplay is fun and addictive",
+          "The missions and levels are repetitive",
+          "Multiplayer and online modes",
+          "The combat and difficulty feel balanced"
+        ]
+      },
+      "graphics": {
+        "keywords": [
+          "graphics",
+          "visuals",
+          "resolution",
+          "textures",
+          "animation",
+          "animations",
+          "art style",
+          "visual",
+          "framerate quality",
+          "lighting",
+          "cutscenes",
+          "4k"
+        ],
+        "seeds": [
+          "The graphics look beautiful",
+          "Ugly textures and outdated visuals",
+          "The art style and animation are great",
+          "Crisp resolution and colors"
+        ]
+      },
+      "story": {
+        "keywords": [
+          "story",
+          "plot",
+          "characters",
+          "character",
+          "ending",
+          "narrative",
+          "storyline",
+          "dialogue",
+          "writing",
+          "voice acting"
+        ],
+        "seeds": [
+          "The story is gripping",
+          "The plot and characters are boring",
+          "A disappointing ending",
+          "Great narrative and dialogue"
+        ]
+      },
+      "sound": {
+        "keywords": [
+          "sound",
+          "audio",
+          "music",
+          "soundtrack",
+          "microphone",
+          "mic",
+          "speakers",
+          "bass",
+          "volume",
+          "static",
+          "noise cancelling",
+          "sound quality"
+        ],
+        "seeds": [
+          "The sound quality is excellent",
+          "The microphone does not pick up my voice",
+          "Great music and soundtrack",
+          "The audio crackles and the bass is weak"
+        ]
+      },
+      "controls": {
+        "keywords": [
+          "controls",
+          "buttons",
+          "button",
+          "joystick",
+          "thumbstick",
+          "trigger",
+          "triggers",
+          "d-pad",
+          "keys",
+          "key",
+          "click",
+          "scroll wheel",
+          "sensitivity",
+          "responsive",
+          "input lag"
+        ],
+        "seeds": [
+          "The controls are responsive and smooth",
+          "The buttons are stiff and the keys stick",
+          "The joystick drifts",
+          "Clunky and confusing controls"
+        ]
+      },
+      "durability": {
+        "keywords": [
+          "broke",
+          "broken",
+          "break",
+          "stopped working",
+          "quality",
+          "durable",
+          "durability",
+          "flimsy",
+          "sturdy",
+          "fell apart",
+          "defective",
+          "build quality",
+          "well made",
+          "poorly made",
+          "lasted",
+          "plastic",
+          "material"
+        ],
+        "seeds": [
+          "It broke after a few weeks",
+          "Solid build quality and very durable",
+          "Cheap flimsy plastic that fell apart",
+          "Stopped working after two months"
+        ]
+      },
+      "price_value": {
+        "keywords": [
+          "price",
+          "priced",
+          "overpriced",
+          "expensive",
+          "cost",
+          "worth",
+          "value",
+          "money",
+          "bargain",
+          "deal",
+          "afford",
+          "cheaper",
+          "on sale"
+        ],
+        "seeds": [
+          "Great value for the money",
+          "Way too expensive for what you get",
+          "Not worth the price",
+          "A bargain at this price"
+        ]
+      },
+      "battery": {
+        "keywords": [
+          "battery",
+          "batteries",
+          "charge",
+          "charging",
+          "charger",
+          "rechargeable",
+          "battery life",
+          "recharge",
+          "dies",
+          "power cable"
+        ],
+        "seeds": [
+          "The battery lasts all day",
+          "It will not hold a charge",
+          "Charging takes forever",
+          "Battery life is terrible"
+        ]
+      },
+      "comfort_fit": {
+        "keywords": [
+          "comfortable",
+          "uncomfortable",
+          "comfort",
+          "ergonomic",
+          "fit",
+          "fits",
+          "fitting",
+          "grip",
+          "heavy",
+          "lightweight",
+          "size",
+          "tight",
+          "loose",
+          "ears",
+          "hands"
+        ],
+        "seeds": [
+          "Very comfortable to wear for hours",
+          "It does not fit properly",
+          "Too heavy and tight on my head",
+          "Nice grip that feels good in the hands"
+        ]
+      },
+      "delivery_packaging": {
+        "keywords": [
+          "shipping",
+          "shipped",
+          "delivery",
+          "delivered",
+          "arrived",
+          "package",
+          "packaging",
+          "box",
+          "seller",
+          "late",
+          "damaged",
+          "came in",
+          "sealed",
+          "opened"
+        ],
+        "seeds": [
+          "It arrived late",
+          "The package was damaged when it came",
+          "Fast shipping and good packaging",
+          "The box was opened and not sealed"
+        ]
+      },
+      "support_returns": {
+        "keywords": [
+          "support",
+          "customer service",
+          "refund",
+          "return",
+          "returned",
+          "warranty",
+          "replacement",
+          "contacted",
+          "exchange",
+          "replace"
+        ],
+        "seeds": [
+          "Customer service was helpful",
+          "I had to return it for a refund",
+          "The company would not honor the warranty",
+          "They sent a replacement quickly"
+        ]
+      },
+      "compatibility_setup": {
+        "keywords": [
+          "compatible",
+          "compatibility",
+          "works with",
+          "work with",
+          "setup",
+          "set up",
+          "install",
+          "installed",
+          "download",
+          "downloaded",
+          "code",
+          "activate",
+          "driver",
+          "drivers",
+          "software",
+          "update",
+          "pairing",
+          "pair",
+          "bluetooth",
+          "windows",
+          "steam"
+        ],
+        "seeds": [
+          "It is not compatible with my console",
+          "Easy to set up and install",
+          "The download code did not work",
+          "Pairing over bluetooth keeps failing"
+        ]
+      },
+      "performance_bugs": {
+        "keywords": [
+          "bug",
+          "bugs",
+          "buggy",
+          "glitch",
+          "glitches",
+          "crash",
+          "crashes",
+          "lag",
+          "laggy",
+          "freeze",
+          "freezes",
+          "loading",
+          "load times",
+          "fps",
+          "frame rate",
+          "stutter",
+          "patch"
+        ],
+        "seeds": [
+          "The game crashes and freezes constantly",
+          "Lots of bugs and glitches",
+          "Long loading times and lag",
+          "Frame rate drops and stuttering"
+        ]
+      }
+    }
+  },
+  "split": "test",
+  "n_reviews": 5400,
+  "n_reviews_with_any_aspect": 3488,
+  "aspects": {
+    "support_returns": {
+      "n_reviews": 350,
+      "share_negative": 0.4942857142857143,
+      "share_neutral": 0.15428571428571428,
+      "share_positive": 0.3514285714285714,
+      "net_sentiment": -0.14285714285714285
+    },
+    "delivery_packaging": {
+      "n_reviews": 545,
+      "share_negative": 0.24220183486238533,
+      "share_neutral": 0.15229357798165138,
+      "share_positive": 0.6055045871559633,
+      "net_sentiment": 0.363302752293578
+    },
+    "comfort_fit": {
+      "n_reviews": 684,
+      "share_negative": 0.12280701754385964,
+      "share_neutral": 0.2149122807017544,
+      "share_positive": 0.6622807017543859,
+      "net_sentiment": 0.5394736842105263
+    },
+    "durability": {
+      "n_reviews": 805,
+      "share_negative": 0.2795031055900621,
+      "share_neutral": 0.22857142857142856,
+      "share_positive": 0.4919254658385093,
+      "net_sentiment": 0.2124223602484472
+    },
+    "story": {
+      "n_reviews": 391,
+      "share_negative": 0.12276214833759591,
+      "share_neutral": 0.25831202046035806,
+      "share_positive": 0.618925831202046,
+      "net_sentiment": 0.4961636828644501
+    },
+    "price_value": {
+      "n_reviews": 1012,
+      "share_negative": 0.23616600790513834,
+      "share_neutral": 0.16304347826086957,
+      "share_positive": 0.6007905138339921,
+      "net_sentiment": 0.36462450592885376
+    },
+    "gameplay": {
+      "n_reviews": 620,
+      "share_negative": 0.11290322580645161,
+      "share_neutral": 0.27580645161290324,
+      "share_positive": 0.6112903225806452,
+      "net_sentiment": 0.49838709677419357
+    },
+    "performance_bugs": {
+      "n_reviews": 264,
+      "share_negative": 0.32196969696969696,
+      "share_neutral": 0.2878787878787879,
+      "share_positive": 0.39015151515151514,
+      "net_sentiment": 0.06818181818181818
+    },
+    "compatibility_setup": {
+      "n_reviews": 669,
+      "share_negative": 0.28998505231689087,
+      "share_neutral": 0.18834080717488788,
+      "share_positive": 0.5216741405082213,
+      "net_sentiment": 0.23168908819133036
+    },
+    "sound": {
+      "n_reviews": 511,
+      "share_negative": 0.20156555772994128,
+      "share_neutral": 0.22113502935420742,
+      "share_positive": 0.5772994129158513,
+      "net_sentiment": 0.37573385518590996
+    },
+    "controls": {
+      "n_reviews": 623,
+      "share_negative": 0.2536115569823435,
+      "share_neutral": 0.3017656500802568,
+      "share_positive": 0.4446227929373997,
+      "net_sentiment": 0.19101123595505617
+    },
+    "graphics": {
+      "n_reviews": 353,
+      "share_negative": 0.11331444759206799,
+      "share_neutral": 0.21246458923512748,
+      "share_positive": 0.6742209631728046,
+      "net_sentiment": 0.5609065155807366
+    },
+    "battery": {
+      "n_reviews": 367,
+      "share_negative": 0.26430517711171664,
+      "share_neutral": 0.22888283378746593,
+      "share_positive": 0.5068119891008175,
+      "net_sentiment": 0.24250681198910082
+    }
+  },
+  "by_review_label": {
+    "negative": {
+      "durability": {
+        "n_reviews": 235,
+        "share_negative": 0.7021276595744681,
+        "share_neutral": 0.19574468085106383,
+        "share_positive": 0.10212765957446808,
+        "net_sentiment": -0.6
+      },
+      "sound": {
+        "n_reviews": 107,
+        "share_negative": 0.616822429906542,
+        "share_neutral": 0.2336448598130841,
+        "share_positive": 0.14953271028037382,
+        "net_sentiment": -0.4672897196261682
+      },
+      "price_value": {
+        "n_reviews": 228,
+        "share_negative": 0.7236842105263158,
+        "share_neutral": 0.16666666666666666,
+        "share_positive": 0.10964912280701754,
+        "net_sentiment": -0.6140350877192983
+      },
+      "compatibility_setup": {
+        "n_reviews": 169,
+        "share_negative": 0.7396449704142012,
+        "share_neutral": 0.1301775147928994,
+        "share_positive": 0.1301775147928994,
+        "net_sentiment": -0.6094674556213018
+      },
+      "delivery_packaging": {
+        "n_reviews": 131,
+        "share_negative": 0.6717557251908397,
+        "share_neutral": 0.19083969465648856,
+        "share_positive": 0.13740458015267176,
+        "net_sentiment": -0.5343511450381679
+      },
+      "support_returns": {
+        "n_reviews": 159,
+        "share_negative": 0.8050314465408805,
+        "share_neutral": 0.11949685534591195,
+        "share_positive": 0.07547169811320754,
+        "net_sentiment": -0.7295597484276729
+      },
+      "comfort_fit": {
+        "n_reviews": 96,
+        "share_negative": 0.5520833333333334,
+        "share_neutral": 0.34375,
+        "share_positive": 0.10416666666666667,
+        "net_sentiment": -0.4479166666666667
+      },
+      "controls": {
+        "n_reviews": 145,
+        "share_negative": 0.6620689655172414,
+        "share_neutral": 0.2620689655172414,
+        "share_positive": 0.07586206896551724,
+        "net_sentiment": -0.5862068965517241
+      },
+      "gameplay": {
+        "n_reviews": 100,
+        "share_negative": 0.47,
+        "share_neutral": 0.38,
+        "share_positive": 0.15,
+        "net_sentiment": -0.32
+      },
+      "battery": {
+        "n_reviews": 106,
+        "share_negative": 0.6981132075471698,
+        "share_neutral": 0.19811320754716982,
+        "share_positive": 0.10377358490566038,
+        "net_sentiment": -0.5943396226415094
+      },
+      "performance_bugs": {
+        "n_reviews": 72,
+        "share_negative": 0.6944444444444444,
+        "share_neutral": 0.2638888888888889,
+        "share_positive": 0.041666666666666664,
+        "net_sentiment": -0.6527777777777778
+      },
+      "graphics": {
+        "n_reviews": 52,
+        "share_negative": 0.5,
+        "share_neutral": 0.25,
+        "share_positive": 0.25,
+        "net_sentiment": -0.25
+      },
+      "story": {
+        "n_reviews": 58,
+        "share_negative": 0.41379310344827586,
+        "share_neutral": 0.3448275862068966,
+        "share_positive": 0.2413793103448276,
+        "net_sentiment": -0.1724137931034483
+      }
+    },
+    "neutral": {
+      "support_returns": {
+        "n_reviews": 22,
+        "share_negative": 0.5,
+        "share_neutral": 0.18181818181818182,
+        "share_positive": 0.3181818181818182,
+        "net_sentiment": -0.18181818181818182
+      },
+      "delivery_packaging": {
+        "n_reviews": 38,
+        "share_negative": 0.42105263157894735,
+        "share_neutral": 0.21052631578947367,
+        "share_positive": 0.3684210526315789,
+        "net_sentiment": -0.05263157894736842
+      },
+      "comfort_fit": {
+        "n_reviews": 71,
+        "share_negative": 0.19718309859154928,
+        "share_neutral": 0.4507042253521127,
+        "share_positive": 0.352112676056338,
+        "net_sentiment": 0.15492957746478872
+      },
+      "durability": {
+        "n_reviews": 76,
+        "share_negative": 0.2894736842105263,
+        "share_neutral": 0.5263157894736842,
+        "share_positive": 0.18421052631578946,
+        "net_sentiment": -0.10526315789473684
+      },
+      "price_value": {
+        "n_reviews": 84,
+        "share_negative": 0.32142857142857145,
+        "share_neutral": 0.38095238095238093,
+        "share_positive": 0.2976190476190476,
+        "net_sentiment": -0.023809523809523808
+      },
+      "gameplay": {
+        "n_reviews": 64,
+        "share_negative": 0.078125,
+        "share_neutral": 0.578125,
+        "share_positive": 0.34375,
+        "net_sentiment": 0.265625
+      },
+      "performance_bugs": {
+        "n_reviews": 40,
+        "share_negative": 0.375,
+        "share_neutral": 0.35,
+        "share_positive": 0.275,
+        "net_sentiment": -0.1
+      },
+      "compatibility_setup": {
+        "n_reviews": 59,
+        "share_negative": 0.3728813559322034,
+        "share_neutral": 0.288135593220339,
+        "share_positive": 0.3389830508474576,
+        "net_sentiment": -0.03389830508474576
+      },
+      "story": {
+        "n_reviews": 49,
+        "share_negative": 0.20408163265306123,
+        "share_neutral": 0.5306122448979592,
+        "share_positive": 0.2653061224489796,
+        "net_sentiment": 0.061224489795918366
+      },
+      "battery": {
+        "n_reviews": 34,
+        "share_negative": 0.11764705882352941,
+        "share_neutral": 0.6176470588235294,
+        "share_positive": 0.2647058823529412,
+        "net_sentiment": 0.14705882352941177
+      },
+      "controls": {
+        "n_reviews": 71,
+        "share_negative": 0.29577464788732394,
+        "share_neutral": 0.5633802816901409,
+        "share_positive": 0.14084507042253522,
+        "net_sentiment": -0.15492957746478872
+      },
+      "graphics": {
+        "n_reviews": 44,
+        "share_negative": 0.1590909090909091,
+        "share_neutral": 0.45454545454545453,
+        "share_positive": 0.38636363636363635,
+        "net_sentiment": 0.22727272727272727
+      },
+      "sound": {
+        "n_reviews": 44,
+        "share_negative": 0.36363636363636365,
+        "share_neutral": 0.45454545454545453,
+        "share_positive": 0.18181818181818182,
+        "net_sentiment": -0.18181818181818182
+      }
+    },
+    "positive": {
+      "story": {
+        "n_reviews": 284,
+        "share_negative": 0.04929577464788732,
+        "share_neutral": 0.1936619718309859,
+        "share_positive": 0.7570422535211268,
+        "net_sentiment": 0.7077464788732394
+      },
+      "durability": {
+        "n_reviews": 494,
+        "share_negative": 0.07692307692307693,
+        "share_neutral": 0.19838056680161945,
+        "share_positive": 0.7246963562753036,
+        "net_sentiment": 0.6477732793522267
+      },
+      "comfort_fit": {
+        "n_reviews": 517,
+        "share_negative": 0.03288201160541586,
+        "share_neutral": 0.15860735009671179,
+        "share_positive": 0.8085106382978723,
+        "net_sentiment": 0.7756286266924565
+      },
+      "compatibility_setup": {
+        "n_reviews": 441,
+        "share_negative": 0.10657596371882086,
+        "share_neutral": 0.19727891156462585,
+        "share_positive": 0.6961451247165533,
+        "net_sentiment": 0.5895691609977324
+      },
+      "delivery_packaging": {
+        "n_reviews": 376,
+        "share_negative": 0.07446808510638298,
+        "share_neutral": 0.13297872340425532,
+        "share_positive": 0.7925531914893617,
+        "net_sentiment": 0.7180851063829787
+      },
+      "performance_bugs": {
+        "n_reviews": 152,
+        "share_negative": 0.13157894736842105,
+        "share_neutral": 0.28289473684210525,
+        "share_positive": 0.5855263157894737,
+        "net_sentiment": 0.45394736842105265
+      },
+      "controls": {
+        "n_reviews": 407,
+        "share_negative": 0.10073710073710074,
+        "share_neutral": 0.2702702702702703,
+        "share_positive": 0.628992628992629,
+        "net_sentiment": 0.5282555282555282
+      },
+      "price_value": {
+        "n_reviews": 700,
+        "share_negative": 0.06714285714285714,
+        "share_neutral": 0.1357142857142857,
+        "share_positive": 0.7971428571428572,
+        "net_sentiment": 0.73
+      },
+      "graphics": {
+        "n_reviews": 257,
+        "share_negative": 0.027237354085603113,
+        "share_neutral": 0.16342412451361868,
+        "share_positive": 0.8093385214007782,
+        "net_sentiment": 0.7821011673151751
+      },
+      "sound": {
+        "n_reviews": 360,
+        "share_negative": 0.058333333333333334,
+        "share_neutral": 0.18888888888888888,
+        "share_positive": 0.7527777777777778,
+        "net_sentiment": 0.6944444444444444
+      },
+      "battery": {
+        "n_reviews": 227,
+        "share_negative": 0.08370044052863436,
+        "share_neutral": 0.18502202643171806,
+        "share_positive": 0.7312775330396476,
+        "net_sentiment": 0.6475770925110133
+      },
+      "gameplay": {
+        "n_reviews": 456,
+        "share_negative": 0.039473684210526314,
+        "share_neutral": 0.21052631578947367,
+        "share_positive": 0.75,
+        "net_sentiment": 0.7105263157894737
+      },
+      "support_returns": {
+        "n_reviews": 169,
+        "share_negative": 0.20118343195266272,
+        "share_neutral": 0.1834319526627219,
+        "share_positive": 0.6153846153846154,
+        "net_sentiment": 0.41420118343195267
+      }
+    }
+  }
+}

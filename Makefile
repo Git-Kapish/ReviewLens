@@ -28,8 +28,8 @@ eval:  ## bootstrap CIs, drift, error sample, robustness (needs baseline + Disti
 topics:  ## BERTopic on negative reviews (trends come in Phase 7)
 	$(PY) scripts/run_topics.py
 
-aspects:  ## aspect scoring + eval
-	@echo "not implemented until Phase 6"
+aspects:  ## aspect scoring + eval on the hand-labeled sentences (tune first: scripts/tune_aspects.py)
+	$(PY) scripts/run_aspects.py
 
 api:  ## run FastAPI
 	@echo "not implemented until Phase 8"

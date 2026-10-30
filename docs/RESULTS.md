@@ -211,3 +211,50 @@ Mean c_v is 0.534. Of the 11,671 negative reviews, 8,154 have a topic and 3,517 
 - **Some topics overlap.** "Broke after short use" (5) cuts across products and shares words with the headset, controller and keyboard topics; topic 7 is mostly one-line reviews with no product signal. I would not read their sizes as clean themes.
 - **Coherence is a rough guide.** c_v was computed on the same documents the model was fit on, and the topic with the lowest score (6, cases and screen protectors, 0.331) is still easy to read from its reviews. The numbers rank settings but do not prove the topics are right.
 - **Reproducible:** a second full run gave identical topic sizes, top words and c_v.
+
+## Phase 6: aspect sentiment
+
+Sources: `reports/aspects_metrics.json` (hand-labeled eval), `reports/aspects_dev.json` (threshold tuning), `reports/aspect_summary.json` (test-split aggregate), `reports/figures/aspect_sentiment.png`. Labels: `data/labeled/aspect_dev.csv` (40 sentences) and `aspect_eval.csv` (100 sentences, 82 gold aspect-sentiment pairs: 50 negative, 20 positive, 12 neutral). The labels are mine and not independently checked (see D7).
+
+### Hand-labeled evaluation (100 test-split sentences, scored once)
+
+| Configuration | Detection P / R / F1 | Sentiment, aspects found (n) | Sentiment, end to end (n = 82) |
+|---|---|---|---|
+| keyword only, DistilBERT | 0.827 / 0.524 / 0.642 | 0.674 (43) | 0.354 |
+| **keyword + embedding, DistilBERT (main)** | **0.830 / 0.537 / 0.652** | **0.682 (44; 95% CI 0.534 to 0.800)** | **0.366 (0.270 to 0.474)** |
+| keyword + embedding, baseline LR | 0.830 / 0.537 / 0.652 | 0.614 (44; 0.466 to 0.743) | 0.329 (0.237 to 0.437) |
+
+- **Detection** compares predicted and gold aspects per sentence: 44 pairs found, 9 false, 38 missed; 58% of sentences have exactly the right aspect set. "End to end" counts a missed aspect as wrong. Intervals are Wilson 95% and wide, since n is 44 to 82.
+- **The embedding map adds almost nothing here:** one extra correct pair (44 vs 43) and no change in false pairs. On the dev set the threshold gave F1 0.667 against 0.635 for keyword only, also about one pair.
+- **DistilBERT vs baseline sentiment:** 0.682 vs 0.614 on the same detected pairs, but the intervals overlap heavily and I did not test the difference.
+
+### Failure modes (from the 53 sentences with at least one issue)
+
+- **Missed aspects (38 of 82 gold pairs) are the biggest problem.** The opinion is stated without a lexicon word: "Ads and microtransactions galore!" (price), "It worked for 2 days" (durability), "Easy to stow in car" (fit), "Can't even play if it's plugged in" (battery), "THIS GAME DOES NOT WORK AND I CANT SEE HOW TO GET IN TOUCH" (support). The embedding similarity recovered only one of them at the dev threshold.
+- **False aspects (9) come from single words in the wrong sense:** `quality` (as in "sound quality") triggered durability in 3 sentences, `combat` in the studio name "Mortal combat" triggered gameplay, "does not support" triggered support_returns, and "power cable" triggered battery for a fault that I labeled durability.
+- **Sentiment errors: 14 of the 44 detected pairs.** 9 of the 14 are a polar gold label predicted as neutral (6 negative, 3 positive), so the sentence-level model hedges toward neutral, as the review-level model did in Phase 4. Two are positive predicted as negative, from sentences with two opinions: "good graphics, too bad ... dumb story" got one negative label for both aspects.
+- **Neutral gold labels are only 12 of the 82 pairs**, so the handling of neutral cannot be judged from this set.
+
+### Aspect sentiment on the test split (5,400 reviews)
+
+3,488 reviews (64.6%) mention at least one aspect. Per aspect, the share of mentioning reviews with negative, neutral and positive aspect sentiment (DistilBERT):
+
+| Aspect | Reviews | Negative | Neutral | Positive |
+|---|---|---|---|---|
+| price_value | 1,012 | 23.6% | 16.3% | 60.1% |
+| durability | 805 | 28.0% | 22.9% | 49.2% |
+| comfort_fit | 684 | 12.3% | 21.5% | 66.2% |
+| compatibility_setup | 669 | 29.0% | 18.8% | 52.2% |
+| controls | 623 | 25.4% | 30.2% | 44.5% |
+| gameplay | 620 | 11.3% | 27.6% | 61.1% |
+| delivery_packaging | 545 | 24.2% | 15.2% | 60.6% |
+| sound | 511 | 20.2% | 22.1% | 57.7% |
+| story | 391 | 12.3% | 25.8% | 61.9% |
+| battery | 367 | 26.4% | 22.9% | 50.7% |
+| graphics | 353 | 11.3% | 21.2% | 67.4% |
+| support_returns | 350 | **49.4%** | 15.4% | 35.1% |
+| performance_bugs | 264 | 32.2% | 28.8% | 39.0% |
+
+- **Customer support and returns is the only net-negative aspect** (49.4% negative against 35.1% positive). Every other aspect is net positive, which is expected in a dataset that is 73% positive.
+- **In the 1,024 negative-rated test reviews,** the most mentioned aspects are durability (235 reviews, 23%), price_value (228, 22%), compatibility_setup (169, 17%) and support_returns (159, 16%).
+- **How far to trust this table:** aspect detection has about 83% precision and 54% recall, and sentiment given a correct aspect is about 68% accurate on a small sample. The counts are undercounts that favor aspects with many keywords, and differences of a few points between aspects (for example 11.3% vs 12.3% negative) are within what these errors could produce. The ranking of support_returns as the worst is the one gap large enough to be unlikely to come from these errors, but it is also the aspect with the fewest labeled examples (2 gold pairs), so its sentiment accuracy is untested.
