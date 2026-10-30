@@ -8,13 +8,13 @@ endif
 
 setup:  ## create venv, install deps
 	uv venv --python 3.11 .venv
-	uv pip install --python $(PY) -e ".[dev]"
+	uv pip install --python $(PY) -e ".[dev,notebooks]"
 
 data:  ## sample, clean, label, split, profile
 	$(PY) scripts/build_data.py
 
-baseline:  ## train + evaluate TF-IDF+LR
-	@echo "not implemented until Phase 2"
+baseline:  ## select + train + evaluate TF-IDF+LR
+	$(PY) scripts/train_baseline.py
 
 transformer:  ## train DistilBERT (GPU recommended)
 	@echo "not implemented until Phase 3"
