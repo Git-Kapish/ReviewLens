@@ -19,8 +19,11 @@ baseline:  ## select + train + evaluate TF-IDF+LR
 transformer:  ## fine-tune DistilBERT (GPU recommended; see notebooks/02)
 	$(PY) scripts/train_transformer.py
 
-eval:  ## full evaluation, bootstrap, robustness, error sample
-	@echo "not implemented until Phase 4"
+eval:  ## bootstrap CIs, drift, error sample, robustness (needs baseline + DistilBERT artifacts)
+	$(PY) scripts/run_eval.py
+	$(PY) scripts/run_robustness.py --model baseline
+	$(PY) scripts/run_robustness.py --model distilbert
+	$(PY) scripts/run_eval.py
 
 topics:  ## BERTopic + trends
 	@echo "not implemented until Phase 5"
