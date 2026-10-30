@@ -1,0 +1,2 @@
+# keep notebooks out of the GitHub language bar
+*.ipynb linguist-documentation

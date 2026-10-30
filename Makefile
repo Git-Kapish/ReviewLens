@@ -4,7 +4,7 @@ else
 PY := .venv/bin/python
 endif
 
-.PHONY: setup data baseline transformer eval topics aspects api app test lint
+.PHONY: setup data baseline transformer eval topics aspects api app test lint strip-nb
 
 setup:  ## create venv, install deps
 	uv venv --python 3.11 .venv
@@ -39,3 +39,6 @@ test:
 
 lint:
 	$(PY) -m ruff check .
+
+strip-nb:  ## clear notebook outputs before committing
+	$(PY) -m jupyter nbconvert --clear-output --inplace notebooks/*.ipynb
