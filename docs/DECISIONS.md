@@ -55,3 +55,15 @@ Verify the terms at the project page before any redistribution.
 - **Grid is small on purpose** (char n-grams on/off x 3 values of C) to keep CPU time reasonable. Word features alone won, so the char features are not used in the saved model.
 - **Test set:** the script scores it once per run, after selection. Rerunning `make baseline` reproduces the same numbers (fixed seed, deterministic solver), so it is not a second look with changed choices.
 - **Metrics JSON:** `eval/metrics.write_metrics` adds the config and a UTC timestamp; later models reuse it.
+
+## D4. Phase 3 transformer choices
+
+- **Plain PyTorch loop, no `Trainer` and no `accelerate`.** A class-weighted loss, per-epoch train/val curves and best-epoch saving are about 80 lines of loop, and the weighted loss would need a `Trainer` subclass anyway. `accelerate` from the PRD stack list is therefore not a dependency. `torch` and `transformers` are an optional extra (`pip install -e ".[transformer]"`).
+- **Python range widened to `>=3.11,<3.13`.** Colab runs 3.12, and the earlier `<3.12` cap would stop `pip install -e .` there. The project still targets and is tested on 3.11.
+- **Settings:** `distilbert-base-uncased`, max_len 128, 3 epochs, batch 32, AdamW lr 2e-5, weight decay 0.01, 10% linear warmup, grad-clip 1.0, fp16 only on CUDA, seed 42. These are the PRD ranges and common defaults; there is no hyperparameter search, so the transformer gets no more tuning effort than the one-shot defaults.
+- **Class-weighted loss:** inverse-frequency weights from the train split (`n / (3 * count)`), the same idea as `class_weight="balanced"` in the baseline. The same weights are used for the validation loss, so the two curves are comparable.
+- **Model selection:** best epoch by validation macro-F1 (the primary metric), saved at that epoch. The final model is reloaded from disk before it is scored, so the scored model is the saved artifact. Validation and test are scored once, after training.
+- **Full train split, no subsample.** 43,200 reviews fit a free T4 comfortably, so the subsample fallback is only used by `--smoke`.
+- **Predictions saved for later:** the script writes class probabilities for the test set and the time hold-out to `reports/predictions/`, so Phase 4 can run bootstrap CIs and the drift check on CPU without the weights. Only the test metrics are computed in Phase 3; the time hold-out is scored in Phase 4.
+- **Weights are not committed** (`models/` is gitignored). The way to get them is to run `notebooks/02_train_distilbert_colab.ipynb` (or `make transformer` on a GPU machine).
+- **Checks done on CPU:** unit tests with a tiny random-weight DistilBERT (training loop, best-epoch saving, input-order-preserving batched inference) and a `--smoke` run of the real script on 256 reviews. These show the pipeline runs; they say nothing about model quality.
