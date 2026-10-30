@@ -19,15 +19,21 @@ def _color(score: float, scale: float) -> str:
     return f"rgba(34,160,60,{a:.2f})" if score >= 0 else f"rgba(215,40,40,{a:.2f})"
 
 
-def render_example(ex: dict[str, Any]) -> str:
-    """One review: header with labels and probabilities, then words shaded by attribution."""
-    scores = [s for s, sp in zip(ex["scores"], ex["is_special"], strict=True) if not sp]
+def render_words(words: list[str], scores: list[float]) -> str:
+    """Words shaded by attribution (escaped HTML). Intensity is relative within the text."""
     scale = max((abs(s) for s in scores), default=0.0)
-    spans = "".join(
+    return "".join(
         f'<span class="w" style="background:{_color(s, scale)}" title="{s:+.3f}">'
         f"{html.escape(w)}</span> "
-        for w, s, sp in zip(ex["words"], ex["scores"], ex["is_special"], strict=True) if not sp
+        for w, s in zip(words, scores, strict=True)
     )
+
+
+def render_example(ex: dict[str, Any]) -> str:
+    """One review: header with labels and probabilities, then words shaded by attribution."""
+    real = [(w, s) for w, s, sp in zip(ex["words"], ex["scores"], ex["is_special"], strict=True)
+            if not sp]
+    spans = render_words([w for w, _ in real], [s for _, s in real])
     probs = ", ".join(f"{n} {p:.2f}" for n, p in zip(LABELS, ex["probs"], strict=True))
     note = f" | tag: {html.escape(ex['tag'])}" if ex.get("tag") else ""
     return (

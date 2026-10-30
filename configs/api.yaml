@@ -1,0 +1,9 @@
+limits:
+  max_chars: 5000            # longer input gets a 422
+  max_batch: 32
+explain:
+  n_steps: 20                # Integrated Gradients steps for the live API (the Phase 7 gallery used 30)
+  top_k: 5
+topic:
+  model_dir: models/bertopic # only the saved topic centroids are used (no UMAP/HDBSCAN at serve time)
+  labels: reports/topic_labels.json

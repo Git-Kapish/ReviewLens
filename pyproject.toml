@@ -15,9 +15,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "ruff"]
+dev = ["pytest", "ruff", "httpx"]
 transformer = ["torch", "transformers"]
 explain = ["captum"]
+api = ["fastapi", "uvicorn", "torch", "transformers", "captum", "sentence-transformers"]
+app = ["streamlit", "requests"]
 topics = ["bertopic", "sentence-transformers", "umap-learn", "hdbscan", "gensim"]
 notebooks = ["ipykernel", "nbconvert", "nbformat"]
 
