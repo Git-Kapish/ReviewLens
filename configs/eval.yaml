@@ -1,0 +1,23 @@
+seed: 42
+bootstrap:
+  n_resamples: 1000
+  alpha: 0.05                # 95% percentile intervals
+errors:
+  n_sample: 60               # random sample from DistilBERT's misclassified test reviews
+  tags: [sarcasm, mixed_sentiment, neutral_boundary, label_noise, other]
+robustness:                  # all perturbations keep the true label, except negation (see docs)
+  typo_rate: 0.15            # share of words (4+ letters) with two adjacent letters swapped
+  truncate_tokens: 8         # whitespace tokens kept; the PRD asks for fewer than 10
+  emojis: ["🎮", "📦", "🕹️", "🔧"]   # sentiment-neutral, appended to the text
+  negation_words: [good, great, love, loved, like, liked, enjoy, enjoyed, recommend, worth, fun,
+    best, amazing, awesome, excellent, bad, terrible, awful, worst, waste, boring, disappointing,
+    broken, hate, hated]
+  eval_batch_size: 128
+paths:
+  metrics: reports/eval_metrics.json
+  robustness: reports/robustness_{model}.json
+  predictions_dir: reports/predictions
+  error_sample: reports/error_sample.csv
+  error_tags: reports/error_tags.csv
+  error_summary: reports/error_summary.json
+  figures_dir: reports/figures
