@@ -1,0 +1,101 @@
+id,split,review_id,rating,text,labels
+test-0,test,5064,1,THIS GAME DOES NOT WORK AND I CANT SEE HOW TO GET IN TOUCH WITH THIS CHAT,support_returns:negative
+test-1,test,1010,1,This requires Facebook in order to use this and I don’t use Facebook.,compatibility_setup:negative
+test-2,test,3715,1,it is worthless it worked the very 1st time I hooked it up after that does not charge at all,battery:negative|durability:negative
+test-3,test,4181,1,It worked for 2 days it’s pretty but useless,durability:negative
+test-4,test,2906,1,Can't connect via Bluetooth therefore I can't use the motion control via Steam.,compatibility_setup:negative
+test-5,test,3333,1,"It is in fact the right cord to power your gamecube but unfortunetly after 20 or 30 mins of playing my gamecube just shuts off, im not sure if i got a faulty cord but unless you plan on playing very little its not going to work out.",battery:negative
+test-6,test,1767,1,"This thing does not support any form of voice chat on Xbox one, nor did it work on my phone.",compatibility_setup:negative
+test-7,test,1822,1,I don't recommend this anyone.,
+test-8,test,3905,1,the metal part of the plug pulled out of the cover. not sturdy,durability:negative
+test-9,test,2116,1,We never even got to use these won’t stay charged Took forever to get them to connect to switch and wouldn’t stay connected,battery:negative|compatibility_setup:negative
+test-10,test,2736,1,I like the tactile areas on the mat so you can tell where you are.,
+test-11,test,3790,1,"I only use this on my xbox controller on the weekends, it has stopped charging, and the battery has formed a memory so now it's worthless!",battery:negative
+test-12,test,979,1,Do not buy this headset stopped working after only 4 months and couldn't return it.,durability:negative|support_returns:negative
+test-13,test,3450,1,"the tumbsticks did not fit, more pressure and i would have broken my controller, also the x circle square and triangle buttons have a groove on them to look like a bullet, these grooves caused my buttons to get stuck, i dont know if it will happen to everyone but it happened to me.",comfort_fit:negative|controls:negative
+test-14,test,3643,1,While switch lite was off it would charge at about 5% per hour.,battery:negative
+test-15,test,2143,1,"Its misleading, i bought into it thinking it was the same kind of service.",
+test-16,test,2258,1,"It's not padded, and it's just a flex strap like the original.",comfort_fit:negative
+test-17,test,2287,1,Connecting is as simple as pushing a button on the headset and one on your XBOX.,compatibility_setup:positive
+test-18,test,3633,1,Ads and microtransactions galore!,price_value:negative
+test-19,test,3288,1,hinge broke after 1 1/2 months not very durable,durability:negative
+test-20,test,355,2,"I don't play online, don't force me to use online capabilities.",gameplay:negative
+test-21,test,5025,2,"However, the supplied screws are all too big, and there are three places, one top and two bottom on either side of the type-C connector where screws thread into the plastic.",comfort_fit:negative
+test-22,test,4387,2,This game is probably fine for the casual player.,
+test-23,test,2881,2,"I’m no audiophile, but the sound quality is the same between the two.",sound:neutral
+test-24,test,4475,2,"They have so little mana, it goes fast so it's pretty annoying. -You have to tell the AI when to defend during AoE attacks.",gameplay:negative
+test-25,test,2698,2,"Highly overrated boring, sluggish controls Etc",controls:negative|gameplay:negative
+test-26,test,4073,2,"This item was easy to put on, but is not durable in any way.",durability:negative
+test-27,test,554,2,It started off ok but about half way through you are at a standstill.,gameplay:negative
+test-28,test,3138,2,I couldn't really tailor it to her needs specifically in that case either.,
+test-29,test,3920,2,Note: I'm not a hard core gamer.,
+test-30,test,4522,2,"When those games start making me feel bad about the s#!* my virtual dude does, I kinda stop enjoying them.",gameplay:negative
+test-31,test,2843,2,"The game is good but the “DLC” is just the first Dark souls, not the actual DLC.",
+test-32,test,3820,2,"Mic and other side still work, but disappointing to say the least.",sound:neutral
+test-33,test,3150,2,I really wanted to like this game but it wouldnt work on my PC.,compatibility_setup:negative
+test-34,test,4172,2,I was very excited to have purchased it..but was disappointed to find out that it was very difficult to play with.,gameplay:negative
+test-35,test,70,2,"I'm not saying this game isn't for you, it's just not for me.",
+test-36,test,1456,2,Can't even play if it's plugged in.,battery:negative
+test-37,test,3352,2,"However, totally unsupported in many popular sim racing titles (Assetto Corsa / ACC Race Room, Automobilista X etc),, and only partially supported (meaning only partially useful) in other popular games like Gran Turismo Sport, Grid, Dirt X, Dirt Rally X.",compatibility_setup:negative
+test-38,test,3198,2,These were good for the price while they lasted but not even a full year and very well taken care of the plastic piece of the headband broke.,price_value:positive|durability:negative
+test-39,test,2406,2,I still love you but you've been uninstalled1,
+test-40,test,5377,3,"Everything worked great and it was loud, I've only had this headset for 2 months and my mic is now not working.",durability:negative|sound:negative
+test-41,test,4964,3,I was expecting the game to be more exciting.,gameplay:negative
+test-42,test,1882,3,I owned the original '95 version on the Sega (before playstation).,
+test-43,test,864,3,"But the case for the remote was filthy, I washed it and it's all good now but that really sucked.",delivery_packaging:negative
+test-44,test,597,3,"Price quality is good, but the material it is made with bad materials.",price_value:positive|durability:negative
+test-45,test,4198,3,"Also, they don't even offer simulated 7.1.",sound:negative
+test-46,test,251,3,Capcom series (this is a Capcom game after all).,
+test-47,test,1505,3,"this game has good graphics, too bad half the game is spent listening to people feed you this dumb story. i would have liked the game alot more if it were longer with less talking. bottom line i suggest renting it, one weekend of play and you will beat it.",graphics:positive|story:negative
+test-48,test,2181,3,"The sound quality to me is good enough, but I am no music professional, so I can't really make a real judgement call on that.",sound:positive
+test-49,test,3781,3,"You can find some pretty impressive profiles from the mediumish selection people have uploaded online (As of when I posted this review I am using a very detailed dynamic Christmas theme, and my go to theme before this one was a dynamic lightning theme which I love).",
+test-50,test,4423,3,"Game play is fun enough, graphics are average/good for the system.",gameplay:positive|graphics:neutral
+test-51,test,1548,3,"Giving it three stars because it’s made out of cheap plastic on the outside even though it might look sturdier in pictures, and the inserts are foam, not silicone.",durability:negative
+test-52,test,3038,3,Just got this is January.,
+test-53,test,1301,3,It malfunctions often where I have to disconnect the power cable then reconnect it to get MY controller and the ELIMINATOR to work again.,durability:negative
+test-54,test,1730,3,Difficult to rate this game.,
+test-55,test,4406,3,"the console is so touchy, if the power source isn't in at an exact angle it shuts it all down. really inconvenient, highly disappointed that we can't even touch to tv stand without it cutting off.",battery:negative
+test-56,test,5367,3,Not top of the line quality.,durability:negative
+test-57,test,3384,3,Cuts in and out but the sound is good when it does work.,sound:neutral
+test-58,test,3689,3,Hoping it will be easier after a few more times using it.,
+test-59,test,5055,3,"so thankful for this, product was posted correctly. got it on time at a great price.",delivery_packaging:positive|price_value:positive
+test-60,test,17,4,The graphics are incredible and the music is great...draws you right into the setting.,graphics:positive|sound:positive
+test-61,test,4527,4,"I ordered the heaven blue color of this case because the in the picture it looks like turquoise, but the case I received is more like a sky blue.",
+test-62,test,4126,4,Easy to stow in car.,comfort_fit:positive
+test-63,test,1517,4,The Hell in a Cell is unbelivable.,gameplay:positive
+test-64,test,3885,4,Perfect fit to Wii U console.,comfort_fit:positive
+test-65,test,5238,4,This is done very well and seems very sophisticated... it really feels like the creature develops a real and unique personality.,gameplay:positive
+test-66,test,446,4,Working from home requires telephone conferences.,
+test-67,test,1550,4,A gameplay feature that was fortunately removed from the Genesis version was the photography system.,gameplay:negative
+test-68,test,1586,4,It's a nice case and does its job.,
+test-69,test,465,4,"With the Gold membership, our XBOX is now totally unlocked.",
+test-70,test,3319,4,Great product just as described.,
+test-71,test,2506,4,It's cool but the challenge mode is hard.,gameplay:neutral
+test-72,test,3331,4,Because it is such an improvement over 10.,
+test-73,test,1354,4,This is a very good game with a few flaws.,
+test-74,test,1692,4,Keyboard was smaller than a regular keyboard,comfort_fit:negative
+test-75,test,1213,4,Makes playing much more enjoyable.,
+test-76,test,1350,4,The instructions explained literally nothing which is why i only gave 4 stars.,compatibility_setup:negative
+test-77,test,1328,4,"If you buy any Sims 3 games through different vendors, download them all to the Origin.",compatibility_setup:neutral
+test-78,test,682,4,Does the job - protects my switch with joycons attached so I can put it in my bag and pull it out quickly to play.,
+test-79,test,5101,4,Some of the WB characters are over rated and match up with the storyline of the Mortal Kombat characters.,story:negative
+test-80,test,4604,5,Bought as a gift for the wife and she loves it great product,
+test-81,test,120,5,From creators of Mortal combat .,
+test-82,test,493,5,"If you are a true Sims fan you will get this, but don't feel like you are missing out if you don't want to fork out for it because it does not contribute to game play.",gameplay:neutral|price_value:neutral
+test-83,test,3945,5,"Very light weight, son loved it!",comfort_fit:positive
+test-84,test,183,5,Works just like every other one that is like this.,
+test-85,test,3858,5,The story line is great.,story:positive
+test-86,test,1536,5,Excellent product for the PS5 controller.,
+test-87,test,576,5,"You do end up going back to the same place over and over, but that's all part of the storyline.",story:neutral
+test-88,test,3398,5,There are infinate possibilities on every single map for endless different battles.,gameplay:positive
+test-89,test,1871,5,"This controller is not as high quality as the xbox elite controller, that being said, is still much better than the powera enhanced wireless or switch pro controllers for switch.",durability:neutral
+test-90,test,1235,5,"They're comfortable, lightweight, easy to use and I can wear them for hours without it hurting.",comfort_fit:positive
+test-91,test,608,5,We both loved it.,
+test-92,test,2092,5,PROs: 1) Works perfectly.,
+test-93,test,3269,5,"At the normal difficulty, I spent just under 20 hours to complete the game.",gameplay:neutral
+test-94,test,2404,5,Very pleased with everything,
+test-95,test,1691,5,"Period. no problems with mic or audio, in fact AMAZING sound quality, too.",sound:positive
+test-96,test,2345,5,It manage to actually capture Deadpool's personality,story:positive
+test-97,test,3985,5,"Was a gift, they loved it!",
+test-98,test,1055,5,"You can hide behind obstacles and take cover, but in later missions, you are attacked from above so be careful.",gameplay:neutral
+test-99,test,2888,5,(although you still can if you prefer) Just don't expect anything amazing - it's crude (and a bit buggy) compared to modern 3D games.,performance_bugs:negative|graphics:negative
