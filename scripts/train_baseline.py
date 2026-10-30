@@ -1,8 +1,8 @@
 """Phase 2: select and train the TF-IDF + LR baseline, evaluate on val and test."""
 
 import logging
-from pathlib import Path
 import sys
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
