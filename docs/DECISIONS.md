@@ -121,3 +121,10 @@ Verify the terms at the project page before any redistribution.
 - **The Streamlit app calls the API** for the Analyze page (`API_URL`, default `http://localhost:8000`; compose sets `http://api:8000`). There is no in-process fallback. Themes & Trends and Model Comparison read the committed result files in `reports/`, so they work without the API.
 - **Docker:** one Dockerfile, two targets (`api`, `app`). Model weights are not in the image; `./models` is mounted read-only at `/app/models` (agreed). The image uses CPU-only torch and downloads the public MiniLM encoder at build time. `docker-compose up` starts the API, waits for its health check, then starts the app. `reports/` is copied into both images, so a rebuild is needed to show new results.
 - **New dependencies** (all in optional extras): `api` (fastapi, uvicorn, plus the model libraries), `app` (streamlit, requests), and `httpx` in `dev` for the test client.
+
+## D10. Phase 9 wrap-up choices
+
+- **CI:** GitHub Actions runs `ruff check .` and `pytest -q` on Python 3.11 with CPU torch and the `dev`, `api`, `app` and `explain` extras. Tests that need trained models skip themselves. Verified locally, not on GitHub: a fresh clone installed with those extras passed lint and gave 68 passed, 1 skipped (the real-model API test), in 4.5 minutes, most of it model and tokenizer downloads.
+- **README numbers are tested.** `tests/test_readme_numbers.py` recomputes the headline numbers from `reports/*.json` and asserts that the README contains them, so a changed result file fails the tests until the README is updated.
+- **Not done:** the full pipeline was not re-run from a clean clone (the data stream takes about 10 minutes and DistilBERT training needs a GPU); individual steps were run during their phases. App screenshots were not captured because the browser tool available to me could not open localhost, so the README has no screenshots. No LICENSE file was added; that is the repository owner's choice.
+- **No timeline claims:** all commits are from a single day, so the README says nothing about how long the project took.
