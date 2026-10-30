@@ -1,0 +1,331 @@
+{
+  "timestamp": "2026-10-30T10:20:08+00:00",
+  "config": {
+    "seed": 42,
+    "bootstrap": {
+      "n_resamples": 1000,
+      "alpha": 0.05
+    },
+    "errors": {
+      "n_sample": 60,
+      "tags": [
+        "sarcasm",
+        "mixed_sentiment",
+        "neutral_boundary",
+        "label_noise",
+        "other"
+      ]
+    },
+    "robustness": {
+      "typo_rate": 0.15,
+      "truncate_tokens": 8,
+      "emojis": [
+        "\ud83c\udfae",
+        "\ud83d\udce6",
+        "\ud83d\udd79\ufe0f",
+        "\ud83d\udd27"
+      ],
+      "negation_words": [
+        "good",
+        "great",
+        "love",
+        "loved",
+        "like",
+        "liked",
+        "enjoy",
+        "enjoyed",
+        "recommend",
+        "worth",
+        "fun",
+        "best",
+        "amazing",
+        "awesome",
+        "excellent",
+        "bad",
+        "terrible",
+        "awful",
+        "worst",
+        "waste",
+        "boring",
+        "disappointing",
+        "broken",
+        "hate",
+        "hated"
+      ],
+      "eval_batch_size": 128
+    },
+    "paths": {
+      "metrics": "reports/eval_metrics.json",
+      "robustness": "reports/robustness_metrics.json",
+      "predictions_dir": "reports/predictions",
+      "error_sample": "reports/error_sample.csv",
+      "error_tags": "reports/error_tags.csv",
+      "error_summary": "reports/error_summary.json",
+      "figures_dir": "reports/figures"
+    }
+  },
+  "bootstrap": {
+    "test": {
+      "baseline": {
+        "point": 0.6584263814414445,
+        "ci_low": 0.6436089424205044,
+        "ci_high": 0.6742274936683099
+      },
+      "distilbert": {
+        "point": 0.6948995692226992,
+        "ci_low": 0.6796895079441948,
+        "ci_high": 0.7107510484503283
+      },
+      "diff_distilbert_minus_baseline": {
+        "point": 0.036473187781254746,
+        "ci_low": 0.020768458189148954,
+        "ci_high": 0.05203730802196359,
+        "share_resamples_above_zero": 1.0
+      },
+      "n_resamples": 1000,
+      "n": 5400
+    },
+    "timehold": {
+      "baseline": {
+        "point": 0.6603280149770657,
+        "ci_low": 0.646935805215613,
+        "ci_high": 0.6751402755098281
+      },
+      "distilbert": {
+        "point": 0.7022662584711276,
+        "ci_low": 0.6882448307822007,
+        "ci_high": 0.7166574837020283
+      },
+      "diff_distilbert_minus_baseline": {
+        "point": 0.04193824349406183,
+        "ci_low": 0.02746618081811613,
+        "ci_high": 0.057507405617901165,
+        "share_resamples_above_zero": 1.0
+      },
+      "n_resamples": 1000,
+      "n": 6000
+    }
+  },
+  "per_split": {
+    "test": {
+      "baseline": {
+        "n": 5400,
+        "accuracy": 0.812962962962963,
+        "macro_f1": 0.6584263814414445,
+        "per_class": {
+          "negative": {
+            "precision": 0.7058311575282855,
+            "recall": 0.7919921875,
+            "f1": 0.7464335020708698,
+            "support": 1024
+          },
+          "neutral": {
+            "precision": 0.2687022900763359,
+            "recall": 0.4200477326968974,
+            "f1": 0.32774674115456237,
+            "support": 419
+          },
+          "positive": {
+            "precision": 0.946329254727475,
+            "recall": 0.8599949456659085,
+            "f1": 0.9010989010989011,
+            "support": 3957
+          }
+        },
+        "confusion_matrix": [
+          [
+            811,
+            129,
+            84
+          ],
+          [
+            134,
+            176,
+            109
+          ],
+          [
+            204,
+            350,
+            3403
+          ]
+        ],
+        "labels": [
+          "negative",
+          "neutral",
+          "positive"
+        ]
+      },
+      "distilbert": {
+        "n": 5400,
+        "accuracy": 0.8444444444444444,
+        "macro_f1": 0.6948995692226992,
+        "per_class": {
+          "negative": {
+            "precision": 0.7825261158594492,
+            "recall": 0.8046875,
+            "f1": 0.7934520943668752,
+            "support": 1024
+          },
+          "neutral": {
+            "precision": 0.29172714078374457,
+            "recall": 0.4797136038186158,
+            "f1": 0.3628158844765343,
+            "support": 419
+          },
+          "positive": {
+            "precision": 0.9663750683433571,
+            "recall": 0.8933535506696992,
+            "f1": 0.9284307288246881,
+            "support": 3957
+          }
+        },
+        "confusion_matrix": [
+          [
+            824,
+            168,
+            32
+          ],
+          [
+            127,
+            201,
+            91
+          ],
+          [
+            102,
+            320,
+            3535
+          ]
+        ],
+        "labels": [
+          "negative",
+          "neutral",
+          "positive"
+        ]
+      },
+      "class_share": {
+        "negative": 0.18962962962962962,
+        "neutral": 0.07759259259259259,
+        "positive": 0.7327777777777778
+      },
+      "date_min": "1999-11-28 01:43:51",
+      "date_max": "2022-04-24 02:24:15.957000"
+    },
+    "timehold": {
+      "baseline": {
+        "n": 6000,
+        "accuracy": 0.8091666666666667,
+        "macro_f1": 0.6603280149770657,
+        "per_class": {
+          "negative": {
+            "precision": 0.7527508090614887,
+            "recall": 0.8132867132867133,
+            "f1": 0.7818487394957984,
+            "support": 1430
+          },
+          "neutral": {
+            "precision": 0.24895688456189152,
+            "recall": 0.38913043478260867,
+            "f1": 0.30364715860899066,
+            "support": 460
+          },
+          "positive": {
+            "precision": 0.9403104925053534,
+            "recall": 0.8547445255474453,
+            "f1": 0.8954881468264083,
+            "support": 4110
+          }
+        },
+        "confusion_matrix": [
+          [
+            1163,
+            163,
+            104
+          ],
+          [
+            162,
+            179,
+            119
+          ],
+          [
+            220,
+            377,
+            3513
+          ]
+        ],
+        "labels": [
+          "negative",
+          "neutral",
+          "positive"
+        ]
+      },
+      "distilbert": {
+        "n": 6000,
+        "accuracy": 0.8385,
+        "macro_f1": 0.7022662584711276,
+        "per_class": {
+          "negative": {
+            "precision": 0.8220221606648199,
+            "recall": 0.83006993006993,
+            "f1": 0.826026443980515,
+            "support": 1430
+          },
+          "neutral": {
+            "precision": 0.28083028083028083,
+            "recall": 0.5,
+            "f1": 0.3596559812353401,
+            "support": 460
+          },
+          "positive": {
+            "precision": 0.9670858977789671,
+            "recall": 0.8793187347931873,
+            "f1": 0.9211163501975277,
+            "support": 4110
+          }
+        },
+        "confusion_matrix": [
+          [
+            1187,
+            206,
+            37
+          ],
+          [
+            144,
+            230,
+            86
+          ],
+          [
+            113,
+            383,
+            3614
+          ]
+        ],
+        "labels": [
+          "negative",
+          "neutral",
+          "positive"
+        ]
+      },
+      "class_share": {
+        "negative": 0.23833333333333334,
+        "neutral": 0.07666666666666666,
+        "positive": 0.685
+      },
+      "date_min": "2022-04-24 16:48:42.332000",
+      "date_max": "2023-09-05 13:09:09.153000"
+    }
+  },
+  "drift": {
+    "baseline": {
+      "test_macro_f1": 0.6584263814414445,
+      "timehold_macro_f1": 0.6603280149770657,
+      "change": 0.0019016335356212277,
+      "cis_overlap": true
+    },
+    "distilbert": {
+      "test_macro_f1": 0.6948995692226992,
+      "timehold_macro_f1": 0.7022662584711276,
+      "change": 0.007366689248428315,
+      "cis_overlap": true
+    }
+  }
+}

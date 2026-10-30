@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-10-30T10:20:09+00:00",
+  "config": {
+    "seed": 42,
+    "bootstrap": {
+      "n_resamples": 1000,
+      "alpha": 0.05
+    },
+    "errors": {
+      "n_sample": 60,
+      "tags": [
+        "sarcasm",
+        "mixed_sentiment",
+        "neutral_boundary",
+        "label_noise",
+        "other"
+      ]
+    },
+    "robustness": {
+      "typo_rate": 0.15,
+      "truncate_tokens": 8,
+      "emojis": [
+        "\ud83c\udfae",
+        "\ud83d\udce6",
+        "\ud83d\udd79\ufe0f",
+        "\ud83d\udd27"
+      ],
+      "negation_words": [
+        "good",
+        "great",
+        "love",
+        "loved",
+        "like",
+        "liked",
+        "enjoy",
+        "enjoyed",
+        "recommend",
+        "worth",
+        "fun",
+        "best",
+        "amazing",
+        "awesome",
+        "excellent",
+        "bad",
+        "terrible",
+        "awful",
+        "worst",
+        "waste",
+        "boring",
+        "disappointing",
+        "broken",
+        "hate",
+        "hated"
+      ],
+      "eval_batch_size": 128
+    },
+    "paths": {
+      "metrics": "reports/eval_metrics.json",
+      "robustness": "reports/robustness_metrics.json",
+      "predictions_dir": "reports/predictions",
+      "error_sample": "reports/error_sample.csv",
+      "error_tags": "reports/error_tags.csv",
+      "error_summary": "reports/error_summary.json",
+      "figures_dir": "reports/figures"
+    }
+  },
+  "n": 60,
+  "counts": {
+    "sarcasm": 0,
+    "mixed_sentiment": 31,
+    "neutral_boundary": 10,
+    "label_noise": 4,
+    "other": 15
+  },
+  "share": {
+    "sarcasm": 0.0,
+    "mixed_sentiment": 0.5167,
+    "neutral_boundary": 0.1667,
+    "label_noise": 0.0667,
+    "other": 0.25
+  },
+  "n_distilbert_test_errors": 840,
+  "sample_seed": 42,
+  "baseline_also_wrong": 40
+}

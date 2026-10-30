@@ -1,0 +1,240 @@
+{
+  "timestamp": "2026-10-30T10:24:26+00:00",
+  "config": {
+    "seed": 42,
+    "bootstrap": {
+      "n_resamples": 1000,
+      "alpha": 0.05
+    },
+    "errors": {
+      "n_sample": 60,
+      "tags": [
+        "sarcasm",
+        "mixed_sentiment",
+        "neutral_boundary",
+        "label_noise",
+        "other"
+      ]
+    },
+    "robustness": {
+      "typo_rate": 0.15,
+      "truncate_tokens": 8,
+      "emojis": [
+        "\ud83c\udfae",
+        "\ud83d\udce6",
+        "\ud83d\udd79\ufe0f",
+        "\ud83d\udd27"
+      ],
+      "negation_words": [
+        "good",
+        "great",
+        "love",
+        "loved",
+        "like",
+        "liked",
+        "enjoy",
+        "enjoyed",
+        "recommend",
+        "worth",
+        "fun",
+        "best",
+        "amazing",
+        "awesome",
+        "excellent",
+        "bad",
+        "terrible",
+        "awful",
+        "worst",
+        "waste",
+        "boring",
+        "disappointing",
+        "broken",
+        "hate",
+        "hated"
+      ],
+      "eval_batch_size": 128
+    },
+    "paths": {
+      "metrics": "reports/eval_metrics.json",
+      "robustness": "reports/robustness_{model}.json",
+      "predictions_dir": "reports/predictions",
+      "error_sample": "reports/error_sample.csv",
+      "error_tags": "reports/error_tags.csv",
+      "error_summary": "reports/error_summary.json",
+      "figures_dir": "reports/figures"
+    }
+  },
+  "model": "baseline",
+  "perturbations": {
+    "typos": {
+      "n_applicable": 5400,
+      "n_changed": 4031,
+      "clean_macro_f1": 0.6584263814414445,
+      "perturbed_macro_f1": 0.6440346872990629,
+      "delta": {
+        "point": -0.014391694142381617,
+        "ci_low": -0.023264901244960175,
+        "ci_high": -0.006170155223651415,
+        "share_resamples_above_zero": 0.001
+      },
+      "share_predictions_changed": 0.04666666666666667,
+      "share_polarity_flipped": 0.014444444444444444
+    },
+    "uppercase": {
+      "n_applicable": 5400,
+      "n_changed": 5372,
+      "clean_macro_f1": 0.6584263814414445,
+      "perturbed_macro_f1": 0.6584263814414445,
+      "delta": {
+        "point": 0.0,
+        "ci_low": 0.0,
+        "ci_high": 0.0,
+        "share_resamples_above_zero": 0.0
+      },
+      "share_predictions_changed": 0.0,
+      "share_polarity_flipped": 0.0
+    },
+    "lowercase": {
+      "n_applicable": 5400,
+      "n_changed": 5112,
+      "clean_macro_f1": 0.6584263814414445,
+      "perturbed_macro_f1": 0.6584263814414445,
+      "delta": {
+        "point": 0.0,
+        "ci_low": 0.0,
+        "ci_high": 0.0,
+        "share_resamples_above_zero": 0.0
+      },
+      "share_predictions_changed": 0.0,
+      "share_polarity_flipped": 0.0
+    },
+    "emoji": {
+      "n_applicable": 5400,
+      "n_changed": 5400,
+      "clean_macro_f1": 0.6584263814414445,
+      "perturbed_macro_f1": 0.6584263814414445,
+      "delta": {
+        "point": 0.0,
+        "ci_low": 0.0,
+        "ci_high": 0.0,
+        "share_resamples_above_zero": 0.0
+      },
+      "share_predictions_changed": 0.0,
+      "share_polarity_flipped": 0.0
+    },
+    "truncate": {
+      "n_applicable": 5400,
+      "n_changed": 4365,
+      "clean_macro_f1": 0.6584263814414445,
+      "perturbed_macro_f1": 0.5490487070311798,
+      "delta": {
+        "point": -0.10937767441026469,
+        "ci_low": -0.12849829005075106,
+        "ci_high": -0.09179164681412716,
+        "share_resamples_above_zero": 0.0
+      },
+      "share_predictions_changed": 0.22240740740740741,
+      "share_polarity_flipped": 0.10481481481481482
+    },
+    "negation": {
+      "n_applicable": 3659,
+      "n_changed": 3659,
+      "clean_macro_f1": 0.6648973052230088,
+      "perturbed_macro_f1": 0.5860569593725323,
+      "delta": {
+        "point": -0.0788403458504765,
+        "ci_low": -0.0919178332093183,
+        "ci_high": -0.06517395193047888,
+        "share_resamples_above_zero": 0.0
+      },
+      "share_predictions_changed": 0.13500956545504236,
+      "share_polarity_flipped": 0.06559169171904893
+    }
+  },
+  "examples": {
+    "typos": [
+      {
+        "before": "I bought a few of these (two initially and one recent replacement). People have made videos online about how to repair the switches when they stop working. They aren't hermetically sealed, and probably don't use corrosion-resistant conductors (such as gold). They are Chinese switches and they stop working right after about two years. Of the two I bought initially, one got very heavy use and the other was seldom used at all. Both failed at about the same time. If you're going to drop $100 on a gaming mouse, look for one that doesn't contain defective switches.",
+        "after": "I bought a few of these (two initially and one recent replacement). Pepole have made vidoes online about how to repair the switches when they stop working. They aren't hermeticlaly sealed, and probably don't use corrosion-resistant conductors (such as gold). They are Chinese switches and they stop working rihgt after about two years. Of the two I bought initially, one got very heavy use and the other was seldom used at all. Btoh failed at about the same time. If you're going to drop $100 on a gaming mouse, look for one that doesn't contain defective switches."
+      },
+      {
+        "before": "For 30 years I have watched various family members play these video games. It was too difficult for me to remember how to work the controllers.But now we have a Wii 2 and i am having so much fun!!! Playing Mario kart with this racing wheel makes it easier for me! love it!",
+        "after": "For 30 yeras I hvae watched various family members play these vdieo games. It was too dififcult for me to remember how to work the controllers.But now we have a Wii 2 and i am having so much fun!!! Playing Mario krat with this racing wheel makes it easeir for me! love it!"
+      },
+      {
+        "before": "Son loved this, he hasn't played hardly anything else. The new platform you put the characters on is 3.0 edition, but will accept the older version characters as well. The older ones won't take these characters.",
+        "after": "Son loved this, he hasn't played hardly anything else. The new platform you put the characters on is 3.0 edition, but will accept the odler version characters as well. The older ones won't take these characters."
+      }
+    ],
+    "uppercase": [
+      {
+        "before": "I bought a few of these (two initially and one recent replacement). People have made videos online about how to repair the switches when they stop working. They aren't hermetically sealed, and probably don't use corrosion-resistant conductors (such as gold). They are Chinese switches and they stop working right after about two years. Of the two I bought initially, one got very heavy use and the other was seldom used at all. Both failed at about the same time. If you're going to drop $100 on a gaming mouse, look for one that doesn't contain defective switches.",
+        "after": "I BOUGHT A FEW OF THESE (TWO INITIALLY AND ONE RECENT REPLACEMENT). PEOPLE HAVE MADE VIDEOS ONLINE ABOUT HOW TO REPAIR THE SWITCHES WHEN THEY STOP WORKING. THEY AREN'T HERMETICALLY SEALED, AND PROBABLY DON'T USE CORROSION-RESISTANT CONDUCTORS (SUCH AS GOLD). THEY ARE CHINESE SWITCHES AND THEY STOP WORKING RIGHT AFTER ABOUT TWO YEARS. OF THE TWO I BOUGHT INITIALLY, ONE GOT VERY HEAVY USE AND THE OTHER WAS SELDOM USED AT ALL. BOTH FAILED AT ABOUT THE SAME TIME. IF YOU'RE GOING TO DROP $100 ON A GAMING MOUSE, LOOK FOR ONE THAT DOESN'T CONTAIN DEFECTIVE SWITCHES."
+      },
+      {
+        "before": "Fun game to play",
+        "after": "FUN GAME TO PLAY"
+      },
+      {
+        "before": "For 30 years I have watched various family members play these video games. It was too difficult for me to remember how to work the controllers.But now we have a Wii 2 and i am having so much fun!!! Playing Mario kart with this racing wheel makes it easier for me! love it!",
+        "after": "FOR 30 YEARS I HAVE WATCHED VARIOUS FAMILY MEMBERS PLAY THESE VIDEO GAMES. IT WAS TOO DIFFICULT FOR ME TO REMEMBER HOW TO WORK THE CONTROLLERS.BUT NOW WE HAVE A WII 2 AND I AM HAVING SO MUCH FUN!!! PLAYING MARIO KART WITH THIS RACING WHEEL MAKES IT EASIER FOR ME! LOVE IT!"
+      }
+    ],
+    "lowercase": [
+      {
+        "before": "I bought a few of these (two initially and one recent replacement). People have made videos online about how to repair the switches when they stop working. They aren't hermetically sealed, and probably don't use corrosion-resistant conductors (such as gold). They are Chinese switches and they stop working right after about two years. Of the two I bought initially, one got very heavy use and the other was seldom used at all. Both failed at about the same time. If you're going to drop $100 on a gaming mouse, look for one that doesn't contain defective switches.",
+        "after": "i bought a few of these (two initially and one recent replacement). people have made videos online about how to repair the switches when they stop working. they aren't hermetically sealed, and probably don't use corrosion-resistant conductors (such as gold). they are chinese switches and they stop working right after about two years. of the two i bought initially, one got very heavy use and the other was seldom used at all. both failed at about the same time. if you're going to drop $100 on a gaming mouse, look for one that doesn't contain defective switches."
+      },
+      {
+        "before": "Fun game to play",
+        "after": "fun game to play"
+      },
+      {
+        "before": "For 30 years I have watched various family members play these video games. It was too difficult for me to remember how to work the controllers.But now we have a Wii 2 and i am having so much fun!!! Playing Mario kart with this racing wheel makes it easier for me! love it!",
+        "after": "for 30 years i have watched various family members play these video games. it was too difficult for me to remember how to work the controllers.but now we have a wii 2 and i am having so much fun!!! playing mario kart with this racing wheel makes it easier for me! love it!"
+      }
+    ],
+    "emoji": [
+      {
+        "before": "I bought a few of these (two initially and one recent replacement). People have made videos online about how to repair the switches when they stop working. They aren't hermetically sealed, and probably don't use corrosion-resistant conductors (such as gold). They are Chinese switches and they stop working right after about two years. Of the two I bought initially, one got very heavy use and the other was seldom used at all. Both failed at about the same time. If you're going to drop $100 on a gaming mouse, look for one that doesn't contain defective switches.",
+        "after": "I bought a few of these (two initially and one recent replacement). People have made videos online about how to repair the switches when they stop working. They aren't hermetically sealed, and probably don't use corrosion-resistant conductors (such as gold). They are Chinese switches and they stop working right after about two years. Of the two I bought initially, one got very heavy use and the other was seldom used at all. Both failed at about the same time. If you're going to drop $100 on a gaming mouse, look for one that doesn't contain defective switches. \ud83c\udfae"
+      },
+      {
+        "before": "Fun game to play",
+        "after": "Fun game to play \ud83d\udd27"
+      },
+      {
+        "before": "For 30 years I have watched various family members play these video games. It was too difficult for me to remember how to work the controllers.But now we have a Wii 2 and i am having so much fun!!! Playing Mario kart with this racing wheel makes it easier for me! love it!",
+        "after": "For 30 years I have watched various family members play these video games. It was too difficult for me to remember how to work the controllers.But now we have a Wii 2 and i am having so much fun!!! Playing Mario kart with this racing wheel makes it easier for me! love it! \ud83d\udce6"
+      }
+    ],
+    "truncate": [
+      {
+        "before": "I bought a few of these (two initially and one recent replacement). People have made videos online about how to repair the switches when they stop working. They aren't hermetically sealed, and probably don't use corrosion-resistant conductors (such as gold). They are Chinese switches and they stop working right after about two years. Of the two I bought initially, one got very heavy use and the other was seldom used at all. Both failed at about the same time. If you're going to drop $100 on a gaming mouse, look for one that doesn't contain defective switches.",
+        "after": "I bought a few of these (two initially"
+      },
+      {
+        "before": "For 30 years I have watched various family members play these video games. It was too difficult for me to remember how to work the controllers.But now we have a Wii 2 and i am having so much fun!!! Playing Mario kart with this racing wheel makes it easier for me! love it!",
+        "after": "For 30 years I have watched various family"
+      },
+      {
+        "before": "Son loved this, he hasn't played hardly anything else. The new platform you put the characters on is 3.0 edition, but will accept the older version characters as well. The older ones won't take these characters.",
+        "after": "Son loved this, he hasn't played hardly anything"
+      }
+    ],
+    "negation": [
+      {
+        "before": "Fun game to play",
+        "after": "not Fun game to play"
+      },
+      {
+        "before": "For 30 years I have watched various family members play these video games. It was too difficult for me to remember how to work the controllers.But now we have a Wii 2 and i am having so much fun!!! Playing Mario kart with this racing wheel makes it easier for me! love it!",
+        "after": "For 30 years I have watched various family members play these video games. It was too difficult for me to remember how to work the controllers.But now we have a Wii 2 and i am having so much not fun!!! Playing Mario kart with this racing wheel makes it easier for me! love it!"
+      },
+      {
+        "before": "Son loved this, he hasn't played hardly anything else. The new platform you put the characters on is 3.0 edition, but will accept the older version characters as well. The older ones won't take these characters.",
+        "after": "Son not loved this, he hasn't played hardly anything else. The new platform you put the characters on is 3.0 edition, but will accept the older version characters as well. The older ones won't take these characters."
+      }
+    ]
+  }
+}
