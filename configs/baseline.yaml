@@ -1,0 +1,22 @@
+seed: 42
+tfidf:
+  word:
+    ngram_range: [1, 2]
+    min_df: 2
+    max_features: 200000
+    sublinear_tf: true
+  char:                  # added to the word features when grid.use_char is true
+    analyzer: char_wb
+    ngram_range: [3, 5]
+    min_df: 3
+    max_features: 300000
+    sublinear_tf: true
+lr:
+  max_iter: 1000
+  class_weight: balanced
+grid:                    # scored on validation macro-F1 only
+  use_char: [false, true]
+  C: [0.25, 1.0, 4.0]
+paths:
+  model_dir: models/baseline
+  metrics: reports/baseline_metrics.json
