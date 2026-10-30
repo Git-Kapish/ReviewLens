@@ -1,0 +1,764 @@
+{
+  "timestamp": "2026-10-30T12:37:50+00:00",
+  "config": {
+    "seed": 42,
+    "sentiment": {
+      "min_reviews_per_month": 100
+    },
+    "topics": {
+      "min_negatives_per_month": 40
+    },
+    "rising": {
+      "baseline_months": 6,
+      "z_threshold": 3.0,
+      "min_rise": 0.05,
+      "min_count": 5
+    },
+    "plot": {
+      "start": "2014-01",
+      "smooth_months": 6
+    },
+    "paths": {
+      "assignments": "data/processed/negatives_topics.parquet",
+      "embeddings": "data/processed/negative_embeddings.npz",
+      "model_dir": "models/bertopic",
+      "labels": "reports/topic_labels.json",
+      "metrics": "reports/trends.json",
+      "figures_dir": "reports/figures"
+    }
+  },
+  "rule": {
+    "baseline_months": 6,
+    "z_threshold": 3.0,
+    "min_rise": 0.05,
+    "min_count": 5
+  },
+  "n_months_sentiment": 142,
+  "sentiment_by_year": {
+    "1999": {
+      "negative": NaN,
+      "neutral": 0.3333,
+      "positive": 0.6667,
+      "n": 6
+    },
+    "2000": {
+      "negative": 0.1525,
+      "neutral": 0.1525,
+      "positive": 0.6949,
+      "n": 59
+    },
+    "2001": {
+      "negative": 0.1228,
+      "neutral": 0.0877,
+      "positive": 0.7895,
+      "n": 171
+    },
+    "2002": {
+      "negative": 0.1127,
+      "neutral": 0.1221,
+      "positive": 0.7653,
+      "n": 213
+    },
+    "2003": {
+      "negative": 0.1343,
+      "neutral": 0.1389,
+      "positive": 0.7269,
+      "n": 216
+    },
+    "2004": {
+      "negative": 0.1443,
+      "neutral": 0.1343,
+      "positive": 0.7214,
+      "n": 201
+    },
+    "2005": {
+      "negative": 0.1606,
+      "neutral": 0.1406,
+      "positive": 0.6988,
+      "n": 249
+    },
+    "2006": {
+      "negative": 0.2054,
+      "neutral": 0.1161,
+      "positive": 0.6786,
+      "n": 224
+    },
+    "2007": {
+      "negative": 0.1499,
+      "neutral": 0.0982,
+      "positive": 0.7519,
+      "n": 387
+    },
+    "2008": {
+      "negative": 0.1494,
+      "neutral": 0.0941,
+      "positive": 0.7565,
+      "n": 542
+    },
+    "2009": {
+      "negative": 0.1652,
+      "neutral": 0.1009,
+      "positive": 0.7339,
+      "n": 684
+    },
+    "2010": {
+      "negative": 0.1774,
+      "neutral": 0.1269,
+      "positive": 0.6957,
+      "n": 930
+    },
+    "2011": {
+      "negative": 0.195,
+      "neutral": 0.1015,
+      "positive": 0.7034,
+      "n": 1251
+    },
+    "2012": {
+      "negative": 0.1876,
+      "neutral": 0.0878,
+      "positive": 0.7246,
+      "n": 1503
+    },
+    "2013": {
+      "negative": 0.1542,
+      "neutral": 0.0884,
+      "positive": 0.7575,
+      "n": 3451
+    },
+    "2014": {
+      "negative": 0.1397,
+      "neutral": 0.0757,
+      "positive": 0.7846,
+      "n": 4215
+    },
+    "2015": {
+      "negative": 0.1675,
+      "neutral": 0.0784,
+      "positive": 0.7541,
+      "n": 5087
+    },
+    "2016": {
+      "negative": 0.1739,
+      "neutral": 0.0773,
+      "positive": 0.7488,
+      "n": 4773
+    },
+    "2017": {
+      "negative": 0.2004,
+      "neutral": 0.0705,
+      "positive": 0.7291,
+      "n": 4610
+    },
+    "2018": {
+      "negative": 0.2122,
+      "neutral": 0.0705,
+      "positive": 0.7173,
+      "n": 4708
+    },
+    "2019": {
+      "negative": 0.1821,
+      "neutral": 0.0629,
+      "positive": 0.755,
+      "n": 5743
+    },
+    "2020": {
+      "negative": 0.2146,
+      "neutral": 0.0704,
+      "positive": 0.715,
+      "n": 6719
+    },
+    "2021": {
+      "negative": 0.2337,
+      "neutral": 0.0734,
+      "positive": 0.693,
+      "n": 6325
+    },
+    "2022": {
+      "negative": 0.2416,
+      "neutral": 0.079,
+      "positive": 0.6793,
+      "n": 5264
+    },
+    "2023": {
+      "negative": 0.2292,
+      "neutral": 0.0713,
+      "positive": 0.6995,
+      "n": 2469
+    }
+  },
+  "sentiment_flags_negative_rising": [
+    {
+      "month": "2016-09",
+      "category": "negative",
+      "count": 76,
+      "n": 338,
+      "share": 0.22485207100591717,
+      "baseline_share": 0.15446428571428572,
+      "z": 3.5807634538300164
+    },
+    {
+      "month": "2018-09",
+      "category": "negative",
+      "count": 85,
+      "n": 313,
+      "share": 0.2715654952076677,
+      "baseline_share": 0.20117806977797917,
+      "z": 3.106361113859115
+    },
+    {
+      "month": "2020-04",
+      "category": "negative",
+      "count": 131,
+      "n": 481,
+      "share": 0.27234927234927236,
+      "baseline_share": 0.1776607538802661,
+      "z": 5.4331112843675085
+    },
+    {
+      "month": "2021-08",
+      "category": "negative",
+      "count": 122,
+      "n": 428,
+      "share": 0.2850467289719626,
+      "baseline_share": 0.22147083685545224,
+      "z": 3.16751464427514
+    }
+  ],
+  "sentiment_tests": 372,
+  "assignment": {
+    "agreement_with_fit_labels": 0.8343144468972283,
+    "outlier_share_centroid": 0.07677148487704567,
+    "outlier_share_fit": 0.3013452146345643
+  },
+  "topic_tests": 1020,
+  "expected_false_flags_if_binomial": 1.377,
+  "topic_flags_centroid": [
+    {
+      "month": "2015-07",
+      "category": "Packaging and condition on arrival",
+      "count": 5,
+      "n": 68,
+      "share": 0.07352941176470588,
+      "baseline_share": 0.011933174224343675,
+      "z": 4.67775521611516
+    },
+    {
+      "month": "2016-12",
+      "category": "Game will not install or run",
+      "count": 25,
+      "n": 96,
+      "share": 0.2604166666666667,
+      "baseline_share": 0.13978494623655913,
+      "z": 3.4085009323409667
+    },
+    {
+      "month": "2017-03",
+      "category": "Switch and 3DS cases and screen protectors",
+      "count": 10,
+      "n": 92,
+      "share": 0.10869565217391304,
+      "baseline_share": 0.02880658436213992,
+      "z": 4.581234466009221
+    },
+    {
+      "month": "2018-06",
+      "category": "Short verdicts: cheap, waste of money",
+      "count": 10,
+      "n": 75,
+      "share": 0.13333333333333333,
+      "baseline_share": 0.04417670682730924,
+      "z": 3.7574982330979414
+    },
+    {
+      "month": "2018-10",
+      "category": "Boring or poor games",
+      "count": 17,
+      "n": 74,
+      "share": 0.22972972972972974,
+      "baseline_share": 0.10633484162895927,
+      "z": 3.443402741655419
+    },
+    {
+      "month": "2018-11",
+      "category": "Boring or poor games",
+      "count": 26,
+      "n": 100,
+      "share": 0.26,
+      "baseline_share": 0.11564625850340136,
+      "z": 4.5138720323001955
+    },
+    {
+      "month": "2019-07",
+      "category": "Switch and 3DS cases and screen protectors",
+      "count": 12,
+      "n": 82,
+      "share": 0.14634146341463414,
+      "baseline_share": 0.049019607843137254,
+      "z": 4.0817519546588485
+    },
+    {
+      "month": "2020-10",
+      "category": "Headset audio and mic failure",
+      "count": 33,
+      "n": 119,
+      "share": 0.2773109243697479,
+      "baseline_share": 0.15606936416184972,
+      "z": 3.6442888337184134
+    },
+    {
+      "month": "2021-01",
+      "category": "Controller and accessory defects",
+      "count": 49,
+      "n": 154,
+      "share": 0.3181818181818182,
+      "baseline_share": 0.21428571428571427,
+      "z": 3.1421773083189626
+    },
+    {
+      "month": "2021-11",
+      "category": "Boring or poor games",
+      "count": 14,
+      "n": 111,
+      "share": 0.12612612612612611,
+      "baseline_share": 0.046948356807511735,
+      "z": 3.943631583017725
+    },
+    {
+      "month": "2022-01",
+      "category": "Short verdicts: cheap, waste of money",
+      "count": 12,
+      "n": 140,
+      "share": 0.08571428571428572,
+      "baseline_share": 0.03162650602409638,
+      "z": 3.656925537866576
+    },
+    {
+      "month": "2022-11",
+      "category": "Game will not install or run",
+      "count": 13,
+      "n": 107,
+      "share": 0.12149532710280374,
+      "baseline_share": 0.054635761589403975,
+      "z": 3.0431079134637873
+    },
+    {
+      "month": "2022-12",
+      "category": "Packaging and condition on arrival",
+      "count": 14,
+      "n": 135,
+      "share": 0.1037037037037037,
+      "baseline_share": 0.028846153846153848,
+      "z": 5.196542906933045
+    }
+  ],
+  "topic_episodes_centroid": [
+    {
+      "category": "Controller and accessory defects",
+      "first_month": "2021-01",
+      "last_month": "2021-01",
+      "n_months": 1,
+      "peak_z": 3.1421773083189626,
+      "peak_share": 0.3181818181818182,
+      "baseline_share": 0.21428571428571427
+    },
+    {
+      "category": "Boring or poor games",
+      "first_month": "2018-10",
+      "last_month": "2018-11",
+      "n_months": 2,
+      "peak_z": 4.5138720323001955,
+      "peak_share": 0.26,
+      "baseline_share": 0.10633484162895927
+    },
+    {
+      "category": "Boring or poor games",
+      "first_month": "2021-11",
+      "last_month": "2021-11",
+      "n_months": 1,
+      "peak_z": 3.943631583017725,
+      "peak_share": 0.12612612612612611,
+      "baseline_share": 0.046948356807511735
+    },
+    {
+      "category": "Headset audio and mic failure",
+      "first_month": "2020-10",
+      "last_month": "2020-10",
+      "n_months": 1,
+      "peak_z": 3.6442888337184134,
+      "peak_share": 0.2773109243697479,
+      "baseline_share": 0.15606936416184972
+    },
+    {
+      "category": "Game will not install or run",
+      "first_month": "2016-12",
+      "last_month": "2016-12",
+      "n_months": 1,
+      "peak_z": 3.4085009323409667,
+      "peak_share": 0.2604166666666667,
+      "baseline_share": 0.13978494623655913
+    },
+    {
+      "category": "Game will not install or run",
+      "first_month": "2022-11",
+      "last_month": "2022-11",
+      "n_months": 1,
+      "peak_z": 3.0431079134637873,
+      "peak_share": 0.12149532710280374,
+      "baseline_share": 0.054635761589403975
+    },
+    {
+      "category": "Switch and 3DS cases and screen protectors",
+      "first_month": "2017-03",
+      "last_month": "2017-03",
+      "n_months": 1,
+      "peak_z": 4.581234466009221,
+      "peak_share": 0.10869565217391304,
+      "baseline_share": 0.02880658436213992
+    },
+    {
+      "category": "Switch and 3DS cases and screen protectors",
+      "first_month": "2019-07",
+      "last_month": "2019-07",
+      "n_months": 1,
+      "peak_z": 4.0817519546588485,
+      "peak_share": 0.14634146341463414,
+      "baseline_share": 0.049019607843137254
+    },
+    {
+      "category": "Short verdicts: cheap, waste of money",
+      "first_month": "2018-06",
+      "last_month": "2018-06",
+      "n_months": 1,
+      "peak_z": 3.7574982330979414,
+      "peak_share": 0.13333333333333333,
+      "baseline_share": 0.04417670682730924
+    },
+    {
+      "category": "Short verdicts: cheap, waste of money",
+      "first_month": "2022-01",
+      "last_month": "2022-01",
+      "n_months": 1,
+      "peak_z": 3.656925537866576,
+      "peak_share": 0.08571428571428572,
+      "baseline_share": 0.03162650602409638
+    },
+    {
+      "category": "Packaging and condition on arrival",
+      "first_month": "2015-07",
+      "last_month": "2015-07",
+      "n_months": 1,
+      "peak_z": 4.67775521611516,
+      "peak_share": 0.07352941176470588,
+      "baseline_share": 0.011933174224343675
+    },
+    {
+      "category": "Packaging and condition on arrival",
+      "first_month": "2022-12",
+      "last_month": "2022-12",
+      "n_months": 1,
+      "peak_z": 5.196542906933045,
+      "peak_share": 0.1037037037037037,
+      "baseline_share": 0.028846153846153848
+    }
+  ],
+  "topic_flags_fit_labels": [
+    {
+      "month": "2016-04",
+      "category": "Controller and accessory defects",
+      "count": 14,
+      "n": 48,
+      "share": 0.2916666666666667,
+      "baseline_share": 0.13552361396303902,
+      "z": 3.160525000722042
+    },
+    {
+      "month": "2016-09",
+      "category": "Boring or poor games",
+      "count": 17,
+      "n": 76,
+      "share": 0.2236842105263158,
+      "baseline_share": 0.10115606936416185,
+      "z": 3.5424564777384266
+    },
+    {
+      "month": "2017-03",
+      "category": "Switch and 3DS cases and screen protectors",
+      "count": 9,
+      "n": 92,
+      "share": 0.09782608695652174,
+      "baseline_share": 0.024691358024691357,
+      "z": 4.5203706361256675
+    },
+    {
+      "month": "2017-10",
+      "category": "Mouse and keyboard keys failing",
+      "count": 12,
+      "n": 65,
+      "share": 0.18461538461538463,
+      "baseline_share": 0.07637231503579953,
+      "z": 3.2857939769913687
+    },
+    {
+      "month": "2018-06",
+      "category": "Short verdicts: cheap, waste of money",
+      "count": 6,
+      "n": 75,
+      "share": 0.08,
+      "baseline_share": 0.02208835341365462,
+      "z": 3.4124403183994367
+    },
+    {
+      "month": "2018-11",
+      "category": "Boring or poor games",
+      "count": 16,
+      "n": 100,
+      "share": 0.16,
+      "baseline_share": 0.07709750566893424,
+      "z": 3.1079178008435355
+    },
+    {
+      "month": "2020-10",
+      "category": "Headset audio and mic failure",
+      "count": 32,
+      "n": 119,
+      "share": 0.2689075630252101,
+      "baseline_share": 0.16618497109826588,
+      "z": 3.0102926450760714
+    },
+    {
+      "month": "2021-10",
+      "category": "Switch and 3DS cases and screen protectors",
+      "count": 7,
+      "n": 87,
+      "share": 0.08045977011494253,
+      "baseline_share": 0.022857142857142857,
+      "z": 3.5951077907188185
+    },
+    {
+      "month": "2021-11",
+      "category": "Boring or poor games",
+      "count": 11,
+      "n": 111,
+      "share": 0.0990990990990991,
+      "baseline_share": 0.026604068857589983,
+      "z": 4.746253494228958
+    }
+  ],
+  "topic_episodes_fit_labels": [
+    {
+      "category": "Controller and accessory defects",
+      "first_month": "2016-04",
+      "last_month": "2016-04",
+      "n_months": 1,
+      "peak_z": 3.160525000722042,
+      "peak_share": 0.2916666666666667,
+      "baseline_share": 0.13552361396303902
+    },
+    {
+      "category": "Boring or poor games",
+      "first_month": "2016-09",
+      "last_month": "2016-09",
+      "n_months": 1,
+      "peak_z": 3.5424564777384266,
+      "peak_share": 0.2236842105263158,
+      "baseline_share": 0.10115606936416185
+    },
+    {
+      "category": "Boring or poor games",
+      "first_month": "2018-11",
+      "last_month": "2018-11",
+      "n_months": 1,
+      "peak_z": 3.1079178008435355,
+      "peak_share": 0.16,
+      "baseline_share": 0.07709750566893424
+    },
+    {
+      "category": "Boring or poor games",
+      "first_month": "2021-11",
+      "last_month": "2021-11",
+      "n_months": 1,
+      "peak_z": 4.746253494228958,
+      "peak_share": 0.0990990990990991,
+      "baseline_share": 0.026604068857589983
+    },
+    {
+      "category": "Headset audio and mic failure",
+      "first_month": "2020-10",
+      "last_month": "2020-10",
+      "n_months": 1,
+      "peak_z": 3.0102926450760714,
+      "peak_share": 0.2689075630252101,
+      "baseline_share": 0.16618497109826588
+    },
+    {
+      "category": "Mouse and keyboard keys failing",
+      "first_month": "2017-10",
+      "last_month": "2017-10",
+      "n_months": 1,
+      "peak_z": 3.2857939769913687,
+      "peak_share": 0.18461538461538463,
+      "baseline_share": 0.07637231503579953
+    },
+    {
+      "category": "Switch and 3DS cases and screen protectors",
+      "first_month": "2017-03",
+      "last_month": "2017-03",
+      "n_months": 1,
+      "peak_z": 4.5203706361256675,
+      "peak_share": 0.09782608695652174,
+      "baseline_share": 0.024691358024691357
+    },
+    {
+      "category": "Switch and 3DS cases and screen protectors",
+      "first_month": "2021-10",
+      "last_month": "2021-10",
+      "n_months": 1,
+      "peak_z": 3.5951077907188185,
+      "peak_share": 0.08045977011494253,
+      "baseline_share": 0.022857142857142857
+    },
+    {
+      "category": "Short verdicts: cheap, waste of money",
+      "first_month": "2018-06",
+      "last_month": "2018-06",
+      "n_months": 1,
+      "peak_z": 3.4124403183994367,
+      "peak_share": 0.08,
+      "baseline_share": 0.02208835341365462
+    }
+  ],
+  "topic_share_by_year_centroid": {
+    "2013": {
+      "Boring or poor games": 0.3271,
+      "Broke after short use": 0.047,
+      "Controller and accessory defects": 0.109,
+      "Game will not install or run": 0.2632,
+      "Headset audio and mic failure": 0.0357,
+      "Mouse and keyboard keys failing": 0.0376,
+      "Packaging and condition on arrival": 0.0282,
+      "Short verdicts: cheap, waste of money": 0.0132,
+      "Switch and 3DS cases and screen protectors": 0.0282,
+      "unassigned": 0.1109
+    },
+    "2014": {
+      "Boring or poor games": 0.275,
+      "Broke after short use": 0.0883,
+      "Controller and accessory defects": 0.129,
+      "Game will not install or run": 0.1817,
+      "Headset audio and mic failure": 0.0645,
+      "Mouse and keyboard keys failing": 0.0357,
+      "Packaging and condition on arrival": 0.0306,
+      "Short verdicts: cheap, waste of money": 0.0577,
+      "Switch and 3DS cases and screen protectors": 0.0204,
+      "unassigned": 0.1171
+    },
+    "2015": {
+      "Boring or poor games": 0.2394,
+      "Broke after short use": 0.1127,
+      "Controller and accessory defects": 0.1338,
+      "Game will not install or run": 0.1561,
+      "Headset audio and mic failure": 0.0833,
+      "Mouse and keyboard keys failing": 0.0458,
+      "Packaging and condition on arrival": 0.0305,
+      "Short verdicts: cheap, waste of money": 0.0716,
+      "Switch and 3DS cases and screen protectors": 0.0317,
+      "unassigned": 0.0951
+    },
+    "2016": {
+      "Boring or poor games": 0.1988,
+      "Broke after short use": 0.1108,
+      "Controller and accessory defects": 0.1482,
+      "Game will not install or run": 0.1614,
+      "Headset audio and mic failure": 0.1133,
+      "Mouse and keyboard keys failing": 0.0614,
+      "Packaging and condition on arrival": 0.0361,
+      "Short verdicts: cheap, waste of money": 0.0627,
+      "Switch and 3DS cases and screen protectors": 0.0301,
+      "unassigned": 0.0771
+    },
+    "2017": {
+      "Boring or poor games": 0.1494,
+      "Broke after short use": 0.1439,
+      "Controller and accessory defects": 0.1667,
+      "Game will not install or run": 0.1288,
+      "Headset audio and mic failure": 0.1104,
+      "Mouse and keyboard keys failing": 0.0801,
+      "Packaging and condition on arrival": 0.0357,
+      "Short verdicts: cheap, waste of money": 0.0509,
+      "Switch and 3DS cases and screen protectors": 0.0455,
+      "unassigned": 0.0887
+    },
+    "2018": {
+      "Boring or poor games": 0.1261,
+      "Broke after short use": 0.1261,
+      "Controller and accessory defects": 0.2032,
+      "Game will not install or run": 0.1111,
+      "Headset audio and mic failure": 0.1411,
+      "Mouse and keyboard keys failing": 0.0791,
+      "Packaging and condition on arrival": 0.038,
+      "Short verdicts: cheap, waste of money": 0.0551,
+      "Switch and 3DS cases and screen protectors": 0.0561,
+      "unassigned": 0.0641
+    },
+    "2019": {
+      "Boring or poor games": 0.0937,
+      "Broke after short use": 0.1396,
+      "Controller and accessory defects": 0.218,
+      "Game will not install or run": 0.1023,
+      "Headset audio and mic failure": 0.1453,
+      "Mouse and keyboard keys failing": 0.0966,
+      "Packaging and condition on arrival": 0.0315,
+      "Short verdicts: cheap, waste of money": 0.0488,
+      "Switch and 3DS cases and screen protectors": 0.0583,
+      "unassigned": 0.066
+    },
+    "2020": {
+      "Boring or poor games": 0.0506,
+      "Broke after short use": 0.1567,
+      "Controller and accessory defects": 0.2101,
+      "Game will not install or run": 0.0798,
+      "Headset audio and mic failure": 0.1546,
+      "Mouse and keyboard keys failing": 0.1345,
+      "Packaging and condition on arrival": 0.0368,
+      "Short verdicts: cheap, waste of money": 0.0374,
+      "Switch and 3DS cases and screen protectors": 0.0652,
+      "unassigned": 0.0742
+    },
+    "2021": {
+      "Boring or poor games": 0.0501,
+      "Broke after short use": 0.1441,
+      "Controller and accessory defects": 0.224,
+      "Game will not install or run": 0.0744,
+      "Headset audio and mic failure": 0.1786,
+      "Mouse and keyboard keys failing": 0.1326,
+      "Packaging and condition on arrival": 0.0372,
+      "Short verdicts: cheap, waste of money": 0.0392,
+      "Switch and 3DS cases and screen protectors": 0.0589,
+      "unassigned": 0.0609
+    },
+    "2022": {
+      "Boring or poor games": 0.0519,
+      "Broke after short use": 0.1281,
+      "Controller and accessory defects": 0.2476,
+      "Game will not install or run": 0.0786,
+      "Headset audio and mic failure": 0.1572,
+      "Mouse and keyboard keys failing": 0.1258,
+      "Packaging and condition on arrival": 0.0377,
+      "Short verdicts: cheap, waste of money": 0.0393,
+      "Switch and 3DS cases and screen protectors": 0.0802,
+      "unassigned": 0.0535
+    },
+    "2023": {
+      "Boring or poor games": 0.0459,
+      "Broke after short use": 0.1343,
+      "Controller and accessory defects": 0.2279,
+      "Game will not install or run": 0.0954,
+      "Headset audio and mic failure": 0.1661,
+      "Mouse and keyboard keys failing": 0.1113,
+      "Packaging and condition on arrival": 0.053,
+      "Short verdicts: cheap, waste of money": 0.0442,
+      "Switch and 3DS cases and screen protectors": 0.0724,
+      "unassigned": 0.0495
+    }
+  }
+}

@@ -258,3 +258,59 @@ Sources: `reports/aspects_metrics.json` (hand-labeled eval), `reports/aspects_de
 - **Customer support and returns is the only net-negative aspect** (49.4% negative against 35.1% positive). Every other aspect is net positive, which is expected in a dataset that is 73% positive.
 - **In the 1,024 negative-rated test reviews,** the most mentioned aspects are durability (235 reviews, 23%), price_value (228, 22%), compatibility_setup (169, 17%) and support_returns (159, 16%).
 - **How far to trust this table:** aspect detection has about 83% precision and 54% recall, and sentiment given a correct aspect is about 68% accurate on a small sample. The counts are undercounts that favor aspects with many keywords, and differences of a few points between aspects (for example 11.3% vs 12.3% negative) are within what these errors could produce. The ranking of support_returns as the worst is the one gap large enough to be unlikely to come from these errors, but it is also the aspect with the fewest labeled examples (2 gold pairs), so its sentiment accuracy is untested.
+
+## Phase 7: trends and explainability
+
+Sources: `reports/trends.json`, `reports/figures/trends.png` (trends); `reports/lr_top_ngrams.json`, `reports/figures/lr_top_ngrams.png`, `reports/explanations.json`, `reports/figures/explanations.html`, `reports/explain_metrics.json` (explanations). Rules and caveats are in D8.
+
+### Sentiment over time (star-rating labels, all 60,000 reviews)
+
+| Year | Reviews | Negative | Neutral | Positive |
+|---|---|---|---|---|
+| 2014 | 4,215 | 14.0% | 7.6% | 78.5% |
+| 2016 | 4,773 | 17.4% | 7.7% | 74.9% |
+| 2018 | 4,708 | 21.2% | 7.0% | 71.7% |
+| 2020 | 6,719 | 21.5% | 7.0% | 71.5% |
+| 2022 | 5,264 | 24.2% | 7.9% | 67.9% |
+| 2023 (to September) | 2,469 | 22.9% | 7.1% | 70.0% |
+
+- **Overall sentiment has declined:** the negative share rose from 14.0% in 2014 to 24.2% in 2022, with a small recovery in 2023. The rise is gradual, not a step, and the rule flags only 4 isolated months out of 372 tested (2016-09, 2018-09, 2020-04, 2021-08), none sustained.
+- **Not necessarily a quality decline.** Over the same years the mix of what is reviewed changed (next table), and the dataset is a sample of one Amazon category; I cannot separate "products got worse" from "more hardware reviews, which draw more complaints", and a share of ratings is not a satisfaction measure.
+
+### Topics among negative reviews, by year (nearest-centroid assignment)
+
+| Topic | 2014 | 2018 | 2022 | 2023 |
+|---|---|---|---|---|
+| Boring or poor games | 27.5% | 12.6% | 5.2% | 4.6% |
+| Game will not install or run | 18.2% | 11.1% | 7.9% | 9.5% |
+| Controller and accessory defects | 12.9% | 20.3% | 24.8% | 22.8% |
+| Headset audio and mic failure | 6.5% | 14.1% | 15.7% | 16.6% |
+| Mouse and keyboard keys failing | 3.6% | 7.9% | 12.6% | 11.1% |
+| Switch and 3DS cases and screen protectors | 2.0% | 5.6% | 8.0% | 7.2% |
+| Broke after short use | 8.8% | 12.6% | 12.8% | 13.4% |
+| Short verdicts: cheap, waste of money | 5.8% | 5.5% | 3.9% | 4.4% |
+| Packaging and condition on arrival | 3.1% | 3.8% | 3.8% | 5.3% |
+| Unassigned (nearest the outlier centroid) | 11.7% | 6.4% | 5.3% | 5.0% |
+
+- **Complaints moved from games to hardware:** game-focused topics (boring games, will-not-run) fall from 45.7% of negative reviews in 2014 to 13.1% in 2022, while controller, headset, mouse and keyboard, and case topics rise from 25% to 61%. This matches the category's growing share of accessories, and it is the likely reason the overall negative share rose.
+
+### Rising themes (rule: z >= 3, rise >= 5 points over a 6-month baseline, >= 5 reviews)
+
+- **13 (month, topic) flags in 12 episodes, from 1,020 tests.** Pure binomial noise would give about 1.4 flags at z >= 3, so there is more month-to-month variation than chance, but **11 of the 12 episodes are a single month**, and none is a sustained rise. The only two-month episode is "Boring or poor games" in 2018-10 and 2018-11 (share 26% against a 10.6% baseline). The latest flags are "Game will not install or run" in 2022-11 and "Packaging and condition on arrival" in 2022-12; the data ends in 2023-09 with no flag in 2023.
+- **The flags are not stable.** Running the same rule on the fit-time HDBSCAN labels gives 9 flagged months, and only 5 appear in both lists. I treat the flags as spikes worth a look, not as established trends.
+- **Slow shifts are not flagged.** The yearly changes above (hardware topics up, game topics down) happen over years, and the 6-month baseline absorbs them.
+
+### Logistic-regression n-grams (baseline, largest coefficients per class)
+
+- **negative:** not, terrible, horrible, garbage, disappointed, awful, waste, worst
+- **neutral:** but, okay, however, otherwise, ok, though, ds2, "but the"
+- **positive:** great, love, awesome, perfect, amazing, best, excellent, perfectly
+
+The negative and positive lists are what one would expect. The neutral class is mostly hedging words ("but", "however", "though"), which matches the Phase 4 finding that mixed reviews are what sit in the neutral class; "ds2" is a game-specific token that happens to occur in 3-star reviews, which suggests the neutral coefficients partly fit noise.
+
+### DistilBERT token attributions (Integrated Gradients)
+
+- **Gallery:** 10 test reviews (3 correct, 7 from the hand-tagged error sample) in `reports/figures/explanations.html`. In the correct reviews, the shaded words are the ones a reader would pick: "never ... installed" and "popped off after 20 minutes" for negative, "very happy with" for positive. In the errors, the model's reading is visible: "Smaller than expected" (5 stars, tagged label noise) is attributed to "smaller" for the predicted neutral class, and in "Lost interest quickly" (3 stars) "lost" pushes strongly toward negative (+3.02) while "quickly" pushes against it (-1.90).
+- **Attributions are noisy on longer reviews:** several highlight function words and punctuation (for example "the", "." and "and" among the top words of some reviews), so the gallery is useful for short reviews and should not be read word by word on long ones.
+- **Faithfulness check (95 random test reviews):** deleting the 3 most attributed words lowers the predicted class's probability by 0.225 on average, against 0.056 for 3 random words; the top-attributed deletion hurts more than random in 84.2% of reviews. So the attributions do track what the model uses. This is evidence about the model's behavior, not about whether its reasons are right.
+- **Convergence:** Integrated Gradients attributions should sum to the logit difference from the baseline; the mean gap is 0.061 and the maximum 0.403 logit units over the 110 explained reviews, so a few attributions are only approximate with 30 steps.

@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-10-30T12:41:39+00:00",
+  "config": {
+    "seed": 42,
+    "lr": {
+      "top_n": 15,
+      "plot_n": 10
+    },
+    "attribution": {
+      "n_steps": 30
+    },
+    "gallery": {
+      "n_correct_per_class": 1,
+      "n_errors": 7,
+      "max_words": 60
+    },
+    "deletion": {
+      "n_reviews": 100,
+      "k_words": 3,
+      "n_random": 5
+    },
+    "paths": {
+      "lr_json": "reports/lr_top_ngrams.json",
+      "lr_figure": "reports/figures/lr_top_ngrams.png",
+      "gallery_json": "reports/explanations.json",
+      "gallery_html": "reports/figures/explanations.html",
+      "metrics": "reports/explain_metrics.json"
+    }
+  },
+  "deletion_check": {
+    "n_reviews": 95,
+    "k_words_removed": 3,
+    "mean_prob_drop_top_attributed": 0.22459125345523812,
+    "mean_prob_drop_random": 0.05621170253737978,
+    "share_top_beats_random": 0.8421052631578947,
+    "convergence_delta_mean": 0.06089875779368661,
+    "convergence_delta_max": 0.40289783477783203
+  },
+  "n_gallery": 10
+}
