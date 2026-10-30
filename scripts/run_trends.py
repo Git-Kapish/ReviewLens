@@ -98,6 +98,11 @@ w = cfg["plot"]["smooth_months"]
 s_share = s_counts.div(s_counts.sum(axis=1), axis=0).where(valid_s)
 t_share = t_counts.rename(columns=name).pipe(lambda c: c.div(c.sum(axis=1), axis=0)).where(valid_t)
 start = pd.Period(cfg["plot"]["start"], freq="M")
+monthly = (s_share.add_prefix("share_").join(t_share.add_prefix("topic_share_"), how="outer")
+           .assign(n_reviews=s_counts.sum(axis=1), n_negatives=t_counts.sum(axis=1)).loc[start:])
+monthly.index = monthly.index.astype(str)
+monthly.index.name = "month"
+monthly.round(4).to_csv(resolve_path(paths["monthly_csv"]))
 plot_trends(s_share.loc[start:].rolling(w, min_periods=1).mean(),
             t_share.loc[start:].rolling(w, min_periods=1).mean(),
             w, resolve_path(paths["figures_dir"]) / "trends.png")

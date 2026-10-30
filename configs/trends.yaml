@@ -17,4 +17,5 @@ paths:
   model_dir: models/bertopic
   labels: reports/topic_labels.json
   metrics: reports/trends.json
+  monthly_csv: reports/trends_monthly.csv
   figures_dir: reports/figures

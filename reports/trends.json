@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-30T12:37:50+00:00",
+  "timestamp": "2026-10-30T12:50:30+00:00",
   "config": {
     "seed": 42,
     "sentiment": {
@@ -24,6 +24,7 @@
       "model_dir": "models/bertopic",
       "labels": "reports/topic_labels.json",
       "metrics": "reports/trends.json",
+      "monthly_csv": "reports/trends_monthly.csv",
       "figures_dir": "reports/figures"
     }
   },
