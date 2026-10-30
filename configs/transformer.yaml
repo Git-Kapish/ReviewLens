@@ -1,0 +1,22 @@
+seed: 42
+model_name: distilbert-base-uncased
+max_len: 128
+epochs: 3
+batch_size: 32
+eval_batch_size: 128
+lr: 2.0e-5
+weight_decay: 0.01
+warmup_frac: 0.1
+max_grad_norm: 1.0
+class_weighted_loss: true   # inverse-frequency weights from the train split
+fp16: true                  # mixed precision, only used when running on CUDA
+smoke:                      # `--smoke`: tiny CPU run to check the pipeline, writes outputs under its own model_dir
+  train_rows: 256
+  val_rows: 128
+  epochs: 1
+  model_dir: models/distilbert_smoke
+paths:
+  model_dir: models/distilbert
+  metrics: reports/transformer_metrics.json
+  predictions_dir: reports/predictions
+  curves: reports/figures/transformer_curves.png
