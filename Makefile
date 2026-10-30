@@ -8,7 +8,7 @@ endif
 
 setup:  ## create venv, install deps
 	uv venv --python 3.11 .venv
-	uv pip install --python $(PY) -e ".[dev,notebooks]"
+	uv pip install --python $(PY) -e ".[dev,notebooks,transformer]"
 
 data:  ## sample, clean, label, split, profile
 	$(PY) scripts/build_data.py
@@ -16,8 +16,8 @@ data:  ## sample, clean, label, split, profile
 baseline:  ## select + train + evaluate TF-IDF+LR
 	$(PY) scripts/train_baseline.py
 
-transformer:  ## train DistilBERT (GPU recommended)
-	@echo "not implemented until Phase 3"
+transformer:  ## fine-tune DistilBERT (GPU recommended; see notebooks/02)
+	$(PY) scripts/train_transformer.py
 
 eval:  ## full evaluation, bootstrap, robustness, error sample
 	@echo "not implemented until Phase 4"

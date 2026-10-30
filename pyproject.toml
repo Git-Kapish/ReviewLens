@@ -2,7 +2,7 @@
 name = "reviewlens"
 version = "0.1.0"
 description = "Review-intelligence pipeline: sentiment, themes, aspects, trends."
-requires-python = ">=3.11,<3.12"
+requires-python = ">=3.11,<3.13"
 dependencies = [
     "numpy",
     "pandas",
@@ -11,11 +11,13 @@ dependencies = [
     "huggingface_hub",
     "scikit-learn",
     "langdetect",
+    "matplotlib",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff"]
-notebooks = ["matplotlib", "ipykernel", "nbconvert", "nbformat"]
+transformer = ["torch", "transformers"]
+notebooks = ["ipykernel", "nbconvert", "nbformat"]
 
 [build-system]
 requires = ["setuptools>=68"]
