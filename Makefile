@@ -4,11 +4,11 @@ else
 PY := .venv/bin/python
 endif
 
-.PHONY: setup data baseline transformer eval topics aspects explain api app test lint strip-nb
+.PHONY: setup data baseline transformer eval topics aspects explain api app docker test lint strip-nb
 
 setup:  ## create venv, install deps
 	uv venv --python 3.11 .venv
-	uv pip install --python $(PY) -e ".[dev,notebooks,transformer,topics,explain]"
+	uv pip install --python $(PY) -e ".[dev,notebooks,transformer,topics,explain,api,app]"
 
 data:  ## sample, clean, label, split, profile
 	$(PY) scripts/build_data.py
@@ -35,11 +35,14 @@ aspects:  ## aspect scoring + eval on the hand-labeled sentences (tune first: sc
 explain:  ## LR n-grams, DistilBERT attribution gallery, deletion check
 	$(PY) scripts/run_explain.py
 
-api:  ## run FastAPI
-	@echo "not implemented until Phase 8"
+api:  ## run FastAPI on :8000 (needs models/ from the earlier targets)
+	$(PY) -m uvicorn reviewlens.api.main:app --port 8000
 
-app:  ## run Streamlit
-	@echo "not implemented until Phase 8"
+app:  ## run Streamlit on :8501 (start `make api` first; API_URL overrides the address)
+	$(PY) -m streamlit run app/streamlit_app.py
+
+docker:  ## API + app in containers, models/ mounted as a volume
+	docker compose up --build
 
 test:
 	$(PY) -m pytest

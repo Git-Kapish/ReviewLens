@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-10-30T13:29:36+00:00",
+  "config": {
+    "n_reviews": 50,
+    "url": null
+  },
+  "mode": "inprocess",
+  "cpu": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "threads": 16,
+  "without_explanation": {
+    "median_ms": 142.25584999803687,
+    "p95_ms": 579.9149999984361,
+    "max_ms": 804.2276000051061,
+    "n": 50
+  },
+  "with_explanation": {
+    "median_ms": 1327.8297500000917,
+    "p95_ms": 4562.671004990988,
+    "max_ms": 4994.1537999984575,
+    "n": 50
+  }
+}

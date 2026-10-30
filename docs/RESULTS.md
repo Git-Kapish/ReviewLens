@@ -314,3 +314,30 @@ The negative and positive lists are what one would expect. The neutral class is 
 - **Attributions are noisy on longer reviews:** several highlight function words and punctuation (for example "the", "." and "and" among the top words of some reviews), so the gallery is useful for short reviews and should not be read word by word on long ones.
 - **Faithfulness check (95 random test reviews):** deleting the 3 most attributed words lowers the predicted class's probability by 0.225 on average, against 0.056 for 3 random words; the top-attributed deletion hurts more than random in 84.2% of reviews. So the attributions do track what the model uses. This is evidence about the model's behavior, not about whether its reasons are right.
 - **Convergence:** Integrated Gradients attributions should sum to the logit difference from the baseline; the mean gap is 0.061 and the maximum 0.403 logit units over the 110 explained reviews, so a few attributions are only approximate with 30 steps.
+
+## Phase 8: API, app and Docker
+
+Sources: `reports/api_latency_http.json` (Docker container, over HTTP) and `reports/api_latency_inprocess.json` (service called directly in a Windows Python process). 50 random test reviews (seed 42), 3 warm-up calls, wall time per call.
+
+| Where | Explanations | Median | 95th percentile | Max |
+|---|---|---|---|---|
+| Docker container, over HTTP | off | 120 ms | 247 ms | 362 ms |
+| Docker container, over HTTP | on | 619 ms | 2,167 ms | 2,377 ms |
+| Windows host process, direct call | off | 142 ms | 580 ms | 804 ms |
+| Windows host process, direct call | on | 1,328 ms | 4,563 ms | 4,994 ms |
+
+- **PRD targets** (under 500 ms for sentiment, under 2 s for the full analysis, on CPU): met for sentiment only in the container (95th percentile 247 ms), and for the full analysis at the median (0.62 s). The 95th percentile of the full analysis is 2.17 s, slightly over the target; the slowest calls are probably the longest reviews, since Integrated Gradients cost grows with length (I did not check which reviews they were).
+- **The same code was about twice as slow when run directly on this Windows machine** (full analysis median 1.33 s, 95th percentile 4.6 s). I ran it twice and the first run gave nearly the same numbers (1.35 s, 4.54 s), so this is not noise; the table and file hold the second run. I did not find the cause; the container (Linux) is the deployment target, and the container numbers are the ones to quote. The Docker figure depends on the CPU and memory Docker Desktop gives the container (7.6 GB memory available; the API used 1.4 GB); I did not check its CPU allotment.
+- **The first request after startup is slower** (1.6 s in the container for the first full analysis) because of warm-up.
+- **Image sizes:** API 2.75 GB (CPU torch, transformers, sentence-transformers), app 1.25 GB.
+
+### Checked in a running `docker compose up`
+
+- `GET /health` returns the loaded model names; `POST /analyze` on a real review returned label, nearest topic, aspects and top words; an empty text and a 5,001-character text each returned 422; Streamlit's health endpoint and home page returned 200; the app container reached the API at `http://api:8000`.
+- **Not checked:** a visual look at the Streamlit pages in a browser. The three pages are covered by Streamlit's `AppTest` (they render without errors, the Analyze page shows API results, escapes review words, and reports an unreachable API or a 422), but I have not looked at the layout.
+
+### Known limitations of the served analysis
+
+- Aspects: a sentence with two opinions gets one sentiment for all its aspects. For "The graphics are great but the controller stick broke ... Waste of money." the API reports graphics as negative (see Phase 6 failure modes).
+- Topics: always the nearest of the nine, even for a review none of them describes; check the returned similarity.
+- Reviews longer than 128 word pieces are scored on their start; the `truncated` field says so.
