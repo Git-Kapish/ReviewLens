@@ -179,3 +179,35 @@ Reading it:
 - **Typos cost both models the same, about 0.014 macro-F1.**
 - **Truncation is the largest label-preserving loss for both** (0.109 baseline, 0.133 DistilBERT). Cutting to 8 tokens removes most of the text in the 4,365 reviews (81%) it changes, so part of this is lost information, not fragility. DistilBERT's drop is larger as a point estimate; I did not test whether the two drops differ significantly.
 - **Negation is not a label-preserving test.** Putting "not" before one polar word (the result is often ungrammatical, for example "not Fun game to play") does not flip the review's label, so a drop is expected and the macro-F1 change should not be read as an error rate. What it does show is sensitivity: DistilBERT changes its prediction on 38.6% of affected reviews against 13.5% for the baseline, and flips between positive and negative on 10.2% against 6.6%. That DistilBERT reacts more is consistent with it reading the inserted word in context, but this test cannot say whether the reactions are correct.
+
+## Phase 5: topics in negative reviews
+
+Source: `reports/topics.json` (embeddings `all-MiniLM-L6-v2`, BERTopic on the 8,193 train negatives, `min_cluster_size` 40; see D6). Figure: `reports/figures/topic_sizes.png`. Labels are drafts in `reports/topic_labels.json`, not yet confirmed by the project owner.
+
+| Grid `min_cluster_size` | Topics | Outliers (fit docs) | c_v |
+|---|---|---|---|
+| 20 | 9 | 36.7% | 0.432 |
+| **40 (selected)** | 9 | 27.8% | **0.534** |
+| 80 (7 topics, outside the 8-12 range) | 7 | 4.8% | 0.566 |
+
+| # | Draft label | Reviews | Mean rating | c_v | Top words |
+|---|---|---|---|---|---|
+| 0 | Controller and accessory defects | 2,049 | 1.28 | 0.425 | controller, work, xbox, charge, wii, stick |
+| 2 | Headset audio and mic failure | 1,427 | 1.38 | 0.835 | sound, mic, headphones, quality, microphone |
+| 3 | Game will not install or run | 1,152 | 1.17 | 0.441 | game, code, download, disc, windows, steam |
+| 1 | Boring or poor games | 1,149 | 1.45 | 0.506 | game, graphics, story, fun, played |
+| 4 | Mouse and keyboard keys failing | 1,021 | 1.39 | 0.724 | mouse, keyboard, keys, click, buttons |
+| 5 | Broke after short use | 745 | 1.17 | 0.629 | broke, stopped working, months, weeks |
+| 6 | Switch and 3DS cases and screen protectors | 334 | 1.31 | 0.331 | screen, case, switch, 3ds, fit |
+| 7 | Short verdicts: cheap, waste of money | 196 | 1.26 | 0.474 | cheap, worth, waste, crap, garbage |
+| 8 | Packaging and condition on arrival | 81 | 1.26 | 0.445 | box, opened, package, received |
+
+Mean c_v is 0.534. Of the 11,671 negative reviews, 8,154 have a topic and 3,517 (30.1%) are outliers.
+
+### Reading the numbers
+
+- **Hardware failures dominate.** Topics 0, 2, 4, 5 and 6 (controllers, headsets, mouse and keyboard, generic breakage, cases) are the bulk of the assigned reviews; software and game complaints are topics 1 and 3. The topic with the best coherence (headset, 0.835) is also the most specific one.
+- **Outliers are a real share.** 27.8% of the fit documents and a higher share of unseen ones (val 38.0%, test 40.3%, time hold-out 30.8%) are assigned no topic. Held-out reviews are assigned through `transform`, and I did not investigate why they get more outliers than the fit documents, so the train topic mix may not carry over exactly to the other splits.
+- **Some topics overlap.** "Broke after short use" (5) cuts across products and shares words with the headset, controller and keyboard topics; topic 7 is mostly one-line reviews with no product signal. I would not read their sizes as clean themes.
+- **Coherence is a rough guide.** c_v was computed on the same documents the model was fit on, and the topic with the lowest score (6, cases and screen protectors, 0.331) is still easy to read from its reviews. The numbers rank settings but do not prove the topics are right.
+- **Reproducible:** a second full run gave identical topic sizes, top words and c_v.

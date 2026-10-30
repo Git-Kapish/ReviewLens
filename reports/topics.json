@@ -1,0 +1,545 @@
+{
+  "timestamp": "2026-10-30T11:42:58+00:00",
+  "config": {
+    "seed": 42,
+    "embedding": {
+      "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+      "batch_size": 128,
+      "max_seq_length": 256
+    },
+    "fit": {
+      "max_docs": 20000
+    },
+    "umap": {
+      "n_neighbors": 15,
+      "n_components": 5,
+      "min_dist": 0.0,
+      "metric": "cosine"
+    },
+    "hdbscan": {
+      "min_samples": 10,
+      "metric": "euclidean",
+      "cluster_selection_method": "eom"
+    },
+    "grid": {
+      "min_cluster_size": [
+        20,
+        40,
+        80
+      ]
+    },
+    "nr_topics": 10,
+    "vectorizer": {
+      "stop_words": "english",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "min_df": 5
+    },
+    "top_n_words": 20,
+    "coherence": {
+      "n_words": 10
+    },
+    "representative_docs": 3,
+    "paths": {
+      "embeddings": "data/processed/negative_embeddings.npz",
+      "assignments": "data/processed/negatives_topics.parquet",
+      "model_dir": "models/bertopic",
+      "metrics": "reports/topics.json",
+      "labels": "reports/topic_labels.json",
+      "figures_dir": "reports/figures"
+    }
+  },
+  "n_negative_reviews": 11671,
+  "n_fit_docs": 8193,
+  "grid": [
+    {
+      "min_cluster_size": 20,
+      "n_topics": 9,
+      "outlier_share": 0.3666544611253509,
+      "coherence_cv": 0.43175625342403123
+    },
+    {
+      "min_cluster_size": 40,
+      "n_topics": 9,
+      "outlier_share": 0.2776760649334798,
+      "coherence_cv": 0.5344472083331187
+    },
+    {
+      "min_cluster_size": 80,
+      "n_topics": 7,
+      "outlier_share": 0.04772366654461126,
+      "coherence_cv": 0.5664113351727996
+    }
+  ],
+  "selected": {
+    "min_cluster_size": 40,
+    "n_topics": 9,
+    "outlier_share": 0.2776760649334798,
+    "coherence_cv": 0.5344472083331187
+  },
+  "coherence_cv_mean": 0.5344472083331187,
+  "by_split": {
+    "test": {
+      "n": 1024,
+      "outlier_share": 0.4033203125
+    },
+    "timehold": {
+      "n": 1430,
+      "outlier_share": 0.3076923076923077
+    },
+    "train": {
+      "n": 8193,
+      "outlier_share": 0.2776760649334798
+    },
+    "val": {
+      "n": 1024,
+      "outlier_share": 0.3798828125
+    }
+  },
+  "topics": [
+    {
+      "topic": 0,
+      "label": "Controller and accessory defects",
+      "n_total": 2049,
+      "n_by_split": {
+        "train": 1459,
+        "timehold": 290,
+        "val": 160,
+        "test": 140
+      },
+      "mean_rating": 1.276232308443143,
+      "coherence_cv": 0.42532339885614434,
+      "top_words": [
+        "controller",
+        "work",
+        "xbox",
+        "just",
+        "charge",
+        "use",
+        "wii",
+        "product",
+        "stick",
+        "right",
+        "bought",
+        "buy",
+        "left",
+        "ps4",
+        "like",
+        "does",
+        "time",
+        "doesn",
+        "battery",
+        "didn"
+      ],
+      "representative": [
+        {
+          "doc_id": "train-36556",
+          "text": "I have gotten two controllers from them and something has been broke on both of them. This is a waste of your time cause all you can keep doing is ordering replacements"
+        },
+        {
+          "doc_id": "train-39042",
+          "text": "Got a cheap plastic made controller. Right joystick stopped working after 1 month. Very dissapointing."
+        },
+        {
+          "doc_id": "train-1649",
+          "text": "Worked good for about a month then snapped the joystick off not worth it for the money"
+        }
+      ]
+    },
+    {
+      "topic": 1,
+      "label": "Boring or poor games",
+      "n_total": 1149,
+      "n_by_split": {
+        "train": 964,
+        "val": 81,
+        "test": 76,
+        "timehold": 28
+      },
+      "mean_rating": 1.453437771975631,
+      "coherence_cv": 0.5058184484675732,
+      "top_words": [
+        "game",
+        "like",
+        "just",
+        "games",
+        "play",
+        "graphics",
+        "time",
+        "story",
+        "don",
+        "fun",
+        "really",
+        "good",
+        "played",
+        "playing",
+        "make",
+        "bad",
+        "better",
+        "way",
+        "gameplay",
+        "want"
+      ],
+      "representative": [
+        {
+          "doc_id": "train-35952",
+          "text": "The game is slow to start and the mechanics are awful. The game cant decide what it wants to be and suffers greatly from poor pacing and boring characters. Not worth the price. Not even worth playing for free. Do yourself a favor and DO NOT BUY THIS"
+        },
+        {
+          "doc_id": "train-42462",
+          "text": "I bought this game for my daughter, for Christmas and she hates it. I tried playing it myself and I would have to agree. It's very boring and is cheaply made. I would not reccomend this to anyone."
+        },
+        {
+          "doc_id": "train-6569",
+          "text": "I played this game and it was a complete MESS , little by little i started hating it more and more . it was difficult to maneuver and just confusing . Do Not Buy This Game ."
+        }
+      ]
+    },
+    {
+      "topic": 2,
+      "label": "Headset audio and mic failure",
+      "n_total": 1427,
+      "n_by_split": {
+        "train": 945,
+        "timehold": 240,
+        "test": 129,
+        "val": 113
+      },
+      "mean_rating": 1.383321653819201,
+      "coherence_cv": 0.835439335646935,
+      "top_words": [
+        "sound",
+        "mic",
+        "headphones",
+        "quality",
+        "microphone",
+        "just",
+        "hear",
+        "ear",
+        "audio",
+        "volume",
+        "head",
+        "great",
+        "work",
+        "good",
+        "use",
+        "months",
+        "pair",
+        "working",
+        "like",
+        "comfortable"
+      ],
+      "representative": [
+        {
+          "doc_id": "train-2690",
+          "text": "Great headset for the first 30 days. Then i couldnt hear anything on it and my friends couldnt hear me. Amazon amazing support refunded me the purchase price"
+        },
+        {
+          "doc_id": "train-15477",
+          "text": "This was the best headset I've had in a long time. My only complaint was it isn't USB when I first got it. But now, I don't even mind that. Not even a big deal. However, in less than 3 months, it stopped working. Hasn't been dropped, hasn't been tugged or pulled on, just quit working. It is light and the noise cancellation is great quality, as well as the mic and it doesn't squeeze my large head. "
+        },
+        {
+          "doc_id": "train-9085",
+          "text": "Great gaming headset while it lasted. Broke in less than 2 months. The Microphone doesn\u2019t work anymore so it\u2019s kind of pointless and we have to buy a new one. Please stay away from these. Don\u2019t buy!!"
+        }
+      ]
+    },
+    {
+      "topic": 3,
+      "label": "Game will not install or run",
+      "n_total": 1152,
+      "n_by_split": {
+        "train": 880,
+        "timehold": 99,
+        "val": 95,
+        "test": 78
+      },
+      "mean_rating": 1.1692708333333333,
+      "coherence_cv": 0.4407868999699892,
+      "top_words": [
+        "game",
+        "code",
+        "play",
+        "work",
+        "download",
+        "disc",
+        "computer",
+        "amazon",
+        "windows",
+        "version",
+        "steam",
+        "games",
+        "install",
+        "34",
+        "time",
+        "don",
+        "bought",
+        "money",
+        "card",
+        "buy"
+      ],
+      "representative": [
+        {
+          "doc_id": "train-2055",
+          "text": "This game loads but won't play. I couldn't even register the game because I kept getting a &#34;page not found&#34; error message. When I contacted the vendor I was actually told that my computer was &#34;too powerful&#34; and that I should consider getting an older computer. I complained to Amazon customer service and will now be getting a full refund."
+        },
+        {
+          "doc_id": "train-10611",
+          "text": "GAME DOES NOT WORK AT ALL!!! I DOWNLOADED IT AND IT DOES NOT EVEN START. TRIED RESTARTING IT AND IT STILL DOES'NT WORK. DO NOT BUY THIS GAME!!!"
+        },
+        {
+          "doc_id": "train-1425",
+          "text": "I loved this game, lost it, and found it again on Amazon.com. Problem is.... it doesn't work with Windows XP like it says on the box. Then.... when I tried to return it, I was told I couldn't if it was opened. Then I was informed that I could return it, but when I went on the website, I was once again told I couldn't. Just goes to show how much some people care about &#34;customer service&#34; and"
+        }
+      ]
+    },
+    {
+      "topic": 4,
+      "label": "Mouse and keyboard keys failing",
+      "n_total": 1021,
+      "n_by_split": {
+        "train": 708,
+        "timehold": 153,
+        "test": 83,
+        "val": 77
+      },
+      "mean_rating": 1.386875612144956,
+      "coherence_cv": 0.7236238412619427,
+      "top_words": [
+        "mouse",
+        "keyboard",
+        "keys",
+        "key",
+        "click",
+        "buttons",
+        "use",
+        "software",
+        "button",
+        "wheel",
+        "months",
+        "just",
+        "issue",
+        "like",
+        "work",
+        "logitech",
+        "gaming",
+        "working",
+        "time",
+        "good"
+      ],
+      "representative": [
+        {
+          "doc_id": "train-24507",
+          "text": "Worst purchase of my life. Worked great for a few weeks then broke down. Hitting keys causes a random string of garbage text and hitting d shuts down the computer. Other keyboards work fine, don't buy this trash. Shockingly enough, the mouse doesn't work either. Disconnects frequently. Also, the mouse frequently stops responding, although the lights keep working (thank God)"
+        },
+        {
+          "doc_id": "train-28120",
+          "text": "This felt amazing the first couple of weeks I had it. Has now been less than 2 months and already the buttons take multiple presses to register, sometimes get stuck (even after I thoroughly cleaned and made sure there was no dirt, dust or debris in it) and when I contacted customer service, I just got a link to purchase a totally different model. I was so happy with this keyboard in the beginning."
+        },
+        {
+          "doc_id": "train-17607",
+          "text": "This keyboard looks great. I like to play games. I bought it a few days later. There are a few buttons that don't work. I feel bad."
+        }
+      ]
+    },
+    {
+      "topic": 5,
+      "label": "Broke after short use",
+      "n_total": 745,
+      "n_by_split": {
+        "train": 527,
+        "timehold": 91,
+        "val": 65,
+        "test": 62
+      },
+      "mean_rating": 1.1691275167785236,
+      "coherence_cv": 0.6294810887830795,
+      "top_words": [
+        "work",
+        "broke",
+        "working",
+        "stopped working",
+        "stopped",
+        "worked",
+        "didn",
+        "months",
+        "product",
+        "month",
+        "didn work",
+        "weeks",
+        "money",
+        "doesn work",
+        "doesn",
+        "return",
+        "did",
+        "did work",
+        "lasted",
+        "use"
+      ],
+      "representative": [
+        {
+          "doc_id": "train-17401",
+          "text": "Literally worked for a day... bought two one broke a day after getting and the second one stop working the second day. Save your money and the headache."
+        },
+        {
+          "doc_id": "train-7825",
+          "text": "had it three weeks shorted out and doesn't work any more don't buy"
+        },
+        {
+          "doc_id": "train-20543",
+          "text": "Worked well for the first 2 weeks then just stopped working. Buy something else unless you want to have to replace it after 2 weeks"
+        }
+      ]
+    },
+    {
+      "topic": 6,
+      "label": "Switch and 3DS cases and screen protectors",
+      "n_total": 334,
+      "n_by_split": {
+        "train": 223,
+        "timehold": 67,
+        "val": 24,
+        "test": 20
+      },
+      "mean_rating": 1.3053892215568863,
+      "coherence_cv": 0.3309429911804226,
+      "top_words": [
+        "screen",
+        "case",
+        "switch",
+        "3ds",
+        "fit",
+        "xl",
+        "product",
+        "doesn",
+        "plastic",
+        "like",
+        "does",
+        "just",
+        "dust",
+        "does fit",
+        "great",
+        "use",
+        "nintendo",
+        "got",
+        "cover",
+        "remove"
+      ],
+      "representative": [
+        {
+          "doc_id": "train-12643",
+          "text": "it took my children a week to droo the switch (naturally \ud83d\ude11) and the protector failed. crack all the way across the screen. I'd pay more money if it protected my $300 purchase apropriately"
+        },
+        {
+          "doc_id": "train-22458",
+          "text": "At first I had a bit of trouble putting the screen protector. Was very careful but for whatever reason a bubble stayed near the center screen. I had to lift it up a bit using a credit card for it to disappeared. After that I couldn't believe how awesome and shinny my Nintendo Switch screen looked. Days later, the edges of the screen are showing hail like lines and the glue looks like its melting. "
+        },
+        {
+          "doc_id": "train-39438",
+          "text": "Actual case just feels a tad to small. Doesn't cover the holes quite right (and I've tried to see if it slides back and forth at all). Otherwise good quality, and does it's job. Bigger issue is the screen protector came shattered, big disappointment sense I paid extra specfically for this case rather than a 12$ sparkly one because of the screen protector. Want a partial refund sense I had to buy a"
+        }
+      ]
+    },
+    {
+      "topic": 7,
+      "label": "Short verdicts: cheap, waste of money",
+      "n_total": 196,
+      "n_by_split": {
+        "train": 148,
+        "test": 20,
+        "val": 14,
+        "timehold": 14
+      },
+      "mean_rating": 1.2551020408163265,
+      "coherence_cv": 0.4740857252225553,
+      "top_words": [
+        "cheap",
+        "worth",
+        "money",
+        "waste",
+        "waste money",
+        "like",
+        "buy",
+        "crap",
+        "garbage",
+        "broke",
+        "piece",
+        "dont",
+        "don",
+        "quality",
+        "sucks",
+        "did like",
+        "overpriced",
+        "don like",
+        "just",
+        "great"
+      ],
+      "representative": [
+        {
+          "doc_id": "train-41787",
+          "text": "Cheap"
+        },
+        {
+          "doc_id": "train-37446",
+          "text": "Cheap."
+        },
+        {
+          "doc_id": "train-34253",
+          "text": "Horrible"
+        }
+      ]
+    },
+    {
+      "topic": 8,
+      "label": "Packaging and condition on arrival",
+      "n_total": 81,
+      "n_by_split": {
+        "train": 64,
+        "timehold": 8,
+        "val": 6,
+        "test": 3
+      },
+      "mean_rating": 1.2592592592592593,
+      "coherence_cv": 0.4445231456094258,
+      "top_words": [
+        "box",
+        "product",
+        "opened",
+        "came",
+        "package",
+        "received",
+        "like",
+        "case",
+        "ordered",
+        "color",
+        "looked",
+        "didn",
+        "pictured",
+        "item",
+        "art",
+        "pictures",
+        "looked like",
+        "looks",
+        "plastic",
+        "looks like"
+      ],
+      "representative": [
+        {
+          "doc_id": "train-1113",
+          "text": "This was supposed to be a new product and came without packaging other than the clear plastic. Tough to give that as a gift when there\u2019s no package to it. What a crock."
+        },
+        {
+          "doc_id": "train-34883",
+          "text": "So disappointed.... opened the delivery box and this is what the box looked like. Torn and swooshed. This obviously did not happen during shipping. I bought this to give as a gift and not only am I embarrassed to give it because it looks like it\u2019s been opened but who knows if it even works because it looks like it was a return. Very disappointed"
+        },
+        {
+          "doc_id": "train-35008",
+          "text": "I did not like the packaging. It came without a box that made it look very cheap. I like the color. But the way it came, I completely dislike it."
+        }
+      ]
+    }
+  ],
+  "outliers_n": 3517
+}

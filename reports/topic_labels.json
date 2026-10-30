@@ -1,0 +1,14 @@
+{
+  "status": "drafted by the assistant from top words, 3 representative reviews and 5 random reviews per topic; to be verified by the project owner",
+  "topics": {
+    "0": {"label": "Controller and accessory defects", "note": "sticks, triggers, pairing, charging; 1,459 train docs, rating 1.28"},
+    "1": {"label": "Boring or poor games", "note": "gameplay, story, bugs, graphics; mostly game titles rather than hardware"},
+    "2": {"label": "Headset audio and mic failure", "note": "headsets and microphones stop working after weeks; highest coherence"},
+    "3": {"label": "Game will not install or run", "note": "codes, discs, downloads, Windows compatibility, online connection"},
+    "4": {"label": "Mouse and keyboard keys failing", "note": "keys and buttons stick or stop registering"},
+    "5": {"label": "Broke after short use", "note": "generic hardware failure within days to months, no single product type"},
+    "6": {"label": "Switch and 3DS cases and screen protectors", "note": "fit, bubbles, cracked protectors"},
+    "7": {"label": "Short verdicts: cheap, waste of money", "note": "mostly one-line reviews such as 'Cheap.' or 'Crap'"},
+    "8": {"label": "Packaging and condition on arrival", "note": "opened, torn or missing box; smallest topic (81 reviews)"}
+  }
+}
