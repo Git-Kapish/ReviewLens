@@ -35,3 +35,45 @@ Class counts overall: 11,671 negative, 4,644 neutral, 43,685 positive.
 - Review length: median 27 tokens, p95 219, p99 552 (whitespace split). 20.6% of reviews are under 10 tokens and 8.0% under 5.
 - 85.4% of reviews are verified purchases.
 - Negative share is higher in the time hold-out (23.8% vs 19.0%), so the later window is already different from train before any model is run. Phase 4 will report drift on it.
+
+## Phase 2: TF-IDF + logistic regression baseline (`reports/baseline_metrics.json`)
+
+Pipeline: word 1-2 gram TF-IDF (200K features, `min_df=2`, sublinear TF) + `LogisticRegression(class_weight="balanced")`, fit on train only. Selected on validation macro-F1 from a 6-point grid; the test set was scored once for the selected model.
+
+### Grid (validation macro-F1)
+
+| Char n-grams | C=0.25 | C=1 | C=4 |
+|---|---|---|---|
+| no | 0.6437 | **0.6587** | 0.6543 |
+| yes (3-5, `char_wb`) | 0.6441 | 0.6528 | 0.6464 |
+
+Selected: word features only, C=1. Char n-grams did not help and cost about 3x the fit time (170-210 s vs 40-60 s per fit).
+
+### Test set (5,400 reviews)
+
+| Metric | Value |
+|---|---|
+| Accuracy | 0.8130 |
+| **Macro-F1 (reference number)** | **0.6584** |
+
+| Class | Precision | Recall | F1 | Support |
+|---|---|---|---|---|
+| negative | 0.7058 | 0.7920 | 0.7464 | 1,024 |
+| neutral | 0.2687 | 0.4200 | 0.3277 | 419 |
+| positive | 0.9463 | 0.8600 | 0.9011 | 3,957 |
+
+Confusion matrix (rows = true, columns = predicted):
+
+| | negative | neutral | positive |
+|---|---|---|---|
+| negative | 811 | 129 | 84 |
+| neutral | 134 | 176 | 109 |
+| positive | 204 | 350 | 3,403 |
+
+Validation macro-F1 for the selected model is 0.6587 (accuracy 0.8152), within 0.0003 of test.
+
+### Reading the numbers
+
+- Neutral (3-star) is the hard class: F1 0.33, and 350 of 3,957 positive reviews are predicted neutral. Accuracy (0.81) overstates quality because positive is 73% of the data; macro-F1 is the metric to track.
+- Grid differences are small (0.644 to 0.659). A gap of about 0.01 between grid points is within what a different seed or split could move, so the choice of C is not strongly supported. Phase 4 will add bootstrap CIs.
+- The word vocabulary hits the 200K `max_features` cap (199,981 features), so the cap itself is a limit on the baseline.

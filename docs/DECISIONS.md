@@ -47,3 +47,11 @@ Verify the terms at the project page before any redistribution.
 - **TF-IDF normalization** lives in `clean.normalize_for_tfidf` (lowercase, URL token, squeeze repeated characters) and is used only by the baseline. Negation words are not removed.
 - **Time-based hold-out:** the latest 10% by timestamp, removed before the random split, so train/val/test never contain data from the hold-out window.
 - **Dependencies added:** `scikit-learn` and `langdetect` (both light). `matplotlib`, `ipykernel`, `nbconvert` and `nbformat` are in an optional `notebooks` extra.
+
+## D3. Phase 2 baseline choices
+
+- **Normalization lives inside the vectorizer** (`preprocessor=normalize_for_tfidf`), so the saved pipeline takes raw review text and the API can use it directly.
+- **No refit on train+val.** The selected pipeline is the one trained on train only, so the validation score stays an honest estimate and nothing is tuned on test. Refitting would add data at the cost of a model that was never scored as trained.
+- **Grid is small on purpose** (char n-grams on/off x 3 values of C) to keep CPU time reasonable. Word features alone won, so the char features are not used in the saved model.
+- **Test set:** the script scores it once per run, after selection. Rerunning `make baseline` reproduces the same numbers (fixed seed, deterministic solver), so it is not a second look with changed choices.
+- **Metrics JSON:** `eval/metrics.write_metrics` adds the config and a UTC timestamp; later models reuse it.
