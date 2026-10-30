@@ -1,0 +1,41 @@
+id,split,review_id,rating,text,labels
+val-0,val,994,1,"I dont know if I just got a defective one or what, but this thing isn't worth the price.",durability:negative|price_value:negative
+val-1,val,3777,1,I guess it finally gave up the ghost.,durability:negative
+val-2,val,4381,1,My granddaughter loves horses and requested this game for Christmas.,
+val-3,val,2956,1,Doesn't fit the 3ds xl version I have covers the game card slot volume cut out is in wrong spot pulls off easily when handing off game to someone else.,comfort_fit:negative
+val-4,val,3297,1,Bought this and didn’t even need it,
+val-5,val,1846,1,"Came with a broken shift key, making it VERY difficult to complete written assignments.",durability:negative
+val-6,val,1971,1,Complete waste of money.,price_value:negative
+val-7,val,3872,1,Since the outside was in a foreign language.,delivery_packaging:negative
+val-8,val,1818,2,2.4 and wired still work.,
+val-9,val,2774,2,I really love this game.,
+val-10,val,27,2,The elastic straps also inadvertently turn down the volume button unwontedly and thirdly make switching out game cartridges nearly impossible unless you remove it from the mount.,comfort_fit:negative
+val-11,val,4753,2,"Unfortunately, they slip off the controllers after playing for a while.",comfort_fit:negative
+val-12,val,2084,2,"They are big for kids, but they worked great for 4 months.",comfort_fit:negative|durability:positive
+val-13,val,5081,2,Too much to spend,price_value:negative
+val-14,val,1181,2,It is not that good because it only works on old computers,compatibility_setup:negative
+val-15,val,3111,2,"I love Beck and Call's design quite a bit which made me disappointed when the game has crappy 3D modeled still cutscenes and gameplay, and when I found Call had no personality and it was not even played for laughs or that she plays worse than Beck.",graphics:negative|gameplay:negative|story:negative
+val-16,val,511,3,While it works to protect my phone it is not the clear screen protector that is widely available.,
+val-17,val,3113,3,All of these problems can be solved by unplugging power to the charging dock and then reconnecting but how long will that last?,battery:negative
+val-18,val,1140,3,"And if you get beat up too bad and take too much damage, you just avoid enemy attacks for a moment and you're health will completely regenerate, which kind of makes the game easier than most games of this type.",gameplay:negative
+val-19,val,4309,3,This was a really fun game...for about the first thirty minutes.,gameplay:neutral
+val-20,val,5066,3,It slips from the controller.,comfort_fit:negative
+val-21,val,3663,3,Evidently they had an issue on some boards where the heat would kill the LED so they moved it from above to below the switch for better thermals. with this change the switch shaft now produces a shadow effect for the lower part of the key-cap.,
+val-22,val,678,3,It worked but had to trim some of the pieces.,comfort_fit:neutral
+val-23,val,2366,3,"Looks great, not very sturdy for $25 though.",durability:negative|price_value:negative
+val-24,val,25,4,This is a good product for the price it is worth the money,price_value:positive
+val-25,val,2547,4,"The device has, so far, met my expectations, whereas the lecture on &#34;its your responsibility to keep the batteries charged&#34; didn't.",battery:negative
+val-26,val,2519,4,"I enjoyed how the storyline progressed, and the gameplay was enjoyable.",story:positive|gameplay:positive
+val-27,val,3532,4,"The fit is good, little wiggly but works amazing",comfort_fit:positive
+val-28,val,4105,4,Have only one complaint of the likes that button on the higher left side of my mouse is a bit loose and wobbly.,controls:negative
+val-29,val,1388,4,Overall Id give the system a 5/5 and the game a 3.5/5 (The game just seems like it could of been better but its worth a purchase).,price_value:positive
+val-30,val,233,4,its cheap so i cant complain you get what you pay for but if you guys could make the triggers more smoother and actually not fall off that would be great,price_value:neutral|controls:negative
+val-31,val,1491,4,Came perfectly just as expected,delivery_packaging:positive
+val-32,val,3059,5,There way better than the individual cases those are just a pain in the ass.,
+val-33,val,219,5,It's pretty much plug in and play if you're planning on using this as a PC controller.,compatibility_setup:positive
+val-34,val,1081,5,I'm the best Grandma in the world!,
+val-35,val,2917,5,Great deal for the price.,price_value:positive
+val-36,val,3343,5,I always order screen protector from these guys.,
+val-37,val,3010,5,What I liked most about the Bengoo headset is the comfortable feel and the surround sound effect.,comfort_fit:positive|sound:positive
+val-38,val,61,5,I loved the classic NES game!,
+val-39,val,2247,5,When I first started the game up it worked fine until I was at my destination.,

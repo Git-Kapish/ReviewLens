@@ -1,0 +1,90 @@
+seed: 42
+embedding:
+  model_name: sentence-transformers/all-MiniLM-L6-v2
+  batch_size: 128
+similarity:
+  threshold: 0.5             # placeholder until tuned on the dev set (scripts/tune_aspects.py)
+  max_aspects_per_sentence: 2
+split:
+  min_words: 3               # shorter fragments are dropped before aspect mapping
+labeled:
+  dev_per_rating: 8          # dev sentences come from the validation split (tunes the threshold)
+  eval_per_rating: 20        # eval sentences come from the test split (scored once)
+  min_words: 4
+  max_words: 60
+paths:
+  dev_labels: data/labeled/aspect_dev.csv
+  eval_labels: data/labeled/aspect_eval.csv
+  dev_report: reports/aspects_dev.json
+  metrics: reports/aspects_metrics.json
+  summary: reports/aspect_summary.json
+  figures_dir: reports/figures
+aggregate_split: test        # dataset-wide aspect sentiment is computed on this split
+lexicon:                     # keywords match whole words (plural -s/-es allowed); seeds feed the embedding map
+  gameplay:
+    keywords: [gameplay, game play, mechanics, levels, level design, missions, campaign, multiplayer,
+      co-op, difficulty, boss, bosses, quests, puzzles, replay, replayability, combat, single player,
+      game modes, online play]
+    seeds: ["The gameplay is fun and addictive", "The missions and levels are repetitive",
+      "Multiplayer and online modes", "The combat and difficulty feel balanced"]
+  graphics:
+    keywords: [graphics, visuals, resolution, textures, animation, animations, art style, visual,
+      framerate quality, lighting, cutscenes, 4k]
+    seeds: ["The graphics look beautiful", "Ugly textures and outdated visuals",
+      "The art style and animation are great", "Crisp resolution and colors"]
+  story:
+    keywords: [story, plot, characters, character, ending, narrative, storyline, dialogue, writing,
+      voice acting]
+    seeds: ["The story is gripping", "The plot and characters are boring",
+      "A disappointing ending", "Great narrative and dialogue"]
+  sound:
+    keywords: [sound, audio, music, soundtrack, microphone, mic, speakers, bass, volume, static,
+      noise cancelling, sound quality]
+    seeds: ["The sound quality is excellent", "The microphone does not pick up my voice",
+      "Great music and soundtrack", "The audio crackles and the bass is weak"]
+  controls:
+    keywords: [controls, buttons, button, joystick, thumbstick, trigger, triggers, d-pad, keys,
+      key, click, scroll wheel, sensitivity, responsive, input lag]
+    seeds: ["The controls are responsive and smooth", "The buttons are stiff and the keys stick",
+      "The joystick drifts", "Clunky and confusing controls"]
+  durability:
+    keywords: [broke, broken, break, stopped working, quality, durable, durability, flimsy, sturdy,
+      fell apart, defective, build quality, well made, poorly made, lasted, plastic, material]
+    seeds: ["It broke after a few weeks", "Solid build quality and very durable",
+      "Cheap flimsy plastic that fell apart", "Stopped working after two months"]
+  price_value:
+    keywords: [price, priced, overpriced, expensive, cost, worth, value, money, bargain, deal,
+      afford, cheaper, on sale]
+    seeds: ["Great value for the money", "Way too expensive for what you get",
+      "Not worth the price", "A bargain at this price"]
+  battery:
+    keywords: [battery, batteries, charge, charging, charger, rechargeable, battery life, recharge,
+      dies, power cable]
+    seeds: ["The battery lasts all day", "It will not hold a charge",
+      "Charging takes forever", "Battery life is terrible"]
+  comfort_fit:
+    keywords: [comfortable, uncomfortable, comfort, ergonomic, fit, fits, fitting, grip, heavy,
+      lightweight, size, tight, loose, ears, hands]
+    seeds: ["Very comfortable to wear for hours", "It does not fit properly",
+      "Too heavy and tight on my head", "Nice grip that feels good in the hands"]
+  delivery_packaging:
+    keywords: [shipping, shipped, delivery, delivered, arrived, package, packaging, box, seller,
+      late, damaged, came in, sealed, opened]
+    seeds: ["It arrived late", "The package was damaged when it came",
+      "Fast shipping and good packaging", "The box was opened and not sealed"]
+  support_returns:
+    keywords: [support, customer service, refund, return, returned, warranty, replacement,
+      contacted, exchange, replace]
+    seeds: ["Customer service was helpful", "I had to return it for a refund",
+      "The company would not honor the warranty", "They sent a replacement quickly"]
+  compatibility_setup:
+    keywords: [compatible, compatibility, works with, work with, setup, set up, install,
+      installed, download, downloaded, code, activate, driver, drivers, software, update, pairing,
+      pair, bluetooth, windows, steam]
+    seeds: ["It is not compatible with my console", "Easy to set up and install",
+      "The download code did not work", "Pairing over bluetooth keeps failing"]
+  performance_bugs:
+    keywords: [bug, bugs, buggy, glitch, glitches, crash, crashes, lag, laggy, freeze, freezes,
+      loading, load times, fps, frame rate, stutter, patch]
+    seeds: ["The game crashes and freezes constantly", "Lots of bugs and glitches",
+      "Long loading times and lag", "Frame rate drops and stuttering"]
