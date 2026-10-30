@@ -6,7 +6,10 @@ import pytest
 
 from reviewlens.config import PROJECT_ROOT
 
-README = (PROJECT_ROOT / "README.md").read_text(encoding="utf-8")
+# Markdown styling (bold winners, en-dash intervals) is not part of the numbers being checked.
+README = (
+    (PROJECT_ROOT / "README.md").read_text(encoding="utf-8").replace("**", "").replace("–", " to ")
+)
 REPORTS = PROJECT_ROOT / "reports"
 
 
@@ -31,7 +34,8 @@ def test_accuracy_and_per_class_f1_match():
     base, bert = load("baseline_metrics.json")["test"], load("transformer_metrics.json")["test"]
     assert f"{base['accuracy']:.4f} for the baseline and {bert['accuracy']:.4f}" in README
     for c in ("negative", "neutral", "positive"):
-        row = f"| {c} | {base['per_class'][c]['f1']:.4f} | {bert['per_class'][c]['f1']:.4f} |"
+        b, d = base["per_class"][c]["f1"], bert["per_class"][c]["f1"]
+        row = f"| {c.capitalize()} | {b:.4f} | {d:.4f} |"
         assert row in README
 
 
@@ -53,7 +57,7 @@ def test_aspect_results_match():
         assert f"{m['accuracy']:.3f} (95% CI {lo:.3f} to {hi:.3f}, {m['n']} pairs)" in README
     support = load("aspect_summary.json")["aspects"]["support_returns"]
     assert f"{100 * support['share_negative']:.1f}% of reviews" in README
-    assert f"{100 * support['share_positive']:.1f}% positive" in README
+    assert f"{100 * support['share_positive']:.1f}% are positive" in README
 
 
 @pytest.mark.parametrize("pert", ["typos", "truncate", "negation"])
