@@ -117,3 +117,65 @@ Validation macro-F1 is 0.6974 against 0.6949 on test, so selecting the epoch on 
 - The gain is mostly on negative (F1 0.793 vs 0.746) and positive (0.928 vs 0.901). Neutral improves only from 0.328 to 0.363 and is still the weak class: 320 of 3,957 positive reviews are predicted neutral.
 - Validation loss rises in epoch 3 (0.618 to 0.716) while validation macro-F1 still rises, a sign of growing over-confidence rather than worse ranking. I kept epoch 3 because the rule was best val macro-F1; there is no epoch 4 to know whether it would continue.
 - Test and time hold-out probabilities are saved in `reports/predictions/` for the Phase 4 CIs and drift check.
+
+## Phase 4: confidence intervals, drift, error analysis, robustness
+
+Sources: `reports/eval_metrics.json` (bootstrap, drift), `reports/robustness_baseline.json` and `reports/robustness_distilbert.json` (robustness), `docs/ERROR_ANALYSIS.md` and `reports/error_summary.json` (errors). Figures: `reports/figures/bootstrap_ci.png`, `reports/figures/robustness.png`.
+
+### Bootstrap 95% CIs on macro-F1
+
+1,000 paired resamples (the same review indices for both models), percentile intervals, seed 42.
+
+| Split | n | Baseline | DistilBERT | Difference (DistilBERT minus baseline) |
+|---|---|---|---|---|
+| Test | 5,400 | 0.6584 (0.6436 to 0.6742) | 0.6949 (0.6797 to 0.7108) | **+0.0365 (0.0208 to 0.0520)** |
+| Time hold-out | 6,000 | 0.6603 (0.6469 to 0.6751) | 0.7023 (0.6882 to 0.7167) | **+0.0419 (0.0275 to 0.0575)** |
+
+- The difference CI excludes zero on both splits, and DistilBERT is ahead in all 1,000 resamples. So the Phase 3 gap is not explained by which reviews happened to land in the test set.
+- What the CI does not cover: it resamples reviews, not training runs. Each model was trained once (one seed), so seed-to-seed variation is not in these intervals.
+
+### Drift: time hold-out
+
+The hold-out is the latest 10% of reviews (from 2022-04-24). Its negative share is 23.8% against 19.0% on the test split.
+
+| Model | Test macro-F1 | Hold-out macro-F1 | Change | CIs overlap |
+|---|---|---|---|---|
+| Baseline | 0.6584 | 0.6603 | +0.0019 | yes |
+| DistilBERT | 0.6949 | 0.7023 | +0.0074 | yes |
+
+- Neither model scores lower on newer reviews; the changes are within noise. I see no evidence of performance drift on this window, even though the class mix shifted.
+- The comparison is between different review sets (unpaired), and the hold-out has more negatives, which are easier than neutral for both models. A same-mix comparison was not run.
+
+### Error analysis
+
+60 random DistilBERT test errors, tagged by hand (details and caveats in `docs/ERROR_ANALYSIS.md`):
+
+| Failure type | Count |
+|---|---|
+| mixed sentiment | 31 |
+| other | 15 |
+| neutral boundary | 10 |
+| label noise | 4 |
+| sarcasm | 0 |
+
+38 of the 60 are predicted neutral, and 706 of all 840 test errors involve the neutral class.
+
+### Robustness (test set, 5,400 reviews)
+
+Change in macro-F1 after perturbing the review text, with the true label unchanged. The 95% CI on the change is a paired bootstrap over the same reviews. DistilBERT was scored on a Colab T4, the baseline locally; its clean predictions agree with the Phase 3 predictions on all rows.
+
+| Perturbation | Baseline | DistilBERT |
+|---|---|---|
+| Typos (15% of words with 4+ letters, adjacent letters swapped) | 0.6584 to 0.6440 (-0.0144; -0.0233 to -0.0062) | 0.6949 to 0.6805 (-0.0144; -0.0249 to -0.0051) |
+| UPPERCASE | no change | no change |
+| lowercase | no change | no change |
+| Emoji appended (neutral ones) | no change | 0.6949 to 0.6981 (+0.0032; -0.0019 to +0.0083) |
+| Truncated to the first 8 tokens | 0.6584 to 0.5490 (-0.1094; -0.1285 to -0.0918) | 0.6949 to 0.5620 (-0.1329; -0.1509 to -0.1147) |
+| "not" inserted before the first polar word (3,659 reviews) | 0.6649 to 0.5861 (-0.0788; -0.0919 to -0.0652) | 0.6939 to 0.4584 (-0.2355; -0.2547 to -0.2178) |
+
+Reading it:
+
+- **Case and emoji changes are zero by construction, not evidence of robustness.** The baseline lowercases and drops emoji in its preprocessing, and `distilbert-base-uncased` lowercases input, so upper/lower case produces the same model input. DistilBERT's emoji effect (+0.0032) is within noise.
+- **Typos cost both models the same, about 0.014 macro-F1.**
+- **Truncation is the largest label-preserving loss for both** (0.109 baseline, 0.133 DistilBERT). Cutting to 8 tokens removes most of the text in the 79% of reviews it changes, so part of this is lost information, not fragility. DistilBERT's drop is larger as a point estimate; I did not test whether the two drops differ significantly.
+- **Negation is not a label-preserving test.** Putting "not" before one polar word (the result is often ungrammatical, for example "not Fun game to play") does not flip the review's label, so a drop is expected and the macro-F1 change should not be read as an error rate. What it does show is sensitivity: DistilBERT changes its prediction on 38.6% of affected reviews against 13.5% for the baseline, and flips between positive and negative on 10.2% against 6.6%. That DistilBERT reacts more is consistent with it reading the inserted word in context, but this test cannot say whether the reactions are correct.
