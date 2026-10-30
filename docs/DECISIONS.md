@@ -34,5 +34,16 @@ Treat it as research-use: no raw data or derived text is committed (`data/` is g
 Verify the terms at the project page before any redistribution.
 
 ### Open caveats
-- Head-of-file stats may differ from the full file; the real class balance and date range are recomputed in Phase 1.
+- Head-of-file stats differ from the full file. Phase 1 on a uniform sample of the whole file gives 19.5% negative (head of file: 14.1%) and a date range ending 2023-09-05 (head: 2023-03-21). The head-of-file table above is kept as the record of what drove the category choice; `docs/RESULTS.md` has the real numbers.
 - The HF loader script for this dataset is rejected by recent `datasets` versions, so `data/load.py` streams the raw `.jsonl` through `huggingface_hub` instead.
+
+## D2. Phase 1 data pipeline choices
+
+- **Sampling:** uniform reservoir sample of 75,000 raw lines over the whole file (seed 42), cached under `data/raw/`; cleaned and capped to 60,000. Sampling before cleaning means duplicates are only found within the sample, not across the full 4.6M reviews.
+- **Text field:** the model input is the review `text`; `title` is kept as a column but not used. Literal HTML tags (`<br />`) are replaced by spaces and whitespace is collapsed. Nothing else is changed for the transformer.
+- **Deduplication:** exact match on lowercased text, keeping the earliest review. This removed 7.3% of non-empty reviews. Many of them are short generic reviews ("Great", "Fun game") that different people wrote independently, so dedup also thins the shortest, noisiest reviews. Kept because the PRD asks for dedup, and the effect is documented rather than hidden.
+- **Language filter:** `langdetect` (seeded) on the first 500 characters when the text is at least 30 characters. Shorter texts are too short to identify, so they are kept unless most of their letters are non-ASCII. Short non-English text written in Latin letters will get through.
+- **Short reviews are kept** (20.6% are under 10 tokens). They are a real part of the data and the robustness phase tests truncation.
+- **TF-IDF normalization** lives in `clean.normalize_for_tfidf` (lowercase, URL token, squeeze repeated characters) and is used only by the baseline. Negation words are not removed.
+- **Time-based hold-out:** the latest 10% by timestamp, removed before the random split, so train/val/test never contain data from the hold-out window.
+- **Dependencies added:** `scikit-learn` and `langdetect` (both light). `matplotlib`, `ipykernel`, `nbconvert` and `nbformat` are in an optional `notebooks` extra.
