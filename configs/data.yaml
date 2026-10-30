@@ -1,0 +1,16 @@
+seed: 42
+dataset:
+  hf_repo: McAuley-Lab/Amazon-Reviews-2023
+  category: Video_Games   # confirmed in docs/DECISIONS.md
+  file_template: raw/review_categories/{category}.jsonl
+  fallback_hf_repo: Yelp/yelp_review_full
+check:
+  max_rows: 200000        # streamed head of the file, Phase 0 check only
+paths:
+  raw: data/raw
+  processed: data/processed
+  reports: reports
+labels:
+  negative: [1, 2]
+  neutral: [3]
+  positive: [4, 5]
