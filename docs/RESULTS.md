@@ -77,3 +77,43 @@ Validation macro-F1 for the selected model is 0.6587 (accuracy 0.8152), within 0
 - Neutral (3-star) is the hard class: F1 0.33, and 350 of 3,957 positive reviews are predicted neutral. Accuracy (0.81) overstates quality because positive is 73% of the data; macro-F1 is the metric to track.
 - Grid differences are small (0.644 to 0.659). A gap of about 0.01 between grid points is within what a different seed or split could move, so the choice of C is not strongly supported. Phase 4 will add bootstrap CIs.
 - The word vocabulary hits the 200K `max_features` cap (199,981 features), so the cap itself is a limit on the baseline.
+
+## Phase 3: DistilBERT fine-tune
+
+Source: `reports/transformer_metrics.json` (Colab T4, fp16, 504.8 s for 3 epochs, 66,955,779 parameters). Config: `distilbert-base-uncased`, max_len 128, batch 32, lr 2e-5, class-weighted loss, seed 42, one run, no hyperparameter search.
+
+| Epoch | Train loss | Val loss | Val macro-F1 |
+|---|---|---|---|
+| 1 | 0.711 | 0.619 | 0.6840 |
+| 2 | 0.522 | 0.618 | 0.6919 |
+| 3 (selected) | 0.401 | 0.716 | 0.6974 |
+
+### Test set (5,400 reviews)
+
+| Metric | DistilBERT | Baseline (Phase 2) |
+|---|---|---|
+| Accuracy | 0.8444 | 0.8130 |
+| **Macro-F1** | **0.6949** | 0.6584 |
+
+| Class | Precision | Recall | F1 | Support |
+|---|---|---|---|---|
+| negative | 0.7825 | 0.8047 | 0.7935 | 1,024 |
+| neutral | 0.2917 | 0.4797 | 0.3628 | 419 |
+| positive | 0.9664 | 0.8934 | 0.9284 | 3,957 |
+
+Confusion matrix (rows = true, columns = predicted):
+
+| | negative | neutral | positive |
+|---|---|---|---|
+| negative | 824 | 168 | 32 |
+| neutral | 127 | 201 | 91 |
+| positive | 102 | 320 | 3,535 |
+
+Validation macro-F1 is 0.6974 against 0.6949 on test, so selecting the epoch on validation did not inflate the test number. Curves: `reports/figures/transformer_curves.png`.
+
+### Reading the numbers
+
+- DistilBERT is ahead of the baseline by 0.0365 macro-F1 (0.6949 vs 0.6584) on the same test split. That is a point estimate from one training run; whether the gap is outside noise is for the Phase 4 bootstrap CI to say.
+- The gain is mostly on negative (F1 0.793 vs 0.746) and positive (0.928 vs 0.901). Neutral improves only from 0.328 to 0.363 and is still the weak class: 320 of 3,957 positive reviews are predicted neutral.
+- Validation loss rises in epoch 3 (0.618 to 0.716) while validation macro-F1 still rises, a sign of growing over-confidence rather than worse ranking. I kept epoch 3 because the rule was best val macro-F1; there is no epoch 4 to know whether it would continue.
+- Test and time hold-out probabilities are saved in `reports/predictions/` for the Phase 4 CIs and drift check.
