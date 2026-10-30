@@ -1,0 +1,272 @@
+{
+  "timestamp": "2026-10-30T07:32:30+00:00",
+  "config": {
+    "seed": 42,
+    "dataset": {
+      "hf_repo": "McAuley-Lab/Amazon-Reviews-2023",
+      "category": "Video_Games",
+      "file_template": "raw/review_categories/{category}.jsonl",
+      "fallback_hf_repo": "Yelp/yelp_review_full"
+    },
+    "check": {
+      "max_rows": 200000
+    },
+    "sample": {
+      "raw_rows": 75000,
+      "target_rows": 60000
+    },
+    "clean": {
+      "lang_min_chars": 30,
+      "lang_max_chars": 500,
+      "short_tokens": 10
+    },
+    "split": {
+      "time_holdout_frac": 0.1,
+      "val_frac": 0.1,
+      "test_frac": 0.1
+    },
+    "paths": {
+      "raw": "data/raw",
+      "processed": "data/processed",
+      "reports": "reports"
+    },
+    "labels": {
+      "negative": [
+        1,
+        2
+      ],
+      "neutral": [
+        3
+      ],
+      "positive": [
+        4,
+        5
+      ]
+    }
+  },
+  "funnel": {
+    "raw": 75000,
+    "non_empty": 74947,
+    "deduped": 69491,
+    "english": 68583,
+    "final": 60000
+  },
+  "overall": {
+    "rows": 60000,
+    "date_min": "1999-11-05",
+    "date_max": "2023-09-05",
+    "class_share": {
+      "positive": 0.7281,
+      "negative": 0.1945,
+      "neutral": 0.0774
+    },
+    "class_count": {
+      "positive": 43685,
+      "negative": 11671,
+      "neutral": 4644
+    },
+    "star_share": {
+      "1.0": 0.1355,
+      "2.0": 0.059,
+      "3.0": 0.0774,
+      "4.0": 0.137,
+      "5.0": 0.5911
+    },
+    "chars": {
+      "p5": 19.0,
+      "p25": 62.0,
+      "p50": 144.0,
+      "p75": 328.0,
+      "p95": 1180.0,
+      "p99": 3022.0,
+      "mean": 326.2
+    },
+    "tokens": {
+      "p5": 4.0,
+      "p25": 12.0,
+      "p50": 27.0,
+      "p75": 62.0,
+      "p95": 219.0,
+      "p99": 552.010000000002,
+      "mean": 60.6
+    },
+    "share_under_10_tokens": 0.2063,
+    "share_under_5_tokens": 0.0796,
+    "verified_purchase_share": 0.8538
+  },
+  "splits": {
+    "train": {
+      "rows": 43200,
+      "date_min": "1999-11-05",
+      "date_max": "2022-04-24",
+      "class_share": {
+        "positive": 0.7329,
+        "negative": 0.1897,
+        "neutral": 0.0775
+      },
+      "class_count": {
+        "positive": 31660,
+        "negative": 8193,
+        "neutral": 3347
+      },
+      "star_share": {
+        "1.0": 0.132,
+        "2.0": 0.0576,
+        "3.0": 0.0775,
+        "4.0": 0.1383,
+        "5.0": 0.5945
+      },
+      "chars": {
+        "p5": 18.0,
+        "p25": 61.0,
+        "p50": 142.0,
+        "p75": 328.0,
+        "p95": 1228.0,
+        "p99": 3210.010000000002,
+        "mean": 334.5
+      },
+      "tokens": {
+        "p5": 3.0,
+        "p25": 11.0,
+        "p50": 27.0,
+        "p75": 62.0,
+        "p95": 228.0,
+        "p99": 585.0,
+        "mean": 62.2
+      },
+      "share_under_10_tokens": 0.2105,
+      "share_under_5_tokens": 0.0829,
+      "verified_purchase_share": 0.8527
+    },
+    "val": {
+      "rows": 5400,
+      "date_min": "1999-12-27",
+      "date_max": "2022-04-23",
+      "class_share": {
+        "positive": 0.733,
+        "negative": 0.1896,
+        "neutral": 0.0774
+      },
+      "class_count": {
+        "positive": 3958,
+        "negative": 1024,
+        "neutral": 418
+      },
+      "star_share": {
+        "1.0": 0.1307,
+        "2.0": 0.0589,
+        "3.0": 0.0774,
+        "4.0": 0.145,
+        "5.0": 0.588
+      },
+      "chars": {
+        "p5": 18.0,
+        "p25": 60.0,
+        "p50": 142.0,
+        "p75": 327.25,
+        "p95": 1110.0000000000036,
+        "p99": 2732.0700000000015,
+        "mean": 312.6
+      },
+      "tokens": {
+        "p5": 3.0,
+        "p25": 11.0,
+        "p50": 27.0,
+        "p75": 62.0,
+        "p95": 208.05000000000018,
+        "p99": 489.0100000000002,
+        "mean": 58.2
+      },
+      "share_under_10_tokens": 0.2109,
+      "share_under_5_tokens": 0.0854,
+      "verified_purchase_share": 0.8556
+    },
+    "test": {
+      "rows": 5400,
+      "date_min": "1999-11-28",
+      "date_max": "2022-04-24",
+      "class_share": {
+        "positive": 0.7328,
+        "negative": 0.1896,
+        "neutral": 0.0776
+      },
+      "class_count": {
+        "positive": 3957,
+        "negative": 1024,
+        "neutral": 419
+      },
+      "star_share": {
+        "1.0": 0.1304,
+        "2.0": 0.0593,
+        "3.0": 0.0776,
+        "4.0": 0.142,
+        "5.0": 0.5907
+      },
+      "chars": {
+        "p5": 18.0,
+        "p25": 61.0,
+        "p50": 144.0,
+        "p75": 331.25,
+        "p95": 1180.2000000000007,
+        "p99": 2935.0300000000007,
+        "mean": 321.9
+      },
+      "tokens": {
+        "p5": 3.0,
+        "p25": 11.0,
+        "p50": 27.0,
+        "p75": 63.0,
+        "p95": 217.0,
+        "p99": 525.0300000000007,
+        "mean": 59.8
+      },
+      "share_under_10_tokens": 0.2131,
+      "share_under_5_tokens": 0.0839,
+      "verified_purchase_share": 0.847
+    },
+    "timehold": {
+      "rows": 6000,
+      "date_min": "2022-04-24",
+      "date_max": "2023-09-05",
+      "class_share": {
+        "positive": 0.685,
+        "negative": 0.2383,
+        "neutral": 0.0767
+      },
+      "class_count": {
+        "positive": 4110,
+        "negative": 1430,
+        "neutral": 460
+      },
+      "star_share": {
+        "1.0": 0.169,
+        "2.0": 0.0693,
+        "3.0": 0.0767,
+        "4.0": 0.1157,
+        "5.0": 0.5693
+      },
+      "chars": {
+        "p5": 25.0,
+        "p25": 73.0,
+        "p50": 160.0,
+        "p75": 321.25,
+        "p95": 913.1000000000004,
+        "p99": 1877.1500000000033,
+        "mean": 282.6
+      },
+      "tokens": {
+        "p5": 5.0,
+        "p25": 14.0,
+        "p50": 30.0,
+        "p75": 61.0,
+        "p95": 170.0,
+        "p99": 347.02000000000044,
+        "mean": 52.6
+      },
+      "share_under_10_tokens": 0.1655,
+      "share_under_5_tokens": 0.0463,
+      "verified_purchase_share": 0.8665
+    }
+  },
+  "timehold_starts": "2022-04-24 16:48:42.332000"
+}
