@@ -7,6 +7,10 @@ Usage:  python scripts/train_transformer.py            full run (GPU recommended
 import argparse
 import logging
 from pathlib import Path
+import sys
+
+# Ensure src/ is on sys.path even without editable install
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 import numpy as np
 import pandas as pd

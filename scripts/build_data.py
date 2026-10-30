@@ -3,6 +3,10 @@
 import json
 import logging
 from datetime import UTC, datetime
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from reviewlens.config import load_config, resolve_path, set_seed
 from reviewlens.data.clean import clean_reviews

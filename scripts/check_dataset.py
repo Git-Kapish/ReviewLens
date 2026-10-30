@@ -2,8 +2,11 @@
 
 import json
 import logging
+from pathlib import Path
 import sys
 from datetime import UTC, datetime
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from reviewlens.config import load_config, resolve_path
 from reviewlens.data.load import describe, load_reviews
