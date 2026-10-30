@@ -1,0 +1,20 @@
+seed: 42
+sentiment:
+  min_reviews_per_month: 100       # months with fewer reviews are not plotted or tested
+topics:
+  min_negatives_per_month: 40
+rising:                            # rule documented in docs/DECISIONS.md (D8)
+  baseline_months: 6               # trailing window, all 6 months must be valid
+  z_threshold: 3.0
+  min_rise: 0.05                   # absolute rise in share over the baseline share
+  min_count: 5                     # reviews in the flagged month
+plot:
+  start: 2014-01                   # earlier months have too few reviews per topic to read
+  smooth_months: 6                 # rolling mean for the figure only, tests use raw monthly counts
+paths:
+  assignments: data/processed/negatives_topics.parquet
+  embeddings: data/processed/negative_embeddings.npz
+  model_dir: models/bertopic
+  labels: reports/topic_labels.json
+  metrics: reports/trends.json
+  figures_dir: reports/figures

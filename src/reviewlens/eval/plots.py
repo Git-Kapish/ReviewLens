@@ -9,6 +9,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+import pandas as pd  # noqa: E402
 
 
 def plot_curves(history: list[dict[str, Any]], path: str | Path) -> Path:
@@ -112,6 +113,45 @@ def plot_aspect_sentiment(table: dict[str, dict], path: str | Path) -> Path:
     ax.set(xlabel="share of reviews mentioning the aspect", xlim=(0, 1),
            title="Aspect sentiment (DistilBERT, test split)")
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.14), ncol=3, fontsize=8)
+    fig.tight_layout()
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(path, dpi=120)
+    plt.close(fig)
+    return path
+
+
+def plot_trends(sentiment: pd.DataFrame, topics: pd.DataFrame, smooth: int,
+                path: str | Path) -> Path:
+    """Sentiment shares over time (top) and topic shares among negative reviews (bottom)."""
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 7), sharex=True)
+    x = sentiment.index.to_timestamp()
+    for cls, color in (("negative", "C3"), ("neutral", "0.6"), ("positive", "C2")):
+        ax1.plot(x, sentiment[cls], color=color, label=cls)
+    ax1.set(ylabel="share of reviews", title=f"Sentiment share by month ({smooth}-month mean)")
+    ax1.legend(ncol=3, fontsize=8)
+    ax2.stackplot(topics.index.to_timestamp(), topics.T.to_numpy(), labels=list(topics.columns))
+    ax2.set(ylabel="share of negative reviews",
+            title=f"Topic share among negative reviews ({smooth}-month mean)")
+    ax2.legend(loc="center left", bbox_to_anchor=(1.01, 0.5), fontsize=7)
+    for ax in (ax1, ax2):
+        ax.grid(alpha=0.3)
+    fig.tight_layout()
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(path, dpi=120)
+    plt.close(fig)
+    return path
+
+
+def plot_lr_ngrams(top: dict[str, dict[str, list]], n: int, path: str | Path) -> Path:
+    """For each class, the n n-grams with the largest positive logistic-regression coefficient."""
+    fig, axes = plt.subplots(1, len(top), figsize=(11, 3.8))
+    for ax, (cls, d), color in zip(axes, top.items(), ("C3", "0.5", "C2"), strict=True):
+        feats = d["positive"][:n][::-1]
+        ax.barh([f for f, _ in feats], [c for _, c in feats], color=color)
+        ax.set(title=f"toward {cls}", xlabel="coefficient")
+        ax.grid(alpha=0.3, axis="x")
     fig.tight_layout()
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
