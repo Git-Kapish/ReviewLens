@@ -1,0 +1,20 @@
+seed: 42
+lr:
+  top_n: 15                  # n-grams per class and direction in the JSON
+  plot_n: 10                 # n-grams per class in the figure
+attribution:
+  n_steps: 30                # Integrated Gradients steps; convergence delta is reported
+gallery:
+  n_correct_per_class: 1     # random correct test reviews, one per class
+  n_errors: 7                # from the Phase 4 error sample (hand-tagged)
+  max_words: 60              # shorter reviews only, so the gallery stays readable
+deletion:                    # does removing top-attributed words change the prediction more than random words?
+  n_reviews: 100
+  k_words: 3
+  n_random: 5
+paths:
+  lr_json: reports/lr_top_ngrams.json
+  lr_figure: reports/figures/lr_top_ngrams.png
+  gallery_json: reports/explanations.json
+  gallery_html: reports/figures/explanations.html
+  metrics: reports/explain_metrics.json

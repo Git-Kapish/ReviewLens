@@ -4,11 +4,11 @@ else
 PY := .venv/bin/python
 endif
 
-.PHONY: setup data baseline transformer eval topics aspects api app test lint strip-nb
+.PHONY: setup data baseline transformer eval topics aspects explain api app test lint strip-nb
 
 setup:  ## create venv, install deps
 	uv venv --python 3.11 .venv
-	uv pip install --python $(PY) -e ".[dev,notebooks,transformer,topics]"
+	uv pip install --python $(PY) -e ".[dev,notebooks,transformer,topics,explain]"
 
 data:  ## sample, clean, label, split, profile
 	$(PY) scripts/build_data.py
@@ -25,11 +25,15 @@ eval:  ## bootstrap CIs, drift, error sample, robustness (needs baseline + Disti
 	$(PY) scripts/run_robustness.py --model distilbert
 	$(PY) scripts/run_eval.py
 
-topics:  ## BERTopic on negative reviews (trends come in Phase 7)
+topics:  ## BERTopic on negative reviews, then monthly trends
 	$(PY) scripts/run_topics.py
+	$(PY) scripts/run_trends.py
 
 aspects:  ## aspect scoring + eval on the hand-labeled sentences (tune first: scripts/tune_aspects.py)
 	$(PY) scripts/run_aspects.py
+
+explain:  ## LR n-grams, DistilBERT attribution gallery, deletion check
+	$(PY) scripts/run_explain.py
 
 api:  ## run FastAPI
 	@echo "not implemented until Phase 8"

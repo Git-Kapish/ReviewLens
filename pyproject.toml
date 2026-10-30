@@ -17,6 +17,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest", "ruff"]
 transformer = ["torch", "transformers"]
+explain = ["captum"]
 topics = ["bertopic", "sentence-transformers", "umap-learn", "hdbscan", "gensim"]
 notebooks = ["ipykernel", "nbconvert", "nbformat"]
 
